@@ -1,9 +1,20 @@
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
+var services = builder.Services;
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+services.AddControllers();
+services.AddScoped<CodeCombat.DataAccess.UserDbContext>();
+
+ApiExtensions.AddApiCors(services, configuration);
+ApiExtensions.AddApiServices(services, configuration);
+
 var app = builder.Build();
+app.UseCors();
+app.MapControllers();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -11,5 +22,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
 
 app.Run();

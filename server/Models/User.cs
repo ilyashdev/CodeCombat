@@ -8,23 +8,21 @@ namespace CodeCombat.Models
 {
     public class User
     {
-        public User(string username, string email, string telegramToken)
+        public User(long id,string username, string telegramToken)
         {
+            Id=id;
             Username = username;
-            Email = email;
             CoinValue = 0;
             TelegramToken = telegramToken;
             RegisterTime = DateTime.UtcNow;
+            solutions = new List<SolutionBlock>();
         }
         
-        public Guid Id{ get; init; }
+        public long Id{ get; set; }
         public string Username{ get; set; }
         public string TelegramToken{ get; set; }
         public double CoinValue { get; set; }
-
-        public string Email{ get; set; }
-
         public DateTime RegisterTime{ get; init; }
-
+        public List<SolutionBlock> solutions{ get; init; }
     }
 }

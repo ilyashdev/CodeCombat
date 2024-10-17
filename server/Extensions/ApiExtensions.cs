@@ -1,3 +1,4 @@
+using CodeCombat.DataAccess.Repositories;
 using CodeCombat.Services;
 public static class ApiExtensions
 {
@@ -20,6 +21,7 @@ public static class ApiExtensions
         IConfiguration configuration
     )
     {
+        services.AddTransient<UserRepository>();
         services.AddTransient<DataService>();
         services.AddTransient<UserService>();
 

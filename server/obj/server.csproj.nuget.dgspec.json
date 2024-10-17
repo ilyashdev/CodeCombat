@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\server.csproj": {}
+    "/home/razglidai/Documents/vscode/CodeCombat/server/server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\server.csproj": {
+    "/home/razglidai/Documents/vscode/CodeCombat/server/server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\server.csproj",
+        "projectUniqueName": "/home/razglidai/Documents/vscode/CodeCombat/server/server.csproj",
         "projectName": "server",
-        "projectPath": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\server.csproj",
-        "packagesPath": "C:\\Users\\Razglidai\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\obj\\",
+        "projectPath": "/home/razglidai/Documents/vscode/CodeCombat/server/server.csproj",
+        "packagesPath": "/home/razglidai/.nuget/packages/",
+        "outputPath": "/home/razglidai/Documents/vscode/CodeCombat/server/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Razglidai\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/razglidai/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -32,11 +32,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -50,6 +45,10 @@
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.10, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.0.1, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
@@ -71,6 +70,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.8, 8.0.8]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -79,7 +84,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.108/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

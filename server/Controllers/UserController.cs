@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using CodeCombat.Contracts;
+using CodeCombat.Services;
 namespace CodeCombat.Controllers;
 
     [ApiController]
@@ -6,11 +8,17 @@ namespace CodeCombat.Controllers;
     public class UserController : ControllerBase
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly ILogger<UserController> _logger;
-        public UserController(ILogger<UserController> logger, IWebHostEnvironment webHostEnvironment)
+        private readonly UserService _userService;
+        public UserController(IWebHostEnvironment webHostEnvironment, UserService userService)
         {
             _webHostEnvironment = webHostEnvironment;
-            _logger = logger;
+            _userService = userService;
+        }
+        [HttpGet]
+        public async Task<IActionResult> TInit([FromQuery] TInitRequest request)
+        {
+            await _userService.TInit(request);
+            return Ok();
         }
 
     }

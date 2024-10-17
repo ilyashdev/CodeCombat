@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  Alert,
   Button,
   ButtonGroup,
   Card,
@@ -75,13 +76,13 @@ function ProblemTabs() {
                 <ButtonGroup>
                   <DropdownButton
                     as={ButtonGroup}
-                    id="bg-nested-dropdown"
+                    id="dropdown"
                     title="javascript"
                     drop={"up"}
                     variant="light"
                   >
                     {["javascript", "c#", "c++", "python"].map((language) => (
-                      <Dropdown.Item eventKey="1" className="flex-fill">
+                      <Dropdown.Item eventKey={language} className="flex-fill">
                         {language}
                       </Dropdown.Item>
                     ))}
@@ -95,10 +96,67 @@ function ProblemTabs() {
           </Container>
         </Tab>
         <Tab eventKey="history" title="History">
-          Tab content for Loooonger Tab
+          {false ? (
+            <p></p>
+          ) : (
+            [
+              {
+                data: {
+                  date: "20.10.2024",
+                  name: "Название задачи",
+                  message: "Сообщение ошибки",
+                },
+                type: "danger",
+              },
+              {
+                data: {
+                  date: "15.10.2024",
+                  name: "Название задачи",
+                  time: "0.56s",
+                  memory: "10mb",
+                  coin: "1000cc",
+                },
+                type: "success",
+              },
+              {
+                data: {
+                  date: "14.10.2024",
+                  name: "Название задачи",
+                  time: "0.56s",
+                  memory: "10mb",
+                  coin: "1000cc",
+                },
+                type: "success",
+              },
+            ].map((ctn) => (
+              <Alert className="mx-2" key={ctn.data.date} variant={ctn.type}>
+                {Object.values(ctn.data).map((value, index) => (
+                  <p key={index}>{value}</p>
+                ))}
+              </Alert>
+            ))
+          )}
         </Tab>
         <Tab eventKey="ranking" title="Ranking">
-          Tab content for Loooonger Tab
+          {[
+            {
+              lang: "C#",
+              time: "0.56s",
+              memory: "10mb",
+            },
+            {
+              lang: "C++",
+              time: "0.56s",
+              memory: "10mb",
+            },
+          ].map((ctn, index) => (
+            <Alert className="mx-2 d-flex" key={index} variant="light">
+              <p className="mx-1">{index + 1}.</p>
+              <p className="mx-1">{ctn.lang}</p>
+              <p className="mx-1">{ctn.memory}</p>
+              <p className="mx-1">{ctn.time}</p>
+            </Alert>
+          ))}
         </Tab>
       </Tabs>
     </Card>

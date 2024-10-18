@@ -1,11 +1,58 @@
 {
   "Version": 1,
-  "Hash": "wHmTdzQjOI+52yc/ssik8jb3aBon0KdSXd8S7aZ3iSw=",
+  "Hash": "Ie9U23JZruXS8+yoX3rQ0mrKeqwcXn9UldIRnNq6qro=",
   "Source": "server",
   "BasePath": "_content/server",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "server/wwwroot",
+      "Source": "server",
+      "ContentRoot": "/home/razglidai/Documents/vscode/CodeCombat/server/wwwroot/",
+      "BasePath": "_content/server",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "/home/razglidai/Documents/vscode/CodeCombat/server/wwwroot/input.txt",
+      "SourceId": "server",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/razglidai/Documents/vscode/CodeCombat/server/wwwroot/",
+      "BasePath": "_content/server",
+      "RelativePath": "input.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/input.txt"
+    },
+    {
+      "Identity": "/home/razglidai/Documents/vscode/CodeCombat/server/wwwroot/output.txt",
+      "SourceId": "server",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/razglidai/Documents/vscode/CodeCombat/server/wwwroot/",
+      "BasePath": "_content/server",
+      "RelativePath": "output.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/output.txt"
+    }
+  ]
 }

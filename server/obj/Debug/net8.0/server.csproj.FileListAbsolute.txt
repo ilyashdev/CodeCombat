@@ -43,3 +43,5 @@
 /home/razglidai/Documents/vscode/CodeCombat/server/obj/Debug/net8.0/server.pdb
 /home/razglidai/Documents/vscode/CodeCombat/server/obj/Debug/net8.0/server.genruntimeconfig.cache
 /home/razglidai/Documents/vscode/CodeCombat/server/obj/Debug/net8.0/ref/server.dll
+/home/razglidai/Documents/vscode/CodeCombat/server/bin/Debug/net8.0/server.staticwebassets.runtime.json
+/home/razglidai/Documents/vscode/CodeCombat/server/bin/Debug/net8.0/Newtonsoft.Json.dll

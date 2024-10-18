@@ -26,6 +26,6 @@ namespace CodeCombat.Controllers;
         [HttpPost]
         public async Task<IActionResult> PostSolution([FromQuery]TInitRequest request, [FromBody]SolutionRequest solrequest)
         {
-            return Ok(await _dataService.SolutionProccesing(solrequest, "12"));
+            return Ok(await _dataService.SolutionResoult(solrequest));
         }
     }

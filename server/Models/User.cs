@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Intrinsics.Arm;
 using System.Threading.Tasks;
+using CodeCombat.DataAccess.Entity;
 
 namespace CodeCombat.Models
 {
@@ -15,7 +16,7 @@ namespace CodeCombat.Models
             CoinValue = 0;
             TelegramToken = telegramToken;
             RegisterTime = DateTime.UtcNow;
-            solutions = new List<SolutionBlock>();
+            solutions = new List<SolutionsEntity>();
         }
         
         public long Id{ get; set; }
@@ -23,6 +24,7 @@ namespace CodeCombat.Models
         public string TelegramToken{ get; set; }
         public double CoinValue { get; set; }
         public DateTime RegisterTime{ get; init; }
-        public List<SolutionBlock> solutions{ get; init; }
+        
+        public List<SolutionsEntity> solutions{ get; init; }
     }
 }

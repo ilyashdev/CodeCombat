@@ -1,3 +1,5 @@
+using CodeCombat.DataAccess;
+
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 var services = builder.Services;
@@ -6,12 +8,19 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 services.AddControllers();
-services.AddScoped<CodeCombat.DataAccess.UserDbContext>();
+services.AddScoped<CCDbContext>();
 
 ApiExtensions.AddApiCors(services, configuration);
 ApiExtensions.AddApiServices(services, configuration);
 
 var app = builder.Build();
+
+
+using var scope = app.Services.CreateScope();
+
+await using var dbContext = scope.ServiceProvider.GetRequiredService<CCDbContext>();
+await dbContext.Database.EnsureCreatedAsync();
+
 app.UseCors();
 app.MapControllers();
 
@@ -22,7 +31,5 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-
 
 app.Run();

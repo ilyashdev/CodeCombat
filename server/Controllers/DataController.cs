@@ -13,7 +13,7 @@ namespace CodeCombat.Controllers;
         {
             _dataService = dataService;
         }
-
+        [Route("Coin")]
         [HttpGet]
         public async Task<IActionResult> GetTokenValue([FromQuery]TInitRequest request)
         {
@@ -23,9 +23,27 @@ namespace CodeCombat.Controllers;
             else
             return BadRequest("invalid user");
         }
+        [Route("Solutions")]
         [HttpPost]
         public async Task<IActionResult> PostSolution([FromQuery]TInitRequest request, [FromBody]SolutionRequest solrequest)
         {
-            return Ok(await _dataService.SolutionResoult(solrequest));
+            await _dataService.SolutionUpload(request, solrequest);
+            return Ok();
         }
+        [Route("Solutions")]
+        [HttpGet]
+        public async Task<IActionResult> PostSolution([FromQuery]TInitRequest request)
+        {
+            var response = await _dataService.GetSolution(request);
+            if(response == null)return BadRequest("no solutions");
+            return Ok(response);
+        }
+
+        [Route("Top")]
+        [HttpGet]
+        public async Task<IActionResult> GetTop()
+        {
+            return Ok(await _dataService.GetFiltredTop());
+        }
+
     }

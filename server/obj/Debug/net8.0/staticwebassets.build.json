@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Ie9U23JZruXS8+yoX3rQ0mrKeqwcXn9UldIRnNq6qro=",
+  "Hash": "Hf9CbWnANv6N+zfxLwsJSY7jSc6/BmrqQZ7QqxWar4Q=",
   "Source": "server",
   "BasePath": "_content/server",
   "Mode": "Default",
@@ -8,19 +8,19 @@
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [
     {
-      "Name": "server/wwwroot",
+      "Name": "server\\wwwroot",
       "Source": "server",
-      "ContentRoot": "/home/razglidai/Documents/vscode/CodeCombat/server/wwwroot/",
+      "ContentRoot": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\wwwroot\\",
       "BasePath": "_content/server",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "/home/razglidai/Documents/vscode/CodeCombat/server/wwwroot/input.txt",
+      "Identity": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\wwwroot\\input.txt",
       "SourceId": "server",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/razglidai/Documents/vscode/CodeCombat/server/wwwroot/",
+      "ContentRoot": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\wwwroot\\",
       "BasePath": "_content/server",
       "RelativePath": "input.txt",
       "AssetKind": "All",
@@ -33,13 +33,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/input.txt"
+      "OriginalItemSpec": "wwwroot\\input.txt"
     },
     {
-      "Identity": "/home/razglidai/Documents/vscode/CodeCombat/server/wwwroot/output.txt",
+      "Identity": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\wwwroot\\output.txt",
       "SourceId": "server",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/razglidai/Documents/vscode/CodeCombat/server/wwwroot/",
+      "ContentRoot": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\wwwroot\\",
       "BasePath": "_content/server",
       "RelativePath": "output.txt",
       "AssetKind": "All",
@@ -52,7 +52,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/output.txt"
+      "OriginalItemSpec": "wwwroot\\output.txt"
     }
   ]
 }

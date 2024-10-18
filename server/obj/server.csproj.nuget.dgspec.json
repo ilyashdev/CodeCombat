@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/razglidai/Documents/vscode/CodeCombat/server/server.csproj": {}
+    "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\server.csproj": {}
   },
   "projects": {
-    "/home/razglidai/Documents/vscode/CodeCombat/server/server.csproj": {
+    "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/razglidai/Documents/vscode/CodeCombat/server/server.csproj",
+        "projectUniqueName": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\server.csproj",
         "projectName": "server",
-        "projectPath": "/home/razglidai/Documents/vscode/CodeCombat/server/server.csproj",
-        "packagesPath": "/home/razglidai/.nuget/packages/",
-        "outputPath": "/home/razglidai/Documents/vscode/CodeCombat/server/obj/",
+        "projectPath": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\server.csproj",
+        "packagesPath": "C:\\Users\\Razglidai\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/razglidai/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Razglidai\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -32,6 +32,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -74,12 +79,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[8.0.8, 8.0.8]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -88,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.108/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,5 +1,7 @@
 using CodeCombat.Contracts;
+using CodeCombat.DataAccess.Entity;
 using CodeCombat.DataAccess.Repositories;
+using CodeCombat.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
@@ -29,31 +31,39 @@ public class DataService
         var user = await _userRepository.FindUserAsync(userData);
         return user.CoinValue;
     }
-    public async Task<SolutionUnit> SolutionResoult(SolutionRequest solution)
+    public async Task SolutionUpload(TInitRequest user,SolutionRequest solution)
     {
         var inputFile = File.ReadAllLines(_webHostEnvironment.WebRootPath+"/input.txt");
         var outputFile = File.ReadAllLines(_webHostEnvironment.WebRootPath+"/output.txt");
         int i=0;
-        TimeSpan allRuntime = TimeSpan.Zero;
-        while (inputFile[i] != null)
+        double allRuntime = 0;
+        var solutions = new SolutionsEntity();
+        solutions.Code = solution.code;
+        foreach (var contestValue in inputFile.Zip(outputFile, Tuple.Create))
         {
             var time = TimeOnly.FromDateTime(DateTime.UtcNow);
-            var response = await SolutionProccesing(solution, inputFile[i]);
-            var runtime = time - TimeOnly.FromDateTime(DateTime.UtcNow);
+            var response = await SolutionProccesing(solution, contestValue.Item1);
+            var runtime = TimeOnly.FromDateTime(DateTime.UtcNow)- time;
             dynamic parsResponse = JObject.Parse(response);
-            if(parsResponse.output != outputFile[i])
+            if(parsResponse.output != contestValue.Item2 + "\n")
             {
-                return new SolutionUnit(TimeOnly.FromDateTime(DateTime.UtcNow),solution.code, runtime:runtime,status:"wrong answer");
+                solutions.Runtime = -1;
+                solutions.Status = "wrong answer";
+                await _userRepository.AddSolution(user, solutions);
             }
             else if (parsResponse.error != "")
             {
-                return new SolutionUnit(TimeOnly.FromDateTime(DateTime.UtcNow), solution.code, runtime:runtime,status:parsResponse.error);
+                solutions.Runtime = -1;
+                solutions.Status = parsResponse.error;
+                await _userRepository.AddSolution(user, solutions);
             }
-            allRuntime += runtime;
+            allRuntime += runtime.TotalSeconds;
             i++;
         }
-        return new SolutionUnit(TimeOnly.FromDateTime(DateTime.UtcNow), solution.code, runtime:allRuntime/i,status:"Ok");
-
+        solutions.Status = "Accept";
+        solutions.Runtime = allRuntime/i;
+        //await _userRepository.AddSolution(user,solutions);
+        Console.WriteLine(solution);
     }
 
     public async Task<string> SolutionProccesing(SolutionRequest solution,string input)
@@ -72,4 +82,12 @@ public class DataService
     return await response.Content.ReadAsStringAsync();
     }
 
+    public async Task<List<SolutionsEntity>> GetSolution(TInitRequest request)
+    {
+        return await _userRepository.GetSolution(request);
+    }
+    public async Task<List<SolutionsEntity>> GetFiltredTop()
+    {
+        return (await _userRepository.GetTopList()).Where(s => s.Runtime > 0).OrderBy(s => s.Runtime).ToList();
+    }
 }

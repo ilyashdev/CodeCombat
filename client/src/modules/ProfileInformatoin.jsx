@@ -1,16 +1,70 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 import { Calendar } from "@natscale/react-calendar";
 import { Card, Container, Image, Navbar, Stack, Table } from "react-bootstrap";
 import coinImage from "../assets/coin-logo.png";
 import "@natscale/react-calendar/dist/main.css";
+import { getCoin } from "../http/userAPI";
+import { GetSolutions } from "../http/dailyAPI";
+import { Context } from "../main";
 
 function ProfileInformation() {
-  const [value, setValue] = useState([
-    new Date("2024-10-10"),
-    new Date("2024-10-11"),
-    new Date("2024-10-12"),
-    new Date("2024-10-13"),
-  ]);
+  const [coin, setCoin] = useState();
+  const [solutions, setSolutions] = useState();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (loading) {
+      getCoin()
+        .then((data) => {
+          setCoin(data);
+        })
+        .catch(() => {
+          setCoin(1203444);
+        })
+        .finally(() => {
+          GetSolutions()
+            .then((data) => {
+              let acept = [];
+              data.map((sol) => {
+                if (sol.ststus == "Accept") acept.push(new Date(sol.daytime));
+              });
+              setSolutions(acept);
+            })
+            .catch(() => {
+              let acept = [];
+              [
+                {
+                  id: 1,
+                  daytime: "2024-10-18T17:17:41.061693Z",
+                  code: "print(input())",
+                  runtime: 0.5857564000000001,
+                  status: "Accept",
+                },
+                {
+                  id: 1,
+                  daytime: "2024-10-17T17:17:41.061693Z",
+                  code: "print(input())",
+                  runtime: 0.5857564000000001,
+                  status: "Accept",
+                },
+                {
+                  id: 1,
+                  daytime: "2024-10-18T17:17:41.061693Z",
+                  code: "print(input())",
+                  runtime: 0.5857564000000001,
+                  status: "Wrong",
+                },
+              ].map((sol) => {
+                if (sol.status == "Accept") acept.push(new Date(sol.daytime));
+              });
+              setSolutions(acept);
+            })
+            .finally(() => {
+              setLoading(false);
+            });
+        });
+    }
+  });
 
   return (
     <Container className="py-3">
@@ -21,7 +75,7 @@ function ProfileInformation() {
         >
           <Card.Text className="d-flex justify-content-start align-items-center">
             <Image src={coinImage} className="me-2" height={30}></Image>
-            <p className="m-0">12220000</p>
+            <p className="m-0">{coin}</p>
             <p className="text-success mb-2">(+100)</p>
           </Card.Text>
         </Card>
@@ -36,7 +90,7 @@ function ProfileInformation() {
               lockView
               isMultiSelector
               className="w-90"
-              value={value}
+              value={solutions}
             ></Calendar>
           </Card.Text>
         </Card>

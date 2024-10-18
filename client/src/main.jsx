@@ -1,19 +1,30 @@
 import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import ReactDOM from "react-dom/client";
+import UserStore from "./store/UserStore";
 import App from "./App.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import { init, backButton } from "@telegram-apps/sdk-react";
 import { BrowserRouter } from "react-router-dom";
+import React, { createContext } from "react";
 
 // init();
 
 //backButton.mount();
 
-createRoot(document.getElementById("root")).render(
+export const Context = createContext(null);
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
   <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <Context.Provider
+      value={{
+        user: new UserStore(),
+      }}
+    >
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Context.Provider>
   </StrictMode>
 );

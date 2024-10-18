@@ -17,14 +17,31 @@ import Tabs from "react-bootstrap/Tabs";
 import CodeMirror from "@uiw/react-codemirror";
 import { nord, nordInit } from "@uiw/codemirror-theme-nord";
 import { javascript } from "@codemirror/lang-javascript";
-import { GetRanking, GetSolutions, TakeDaily } from "../http/dailyAPI";
+import { cpp } from "@codemirror/lang-cpp";
+import { csharp } from "@replit/codemirror-lang-csharp";
+import { python } from "@codemirror/lang-python";
+import {
+  GetRanking,
+  GetSolutions,
+  PostSolve,
+  TakeDaily,
+} from "../http/dailyAPI";
 
 function ProblemTabs() {
-
   const [daily, setDaily] = useState();
   const [solutions, setSolutions] = useState();
   const [ranked, setRanked] = useState();
   const [loading, setLoading] = useState(true);
+  const [code, setCode] = useState("");
+  const [language, setLanguage] = useState("javascript");
+  const [style, setStyle] = useState(javascript("jsx"));
+
+  const lanstyle = {
+    javascript: javascript("jsx"),
+    "c++": cpp(),
+    "c#": csharp(),
+    python: python(),
+  };
 
   useEffect(() => {
     if (loading) {
@@ -152,6 +169,10 @@ function ProblemTabs() {
     }
   });
 
+  const onPostCode = () => {
+    PostSolve({ code, language });
+  };
+
   if (loading) {
     return <Spinner animation={"grow"} />;
   }
@@ -193,7 +214,7 @@ function ProblemTabs() {
           <Container>
             <CodeMirror
               className="mb-3"
-              value="console.log('hello world!');"
+              value=""
               height="60vh"
               basicSetup={{
                 foldGutter: false,
@@ -202,9 +223,9 @@ function ProblemTabs() {
                 indentOnInput: false,
               }}
               theme={nord}
-              extensions={[javascript({ jsx: true })]}
+              extensions={[style]}
               onChange={(value, viewUpdate) => {
-                console.log("value:", value);
+                setCode(value);
               }}
             />
             <Nav>
@@ -213,17 +234,24 @@ function ProblemTabs() {
                   <DropdownButton
                     as={ButtonGroup}
                     id="dropdown"
-                    title="javascript"
+                    title={language}
                     drop={"up"}
                     variant="light"
                   >
                     {["javascript", "c#", "c++", "python"].map((language) => (
-                      <Dropdown.Item eventKey={language} className="flex-fill">
+                      <Dropdown.Item
+                        eventKey={language}
+                        onClick={() => {
+                          setLanguage(language);
+                          setStyle(lanstyle[language]);
+                        }}
+                        className="flex-fill"
+                      >
                         {language}
                       </Dropdown.Item>
                     ))}
                   </DropdownButton>
-                  <Button variant="success" className="">
+                  <Button variant="success" className="" onClick={onPostCode}>
                     RUN {">"}
                   </Button>
                 </ButtonGroup>

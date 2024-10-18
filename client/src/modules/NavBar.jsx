@@ -8,7 +8,7 @@ function MainBar() {
   return (
     <Navbar className="bg-body-tertiary bg-opacity-10 p-1">
       <Container>
-        <Navbar.Brand href="/" className="text-light">
+        <Navbar.Brand className="text-light">
           <img
             alt=""
             src={logo}

@@ -37,7 +37,7 @@ namespace CodeCombat.Controllers;
         public async Task<IActionResult> GetSolution([FromQuery]TInitRequest request)
         {
             var response = await _dataService.GetSolution(request);
-            if(response == null)return BadRequest("no solutions");
+            if(response == null)return NoContent();
             return Ok(response);
         }
 

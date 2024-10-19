@@ -20,7 +20,7 @@ namespace CodeCombat.DataAccess.Repositories
         {
             var user = await _context.Users
                 .AsNoTracking()
-                .FirstOrDefaultAsync(u => u.TelegramToken == userData.ttoken);
+                .FirstOrDefaultAsync(u => u.Id == userData.id);
             return user;
         }
 
@@ -35,8 +35,7 @@ namespace CodeCombat.DataAccess.Repositories
         {
             User? adduser = await _context.Users
                 .FirstOrDefaultAsync(u => u.Username == user.username && 
-                                     u.Id == user.id &&
-                                     u.TelegramToken == user.ttoken);
+                                     u.Id == user.id);
             if(adduser != null)
             {
             solution.UserId = adduser.Id;
@@ -51,8 +50,7 @@ namespace CodeCombat.DataAccess.Repositories
         {
             User? auser = await _context.Users
                 .FirstOrDefaultAsync(u => u.Username == user.username && 
-                                     u.Id == user.id &&
-                                     u.TelegramToken == user.ttoken);
+                                     u.Id == user.id );
             if(auser != null)
             {
                 var soluts = await _context.Solutions

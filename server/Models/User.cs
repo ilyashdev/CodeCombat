@@ -14,14 +14,13 @@ namespace CodeCombat.Models
             Id=id;
             Username = username;
             CoinValue = 0;
-            TelegramToken = telegramToken;
             RegisterTime = DateTime.UtcNow;
             solutions = new List<SolutionsEntity>();
         }
         
         public long Id{ get; set; }
         public string Username{ get; set; }
-        public string TelegramToken{ get; set; }
+        public string TelegramToken{ get; set; } = "1";
         public double CoinValue { get; set; }
         public DateTime RegisterTime{ get; init; }
         

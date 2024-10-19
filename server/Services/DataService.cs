@@ -28,8 +28,12 @@ public class DataService
     
     public async Task<double?> GetTokenValue(TInitRequest userData)
     {
-        var user = await _userRepository.FindUserAsync(userData);
+        var userd = new TInitRequest(userData.id,userData.username, "1");
+        var user = await _userRepository.FindUserAsync(userd);
+        if(user != null)
         return user.CoinValue;
+        else
+        return null;
     }
     public async Task<bool> SolutionUpload(TInitRequest user,SolutionRequest solution)
     {
@@ -46,16 +50,17 @@ public class DataService
             var response = await SolutionProccesing(solution, contestValue.Item1);
             var runtime = TimeOnly.FromDateTime(DateTime.UtcNow)- time;
             dynamic parsResponse = JObject.Parse(response);
+            if (parsResponse.error != "")
+            {
+                solutions.Runtime = -1;
+                solutions.Status = parsResponse.error;
+                return await _userRepository.AddSolution(user, solutions);
+            }
+            else 
             if(parsResponse.output != contestValue.Item2 + "\n")
             {
                 solutions.Runtime = -1;
                 solutions.Status = "wrong answer";
-                return await _userRepository.AddSolution(user, solutions);
-            }
-            else if (parsResponse.error != "")
-            {
-                solutions.Runtime = -1;
-                solutions.Status = parsResponse.error;
                 return await _userRepository.AddSolution(user, solutions);
             }
             allRuntime += runtime.TotalSeconds;

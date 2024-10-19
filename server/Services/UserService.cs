@@ -16,7 +16,8 @@ public class UserService
 
     public async Task TInit(TInitRequest userData)
     {
-        var user = await _userRepository.FindUserAsync(userData);
+        var userd = new TInitRequest(userData.id,userData.username, "1");
+        var user = await _userRepository.FindUserAsync(userd);
         if (user == null){
             await _userRepository.AddUserAsync(userData);
         }

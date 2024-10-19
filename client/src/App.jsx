@@ -9,24 +9,18 @@ import ProfileInformation from "./modules/ProfileInformatoin";
 import { Context } from "./main";
 import { Spinner } from "react-bootstrap";
 import { authAPI } from "./http/userAPI";
+import TelegramWebAppData from "./utils/TelegramWedAppData";
+import { useLaunchParams } from "@telegram-apps/sdk-react";
 
 function App() {
-  const { user } = useContext(Context);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     try {
+      //console.log(TelegramWebApp)id username ttoken name;
       authAPI()
-        .then((data) => {
-          user.setUser(data);
-        })
-        .catch(() => {
-          user.setUser({
-            id: "000000000",
-            username: "@DefaultUsername",
-            ttoken: "undefinetoken",
-            name: "Undefi User",
-          });
+        .catch((error) => {
+          console.error(error);
         })
         .finally(() => setLoading(false));
     } catch {}

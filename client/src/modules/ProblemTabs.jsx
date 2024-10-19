@@ -26,6 +26,7 @@ import {
   PostSolve,
   TakeDaily,
 } from "../http/dailyAPI";
+import { useLaunchParams } from "@telegram-apps/sdk-react";
 
 function ProblemTabs() {
   const [daily, setDaily] = useState();
@@ -35,6 +36,7 @@ function ProblemTabs() {
   const [code, setCode] = useState("");
   const [language, setLanguage] = useState("javascript");
   const [style, setStyle] = useState(javascript("jsx"));
+  const user = useLaunchParams().initData;
 
   const lanstyle = {
     javascript: javascript("jsx"),
@@ -45,7 +47,7 @@ function ProblemTabs() {
 
   useEffect(() => {
     if (loading) {
-      TakeDaily()
+      TakeDaily(user)
         .then((data) => {
           setDaily(data);
           console.log(data);
@@ -71,7 +73,7 @@ function ProblemTabs() {
             });
         })
         .finally(() => {
-          GetSolutions()
+          GetSolutions(user)
             .then((data) => {
               setSolutions(data);
             })
@@ -110,7 +112,7 @@ function ProblemTabs() {
               });
             })
             .finally(() => {
-              GetRanking()
+              GetRanking(user)
                 .then((data) => {
                   setRanked(data);
                 })
@@ -140,7 +142,7 @@ function ProblemTabs() {
                 });
             });
         });
-      GetRanking()
+      GetRanking(user)
         .then((data) => {
           setRanked(data);
         })
@@ -170,7 +172,7 @@ function ProblemTabs() {
   });
 
   const onPostCode = () => {
-    PostSolve({ code, language });
+    PostSolve({ code, language }, user);
   };
 
   if (loading) {
@@ -260,17 +262,13 @@ function ProblemTabs() {
           </Container>
         </Tab>
         <Tab eventKey="history" title="History">
-          {false ? (
-            <p></p>
-          ) : (
-            solutions.solutions.map((ctn) => (
-              <Alert className="mx-2" key={ctn.data.date} variant={ctn.type}>
-                {Object.values(ctn.data).map((value, index) => (
-                  <p key={index}>{value}</p>
-                ))}
-              </Alert>
-            ))
-          )}
+          {solutions.solutions.map((ctn) => (
+            <Alert className="mx-2" key={ctn.data.date} variant={ctn.type}>
+              {Object.values(ctn.data).map((value, index) => (
+                <p key={index}>{value}</p>
+              ))}
+            </Alert>
+          ))}
         </Tab>
         <Tab eventKey="ranking" title="Ranking">
           {ranked.ranked.map((ctn, index) => (

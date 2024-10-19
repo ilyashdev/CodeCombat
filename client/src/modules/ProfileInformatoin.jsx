@@ -6,15 +6,17 @@ import "@natscale/react-calendar/dist/main.css";
 import { getCoin } from "../http/userAPI";
 import { GetSolutions } from "../http/dailyAPI";
 import { Context } from "../main";
+import { useLaunchParams } from "@telegram-apps/sdk-react";
 
 function ProfileInformation() {
   const [coin, setCoin] = useState();
   const [solutions, setSolutions] = useState();
   const [loading, setLoading] = useState(true);
+  const user = useLaunchParams().initData;
 
   useEffect(() => {
     if (loading) {
-      getCoin()
+      getCoin(user)
         .then((data) => {
           setCoin(data);
         })
@@ -22,7 +24,7 @@ function ProfileInformation() {
           setCoin(1203444);
         })
         .finally(() => {
-          GetSolutions()
+          GetSolutions(user)
             .then((data) => {
               let acept = [];
               data.map((sol) => {

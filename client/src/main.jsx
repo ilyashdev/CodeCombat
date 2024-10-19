@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+import { StrictMode, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import UserStore from "./store/UserStore";
 import App from "./App.jsx";
@@ -8,7 +8,7 @@ import { init, backButton } from "@telegram-apps/sdk-react";
 import { BrowserRouter } from "react-router-dom";
 import React, { createContext } from "react";
 
-// init();
+init();
 
 //backButton.mount();
 

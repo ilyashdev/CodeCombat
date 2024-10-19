@@ -9,6 +9,8 @@ namespace CodeCombat.Controllers;
     [Route("[controller]")]
     public class DailyController : ControllerBase
     {
+        private DateOnly _date;
+        private string _daily;
         private readonly IWebHostEnvironment _webHostEnvironment;
         public DailyController(IWebHostEnvironment webHostEnvironment)
         {
@@ -17,13 +19,15 @@ namespace CodeCombat.Controllers;
         [HttpGet]
         public async Task<IActionResult> GetDaily()
         {
+            if(_date != DateOnly.FromDateTime(DateTime.UtcNow))
             using (FileStream fstream = new FileStream(_webHostEnvironment.WebRootPath + "/daily.json", FileMode.OpenOrCreate))
             {
                 byte[] buffer = new byte[fstream.Length];
                 await fstream.ReadAsync(buffer, 0, buffer.Length);
                 string textFromFile = Encoding.Default.GetString(buffer);
-                return Ok(textFromFile);
+                _daily = textFromFile;
             }
+            return Ok(_daily);
         }
 
     }

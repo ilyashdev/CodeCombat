@@ -1,16 +1,16 @@
 { 
-              "title": "Default Problem", 
-              "description": "Default description Lorem ipsum dolor sit amet consectetur adipisicingelit. Consequatur accusantium porro tenetur ad tempore hicobcaecati accusamus dolorem impedit, iusto repellendus suscipit,voluptate nihil dicta sapiente perferendis ipsa incidunt nesciunt.", 
-              "input": "Default Input i = 100 z = N", 
-              "output": "Defaut Output i + z", 
+              "title": "Палиндромное число", 
+              "description": "Если задано целое число x, верните true, если x является палиндромом, и false в противном случае.", 
+              "input": "-23^1 <= x <= 23^1 - 1", 
+              "output": "true or false", 
               "exemples": [ 
                 { 
-                  "input": "100 4", 
-                  "output": "104"
+                  "input": "100", 
+                  "output": "false"
                 }, 
                 { 
-                  "input": "100 304", 
-                  "output": "404"
+                  "input": "1001", 
+                  "output": "true"
                 }
               ]
 }

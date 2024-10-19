@@ -39,6 +39,7 @@ public class DataService
         double allRuntime = 0;
         var solutions = new SolutionsEntity();
         solutions.Code = solution.code;
+        solutions.LangType = solution.langType;
         foreach (var contestValue in inputFile.Zip(outputFile, Tuple.Create))
         {
             var time = TimeOnly.FromDateTime(DateTime.UtcNow);

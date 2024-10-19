@@ -10,4 +10,5 @@ public class SolutionsEntity
     public string Code{ get; set; }
     public double? Runtime{ get; set; }
     public string Status{ get; set; }
+    public string LangType{ get; set; }
 }

@@ -27,15 +27,18 @@ import {
   TakeDaily,
 } from "../http/dailyAPI";
 import { useLaunchParams } from "@telegram-apps/sdk-react";
+import { keys } from "mobx";
 
 function ProblemTabs() {
   const [daily, setDaily] = useState();
   const [solutions, setSolutions] = useState();
-  const [ranked, setRanked] = useState();
+  const [ranked, setRanked] = useState([]);
   const [loading, setLoading] = useState(true);
   const [code, setCode] = useState("");
   const [language, setLanguage] = useState("javascript");
   const [style, setStyle] = useState(javascript("jsx"));
+  const [key, setKey] = useState("problem");
+  const [refresh, setRefresh] = useState(false);
   const user = useLaunchParams().initData;
 
   const lanstyle = {
@@ -44,13 +47,18 @@ function ProblemTabs() {
     "c#": csharp(),
     python: python(),
   };
+  const lang = {
+    javascript: "js",
+    "c++": "cpp",
+    "c#": "cs",
+    python: "py",
+  };
 
   useEffect(() => {
     if (loading) {
       TakeDaily(user)
         .then((data) => {
           setDaily(data);
-          console.log(data);
         })
         .catch(() => {
           if (loading)
@@ -78,38 +86,10 @@ function ProblemTabs() {
               setSolutions(data);
             })
             .catch(() => {
-              setSolutions({
-                solutions: [
-                  {
-                    data: {
-                      date: "20.10.2024",
-                      name: "Название задачи",
-                      message: "Сообщение ошибки",
-                    },
-                    type: "danger",
-                  },
-                  {
-                    data: {
-                      date: "15.10.2024",
-                      name: "Название задачи",
-                      time: "0.56s",
-                      memory: "10mb",
-                      coin: "1000cc",
-                    },
-                    type: "success",
-                  },
-                  {
-                    data: {
-                      date: "14.10.2024",
-                      name: "Название задачи",
-                      time: "0.56s",
-                      memory: "10mb",
-                      coin: "1000cc",
-                    },
-                    type: "success",
-                  },
-                ],
-              });
+              setSolutions([
+                { id: 1, status: "z" },
+                { id: 2, status: "z" },
+              ]);
             })
             .finally(() => {
               GetRanking(user)
@@ -142,37 +122,61 @@ function ProblemTabs() {
                 });
             });
         });
-      GetRanking(user)
+      //setLoading(false);
+    }
+    if (refresh) {
+      GetSolutions(user)
         .then((data) => {
-          setRanked(data);
+          setSolutions(data);
         })
         .catch(() => {
-          setRanked({
-            ranked: [
-              {
-                lang: "C#",
-                time: "0.56s",
-                memory: "10mb",
-              },
-              {
-                lang: "C++",
-                time: "0.56s",
-                memory: "10mb",
-              },
-              {
-                lang: "Python",
-                time: "0.78s",
-                memory: "30mb",
-              },
-            ],
-          });
+          setSolutions([
+            { id: 1, status: "z" },
+            { id: 2, status: "z" },
+          ]);
+        })
+        .finally(() => {
+          GetRanking(user)
+            .then((data) => {
+              setRanked(data);
+            })
+            .catch(() => {
+              setRanked({
+                ranked: [
+                  {
+                    lang: "C#",
+                    time: "0.56s",
+                    memory: "10mb",
+                  },
+                  {
+                    lang: "C++",
+                    time: "0.56s",
+                    memory: "10mb",
+                  },
+                  {
+                    lang: "Python",
+                    time: "0.78s",
+                    memory: "30mb",
+                  },
+                ],
+              });
+            })
+            .finally(() => {
+              setRefresh(false);
+            });
         });
-      //setLoading(false);
+      //setRefresh(false);
     }
   });
 
   const onPostCode = () => {
-    PostSolve({ code, language }, user);
+    PostSolve({ code, langType: lang[language] }, user)
+      .then()
+      .catch(() => {})
+      .finally(() => {
+        setKey("history");
+        setRefresh(true);
+      });
   };
 
   if (loading) {
@@ -180,7 +184,13 @@ function ProblemTabs() {
   }
   return (
     <Card className="pb-3 bg-dark text-white">
-      <Tabs defaultActiveKey="problem" id="problems-tab" className="mb-3" fill>
+      <Tabs
+        activeKey={key}
+        id="problems-tab"
+        onSelect={(k) => setKey(k)}
+        className="mb-3"
+        fill
+      >
         <Tab eventKey="problem" title="Problem">
           <Container>
             <h3>{daily.title}</h3>
@@ -262,23 +272,42 @@ function ProblemTabs() {
           </Container>
         </Tab>
         <Tab eventKey="history" title="History">
-          {solutions.solutions.map((ctn) => (
-            <Alert className="mx-2" key={ctn.data.date} variant={ctn.type}>
-              {Object.values(ctn.data).map((value, index) => (
-                <p key={index}>{value}</p>
-              ))}
-            </Alert>
-          ))}
+          {solutions
+            .slice()
+            .reverse()
+            .map((ctn) => (
+              <Alert
+                className="mx-2"
+                key={ctn.id}
+                variant={ctn.status == "Accept" ? "success" : "danger"}
+              >
+                {Object.keys(ctn)
+                  .splice(2, 6)
+                  .map((key) => (
+                    <p key={ctn.id}>
+                      {key}: {ctn[key]}
+                    </p>
+                  ))}
+              </Alert>
+            ))}
         </Tab>
         <Tab eventKey="ranking" title="Ranking">
-          {ranked.ranked.map((ctn, index) => (
-            <Alert className="mx-2 d-flex" key={index} variant="light">
-              <p className="mx-1">{index + 1}.</p>
-              <p className="mx-1">{ctn.lang}</p>
-              <p className="mx-1">{ctn.memory}</p>
-              <p className="mx-1">{ctn.time}</p>
-            </Alert>
-          ))}
+          {ranked
+            .reduce((unique, item) => {
+              if (!unique.some((obj) => obj.userID == item.userID)) {
+                unique.push(item);
+              }
+              return unique;
+            }, [])
+            .map((ctn, index) => (
+              <Alert className="mx-2" key={index} variant="light">
+                <p className="mx-1">
+                  {index + 1}. {user.user.firstName + " " + user.user.lastName}
+                </p>
+                <p className="mx-1">language: {ctn.langType}</p>
+                <p className="mx-1">runtime: {ctn.runtime}</p>
+              </Alert>
+            ))}
         </Tab>
       </Tabs>
     </Card>

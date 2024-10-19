@@ -14,11 +14,12 @@ import { useLaunchParams } from "@telegram-apps/sdk-react";
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const user = useLaunchParams().initData;
 
   useEffect(() => {
     try {
       //console.log(TelegramWebApp)id username ttoken name;
-      authAPI()
+      authAPI(user)
         .catch((error) => {
           console.error(error);
         })

@@ -27,8 +27,9 @@ function ProfileInformation() {
           GetSolutions(user)
             .then((data) => {
               let acept = [];
+              console.log(data);
               data.map((sol) => {
-                if (sol.ststus == "Accept") acept.push(new Date(sol.daytime));
+                if (sol.status == "Accept") acept.push(new Date(sol.daytime));
               });
               setSolutions(acept);
             })
@@ -78,7 +79,7 @@ function ProfileInformation() {
           <Card.Text className="d-flex justify-content-start align-items-center">
             <Image src={coinImage} className="me-2" height={30}></Image>
             <p className="m-0">{coin}</p>
-            <p className="text-success mb-2">(+100)</p>
+            <p className="text-success mb-2">(+0)</p>
           </Card.Text>
         </Card>
         <Card

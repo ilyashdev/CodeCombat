@@ -24,7 +24,6 @@ function NavProfile() {
           height="35"
           className="d-inline-block align-top rounded-circle"
         />
-        <p>{lp.initDataRaw}</p>
         <h3 className="m-0 px-3">{user.firstName + " " + user.lastName}</h3>
       </Container>
     </Navbar>

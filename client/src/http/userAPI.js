@@ -5,7 +5,7 @@ export const authAPI = async (user) => {
     params: {
       id: user.user.id,
       username: user.user.username,
-      ttoken: user.hash,
+      ttoken: "1",
     },
   });
   return data;
@@ -16,8 +16,9 @@ export const getCoin = async (user) => {
     params: {
       id: user.user.id,
       username: user.user.username,
-      ttoken: user.hash,
+      ttoken: "1",
     },
   });
+  console.log(data);
   return data;
 };

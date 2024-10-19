@@ -16,30 +16,32 @@ export const PostSolve = async (solution, user) => {
     params: {
       id: user.user.id,
       username: user.user.username,
-      ttoken: user.hash,
+      ttoken: "1",
     },
   });
   return data;
 };
 
 export const GetSolutions = async (user) => {
-  const { data } = await $host.get("data/solutions", {
+  const data = await $host.get("data/solutions", {
     params: {
       id: user.user.id,
       username: user.user.username,
-      ttoken: user.hash,
+      ttoken: "1",
     },
   });
-  return data;
+  if (data.status == 204) return [{}];
+  return data.data;
 };
 
 export const GetRanking = async (user) => {
-  const { data } = await $host.get("data/top", {
+  const data = await $host.get("data/top", {
     params: {
       id: user.user.id,
       username: user.user.username,
-      ttoken: user.hash,
+      ttoken: "1",
     },
   });
-  return data;
+  if (data.status == 204) return [{}];
+  return data.data;
 };

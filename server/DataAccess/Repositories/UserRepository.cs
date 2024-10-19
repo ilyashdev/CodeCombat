@@ -47,7 +47,7 @@ namespace CodeCombat.DataAccess.Repositories
             return false;
         }
         
-        public async Task<List<SolutionsEntity>> GetSolution(TInitRequest user)
+        public async Task<List<SolutionsEntity>?> GetSolution(TInitRequest user)
         {
             User? auser = await _context.Users
                 .FirstOrDefaultAsync(u => u.Username == user.username && 

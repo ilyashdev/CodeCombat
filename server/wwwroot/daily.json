@@ -2,15 +2,15 @@
               "title": "Палиндромное число", 
               "description": "Если задано целое число x, верните true, если x является палиндромом, и false в противном случае.", 
               "input": "-23^1 <= x <= 23^1 - 1", 
-              "output": "true or false", 
+              "output": "True or False", 
               "exemples": [ 
                 { 
                   "input": "100", 
-                  "output": "false"
+                  "output": "False"
                 }, 
                 { 
                   "input": "1001", 
-                  "output": "true"
+                  "output": "True"
                 }
               ]
 }

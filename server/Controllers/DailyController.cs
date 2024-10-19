@@ -26,6 +26,7 @@ namespace CodeCombat.Controllers;
                 await fstream.ReadAsync(buffer, 0, buffer.Length);
                 string textFromFile = Encoding.Default.GetString(buffer);
                 _daily = textFromFile;
+                _date = DateOnly.FromDateTime(DateTime.UtcNow);
             }
             return Ok(_daily);
         }

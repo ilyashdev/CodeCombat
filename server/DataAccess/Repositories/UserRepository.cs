@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using CodeCombat.Models;
 using CodeCombat.Contracts;
 using CodeCombat.DataAccess.Entity;
+using Microsoft.AspNetCore.Mvc.ActionConstraints;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace CodeCombat.DataAccess.Repositories
 {
@@ -28,7 +31,7 @@ namespace CodeCombat.DataAccess.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task AddSolution(TInitRequest user, SolutionsEntity solution)
+        public async Task<bool> AddSolution(TInitRequest user, SolutionsEntity solution)
         {
             User? adduser = await _context.Users
                 .FirstOrDefaultAsync(u => u.Username == user.username && 
@@ -39,7 +42,9 @@ namespace CodeCombat.DataAccess.Repositories
             solution.UserId = adduser.Id;
             await _context.Solutions.AddAsync(solution);
             await _context.SaveChangesAsync();
+            return true;
             }
+            return false;
         }
         
         public async Task<List<SolutionsEntity>> GetSolution(TInitRequest user)

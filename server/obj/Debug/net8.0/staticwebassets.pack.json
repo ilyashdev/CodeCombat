@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\wwwroot\\daily.json",
+      "PackagePath": "staticwebassets\\daily.json"
+    },
+    {
       "Id": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\wwwroot\\input.txt",
       "PackagePath": "staticwebassets\\input.txt"
     },

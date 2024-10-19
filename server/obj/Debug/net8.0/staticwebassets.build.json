@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Hf9CbWnANv6N+zfxLwsJSY7jSc6/BmrqQZ7QqxWar4Q=",
+  "Hash": "E852jKdXjvEft6by2QJCE3wvF0GWVgY6hwXlvTlE7PY=",
   "Source": "server",
   "BasePath": "_content/server",
   "Mode": "Default",
@@ -16,6 +16,25 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\wwwroot\\daily.json",
+      "SourceId": "server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\wwwroot\\",
+      "BasePath": "_content/server",
+      "RelativePath": "daily.json",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\daily.json"
+    },
     {
       "Identity": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\wwwroot\\input.txt",
       "SourceId": "server",

@@ -31,7 +31,7 @@ public class DataService
         var user = await _userRepository.FindUserAsync(userData);
         return user.CoinValue;
     }
-    public async Task SolutionUpload(TInitRequest user,SolutionRequest solution)
+    public async Task<bool> SolutionUpload(TInitRequest user,SolutionRequest solution)
     {
         var inputFile = File.ReadAllLines(_webHostEnvironment.WebRootPath+"/input.txt");
         var outputFile = File.ReadAllLines(_webHostEnvironment.WebRootPath+"/output.txt");
@@ -49,21 +49,20 @@ public class DataService
             {
                 solutions.Runtime = -1;
                 solutions.Status = "wrong answer";
-                await _userRepository.AddSolution(user, solutions);
+                return await _userRepository.AddSolution(user, solutions);
             }
             else if (parsResponse.error != "")
             {
                 solutions.Runtime = -1;
                 solutions.Status = parsResponse.error;
-                await _userRepository.AddSolution(user, solutions);
+                return await _userRepository.AddSolution(user, solutions);
             }
             allRuntime += runtime.TotalSeconds;
             i++;
         }
         solutions.Status = "Accept";
         solutions.Runtime = allRuntime/i;
-        //await _userRepository.AddSolution(user,solutions);
-        Console.WriteLine(solution);
+        return await _userRepository.AddSolution(user,solutions);
     }
 
     public async Task<string> SolutionProccesing(SolutionRequest solution,string input)

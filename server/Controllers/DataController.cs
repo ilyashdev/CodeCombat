@@ -27,12 +27,14 @@ namespace CodeCombat.Controllers;
         [HttpPost]
         public async Task<IActionResult> PostSolution([FromQuery]TInitRequest request, [FromBody]SolutionRequest solrequest)
         {
-            await _dataService.SolutionUpload(request, solrequest);
+            if(await _dataService.SolutionUpload(request, solrequest))
             return Ok();
+            else
+            return BadRequest("invalid user");
         }
         [Route("Solutions")]
         [HttpGet]
-        public async Task<IActionResult> PostSolution([FromQuery]TInitRequest request)
+        public async Task<IActionResult> GetSolution([FromQuery]TInitRequest request)
         {
             var response = await _dataService.GetSolution(request);
             if(response == null)return BadRequest("no solutions");

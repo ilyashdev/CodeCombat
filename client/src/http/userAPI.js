@@ -1,11 +1,23 @@
 import { $host } from ".";
 
-export const authAPI = async () => {
-    const { data } = await $host.get("user");
-    return data; 
-}
+export const authAPI = async (user) => {
+  const { data } = await $host.get("user", {
+    params: {
+      id: user.user.id,
+      username: user.user.username,
+      ttoken: user.hash,
+    },
+  });
+  return data;
+};
 
-export const getCoin = async () => {
-    const { data } = await $host.get("data/coin");
-    return data;
-}
+export const getCoin = async (user) => {
+  const { data } = await $host.get("data/coin", {
+    params: {
+      id: user.user.id,
+      username: user.user.username,
+      ttoken: user.hash,
+    },
+  });
+  return data;
+};

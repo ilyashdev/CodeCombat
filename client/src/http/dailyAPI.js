@@ -1,21 +1,45 @@
 import { $host } from ".";
 
-export const TakeDaily = async () => {
-  const { data } = await $host.get("daily");
+export const TakeDaily = async (user) => {
+  const { data } = await $host.get("daily", {
+    params: {
+      id: user.user.id,
+      username: user.user.username,
+      ttoken: user.hash,
+    },
+  });
   return data;
 };
 
-export const PostSolve = async (solution) => {
-  const { data } = await $host.post("data/solutions", solution);
+export const PostSolve = async (solution, user) => {
+  const { data } = await $host.post("data/solutions", solution, {
+    params: {
+      id: user.user.id,
+      username: user.user.username,
+      ttoken: user.hash,
+    },
+  });
   return data;
 };
 
-export const GetSolutions = async () => {
-  const { data } = await $host.get("data/solutions");
+export const GetSolutions = async (user) => {
+  const { data } = await $host.get("data/solutions", {
+    params: {
+      id: user.user.id,
+      username: user.user.username,
+      ttoken: user.hash,
+    },
+  });
   return data;
 };
 
-export const GetRanking = async () => {
-  const { data } = await $host.get("data/top");
+export const GetRanking = async (user) => {
+  const { data } = await $host.get("data/top", {
+    params: {
+      id: user.user.id,
+      username: user.user.username,
+      ttoken: user.hash,
+    },
+  });
   return data;
 };

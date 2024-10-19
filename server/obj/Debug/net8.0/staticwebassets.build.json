@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "E852jKdXjvEft6by2QJCE3wvF0GWVgY6hwXlvTlE7PY=",
+  "Hash": "vuEfzsJaIZLJt/y690yiLI+pvg8cYubKONjUDN3BMps=",
   "Source": "server",
   "BasePath": "_content/server",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "server\\wwwroot",
       "Source": "server",
-      "ContentRoot": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\wwwroot\\",
+      "ContentRoot": "D:\\Университет\\project\\CodeCombat\\server\\wwwroot\\",
       "BasePath": "_content/server",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\wwwroot\\daily.json",
+      "Identity": "D:\\Университет\\project\\CodeCombat\\server\\wwwroot\\daily.json",
       "SourceId": "server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\wwwroot\\",
+      "ContentRoot": "D:\\Университет\\project\\CodeCombat\\server\\wwwroot\\",
       "BasePath": "_content/server",
       "RelativePath": "daily.json",
       "AssetKind": "All",
@@ -36,10 +36,10 @@
       "OriginalItemSpec": "wwwroot\\daily.json"
     },
     {
-      "Identity": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\wwwroot\\input.txt",
+      "Identity": "D:\\Университет\\project\\CodeCombat\\server\\wwwroot\\input.txt",
       "SourceId": "server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\wwwroot\\",
+      "ContentRoot": "D:\\Университет\\project\\CodeCombat\\server\\wwwroot\\",
       "BasePath": "_content/server",
       "RelativePath": "input.txt",
       "AssetKind": "All",
@@ -55,10 +55,10 @@
       "OriginalItemSpec": "wwwroot\\input.txt"
     },
     {
-      "Identity": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\wwwroot\\output.txt",
+      "Identity": "D:\\Университет\\project\\CodeCombat\\server\\wwwroot\\output.txt",
       "SourceId": "server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\wwwroot\\",
+      "ContentRoot": "D:\\Университет\\project\\CodeCombat\\server\\wwwroot\\",
       "BasePath": "_content/server",
       "RelativePath": "output.txt",
       "AssetKind": "All",

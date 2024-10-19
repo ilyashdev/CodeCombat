@@ -1,25 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\server.csproj": {}
+    "D:\\Университет\\project\\CodeCombat\\server\\server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\server.csproj": {
+    "D:\\Университет\\project\\CodeCombat\\server\\server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\server.csproj",
+        "projectUniqueName": "D:\\Университет\\project\\CodeCombat\\server\\server.csproj",
         "projectName": "server",
-        "projectPath": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\server.csproj",
-        "packagesPath": "C:\\Users\\Razglidai\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\obj\\",
+        "projectPath": "D:\\Университет\\project\\CodeCombat\\server\\server.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "D:\\Университет\\project\\CodeCombat\\server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Razglidai\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -87,7 +88,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,15 +1,15 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\wwwroot\\daily.json",
+      "Id": "D:\\Университет\\project\\CodeCombat\\server\\wwwroot\\daily.json",
       "PackagePath": "staticwebassets\\daily.json"
     },
     {
-      "Id": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\wwwroot\\input.txt",
+      "Id": "D:\\Университет\\project\\CodeCombat\\server\\wwwroot\\input.txt",
       "PackagePath": "staticwebassets\\input.txt"
     },
     {
-      "Id": "C:\\Users\\Razglidai\\Documents\\vscode\\CodeCombat\\server\\wwwroot\\output.txt",
+      "Id": "D:\\Университет\\project\\CodeCombat\\server\\wwwroot\\output.txt",
       "PackagePath": "staticwebassets\\output.txt"
     },
     {

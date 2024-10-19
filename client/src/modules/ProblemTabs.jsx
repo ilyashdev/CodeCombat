@@ -39,6 +39,7 @@ function ProblemTabs() {
   const [style, setStyle] = useState(javascript("jsx"));
   const [key, setKey] = useState("problem");
   const [refresh, setRefresh] = useState(false);
+  const [run, setRun] = useState(false);
   const user = useLaunchParams().initData;
 
   const lanstyle = {
@@ -128,6 +129,14 @@ function ProblemTabs() {
       GetSolutions(user)
         .then((data) => {
           setSolutions(data);
+          setLanguage(
+            Object.entries(lang).map((mass) => {
+              console
+              if (mass[1] == data.langType) {
+                return mass[0];
+              }
+            })
+          );
         })
         .catch(() => {
           setSolutions([
@@ -170,12 +179,14 @@ function ProblemTabs() {
   });
 
   const onPostCode = () => {
+    setRun(true);
     PostSolve({ code, langType: lang[language] }, user)
       .then()
       .catch(() => {})
       .finally(() => {
         setKey("history");
         setRefresh(true);
+        setRun(false);
       });
   };
 
@@ -226,7 +237,7 @@ function ProblemTabs() {
           <Container>
             <CodeMirror
               className="mb-3"
-              value=""
+              value={solutions.at(-1).code}
               height="60vh"
               basicSetup={{
                 foldGutter: false,
@@ -264,7 +275,13 @@ function ProblemTabs() {
                     ))}
                   </DropdownButton>
                   <Button variant="success" className="" onClick={onPostCode}>
-                    RUN {">"}
+                    {run ? (
+                      <>
+                        Run <Spinner size="sm" animation={"grow"} />
+                      </>
+                    ) : (
+                      "Run >"
+                    )}
                   </Button>
                 </ButtonGroup>
               </Nav.Item>

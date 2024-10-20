@@ -1,25 +1,27 @@
 import { $host } from ".";
 
 export const TakeDaily = async (user) => {
-  const { data } = await $host.get("daily", {
+  const data = await $host.get("daily", {
     params: {
       id: user.user.id,
       username: user.user.username,
       ttoken: user.hash,
     },
   });
-  return data;
+  if (data.status == 304) return localStorage.getItem("daily");
+  localStorage.setItem("daily", data.data);
+  return data.data;
 };
 
 export const PostSolve = async (solution, user) => {
-  const { data } = await $host.post("data/solutions", solution, {
+  const data = await $host.post("data/solutions", solution, {
     params: {
       id: user.user.id,
       username: user.user.username,
       ttoken: "1",
     },
   });
-  return data;
+  return data.data;
 };
 
 export const GetSolutions = async (user) => {
@@ -31,6 +33,8 @@ export const GetSolutions = async (user) => {
     },
   });
   if (data.status == 204) return [{}];
+  if (data.status == 304) return localStorage.getItem("auth");
+  localStorage.setItem("auth", data.data);
   return data.data;
 };
 
@@ -43,5 +47,7 @@ export const GetRanking = async (user) => {
     },
   });
   if (data.status == 204) return [{}];
+  if (data.status == 304) return localStorage.getItem("auth");
+  localStorage.setItem("auth", data.data);
   return data.data;
 };

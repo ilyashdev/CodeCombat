@@ -87,7 +87,6 @@ function ProblemTabs() {
               setSolutions(data);
               setLanguage(
                 Object.entries(lang).map((mass) => {
-                  console;
                   if (mass[1] == data.langType) {
                     return mass[0];
                   }
@@ -95,10 +94,7 @@ function ProblemTabs() {
               );
             })
             .catch(() => {
-              setSolutions([
-                { id: 1, status: "z" },
-                { id: 2, status: "z" },
-              ]);
+              setSolutions([]);
             })
             .finally(() => {
               GetRanking(user)
@@ -139,7 +135,6 @@ function ProblemTabs() {
           setSolutions(data);
           setLanguage(
             Object.entries(lang).map((mass) => {
-              console;
               if (mass[1] == data.langType) {
                 return mass[0];
               }

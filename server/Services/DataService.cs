@@ -93,6 +93,13 @@ public class DataService
     }
     public async Task<List<SolutionsEntity>> GetFiltredTop()
     {
-        return (await _userRepository.GetTopList()).Where(s => s.Runtime > 0).OrderBy(s => s.Runtime).ToList();
+        return (
+            await _userRepository
+            .GetTopList())
+            .Where(s => s.Runtime > 0)
+            .GroupBy(x => x.Username)
+            .Select(x => x.First())
+            .OrderBy(s => s.Runtime)
+            .ToList();
     }
 }

@@ -14,12 +14,14 @@ public class UserService
         _userRepository = userRepository;
     }
 
-    public async Task TInit(TInitRequest userData)
+    public async Task<bool> TInit(TInitRequest userData)
     {
         var userd = new TInitRequest(userData.id,userData.username, "1");
         var user = await _userRepository.FindUserAsync(userd);
         if (user == null){
             await _userRepository.AddUserAsync(userData);
+            return true;
         }
+        return false;
     }
 }

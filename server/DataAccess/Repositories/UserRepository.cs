@@ -38,7 +38,7 @@ namespace CodeCombat.DataAccess.Repositories
                                      u.Id == user.id);
             if(adduser != null)
             {
-            solution.UserId = adduser.Id;
+            solution.Username = adduser.Username;
             await _context.Solutions.AddAsync(solution);
             await _context.SaveChangesAsync();
             return true;
@@ -56,7 +56,7 @@ namespace CodeCombat.DataAccess.Repositories
                 var soluts = await _context.Solutions
                     .AsNoTracking()
                     .ToListAsync();
-                return soluts.Where(s=> (s.UserId == auser.Id)).ToList();
+                return soluts.Where(s=> (s.Username == auser.Username)).ToList();
             }
             return null;
         }

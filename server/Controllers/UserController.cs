@@ -17,7 +17,8 @@ namespace CodeCombat.Controllers;
         [HttpGet]
         public async Task<IActionResult> TInit([FromQuery] TInitRequest request)
         {
-            await _userService.TInit(request);
+            if(await _userService.TInit(request))
+            return Ok("create user");
             return Ok();
         }
 

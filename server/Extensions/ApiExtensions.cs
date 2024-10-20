@@ -9,7 +9,7 @@ public static class ApiExtensions
         services.AddCors(
             options =>{
                 options.AddDefaultPolicy(policy=>{
-                policy.WithOrigins("https://1737-109-126-175-155.ngrok-free.app");
+                policy.WithOrigins("https:eduardkrustein.uk");
                 policy.AllowAnyHeader();
                 policy.AllowAnyMethod();
             });

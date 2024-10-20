@@ -1,2 +1,4 @@
-server/bin/*
-server/obj/Debug/*
+server/bin
+server/obj
+client/node_modules
+client/dist

@@ -277,7 +277,12 @@ function ProblemTabs() {
                       </Dropdown.Item>
                     ))}
                   </DropdownButton>
-                  <Button variant="success" className="" onClick={onPostCode}>
+                  <Button
+                    variant="success"
+                    className=""
+                    onClick={onPostCode}
+                    disabled={!refresh}
+                  >
                     {run ? (
                       <>
                         Run <Spinner size="sm" animation={"grow"} />
@@ -312,22 +317,15 @@ function ProblemTabs() {
             ))}
         </Tab>
         <Tab eventKey="ranking" title="Ranking">
-          {ranked
-            .reduce((unique, item) => {
-              if (!unique.some((obj) => obj.userID == item.userID)) {
-                unique.push(item);
-              }
-              return unique;
-            }, [])
-            .map((ctn, index) => (
-              <Alert className="mx-2" key={index} variant="light">
-                <p className="mx-1">
-                  {index + 1}. {user.user.firstName + " " + user.user.lastName}
-                </p>
-                <p className="mx-1">language: {ctn.langType}</p>
-                <p className="mx-1">runtime: {ctn.runtime}</p>
-              </Alert>
-            ))}
+          {ranked.map((ctn, index) => (
+            <Alert className="mx-2" key={index} variant="light">
+              <p className="mx-1">
+                {index + 1}. {ctn.username}
+              </p>
+              <p className="mx-1">language: {ctn.langType}</p>
+              <p className="mx-1">runtime: {ctn.runtime}</p>
+            </Alert>
+          ))}
         </Tab>
       </Tabs>
     </Card>

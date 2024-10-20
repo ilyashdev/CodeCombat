@@ -14,16 +14,21 @@ import { useLaunchParams } from "@telegram-apps/sdk-react";
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [show, setShow] = useState(false);
   const user = useLaunchParams().initData;
 
   useEffect(() => {
     try {
-      //console.log(TelegramWebApp)id username ttoken name;
-      authAPI(user)
-        .catch((error) => {
-          console.error(error);
-        })
-        .finally(() => setLoading(false));
+      if (loading)
+        //console.log(TelegramWebApp)id username ttoken name;
+        authAPI(user)
+          .then((data) => {
+            setShow(data);
+          })
+          .catch((error) => {
+            console.error(error);
+          })
+          .finally(() => setLoading(false));
     } catch {}
   }, []);
 
@@ -32,14 +37,36 @@ function App() {
   }
 
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<DailyProblem />} />
-      </Route>
-      <Route path="/profile" element={<Profile />}>
-        <Route index element={<ProfileInformation />} />
-      </Route>
-    </Routes>
+    <>
+      <Modal show={show}>
+        <Modal.Header closeButton>
+          <Modal.Title>О приложении</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <p>
+            CodeCombat - это платформа, где каждый день публикуются новые задачи
+            по программированию, аналогичные тем, что можно встретить на
+            LeetCode. Чем лучше у тебя решение исходя из оптимальности кода и
+            его эффективности тем больше токенов ты получишь
+          </p>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="primary" onClick={setShow(false)}>
+            Понятно
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<DailyProblem />} />
+        </Route>
+        <Route path="/profile" element={<Profile />}>
+          <Route index element={<ProfileInformation />} />
+        </Route>
+      </Routes>
+    </>
   );
 }
 

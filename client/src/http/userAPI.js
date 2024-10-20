@@ -8,9 +8,9 @@ export const authAPI = async (user) => {
       ttoken: "1",
     },
   });
-  if (data.status == 304) return localStorage.getItem("auth");
-  localStorage.setItem("auth", data.data);
-  return data.data;
+  if (data.data)
+    return true;
+  return false;
 };
 
 export const getCoin = async (user) => {

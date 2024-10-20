@@ -85,6 +85,14 @@ function ProblemTabs() {
           GetSolutions(user)
             .then((data) => {
               setSolutions(data);
+              setLanguage(
+                Object.entries(lang).map((mass) => {
+                  console;
+                  if (mass[1] == data.langType) {
+                    return mass[0];
+                  }
+                })
+              );
             })
             .catch(() => {
               setSolutions([
@@ -237,7 +245,7 @@ function ProblemTabs() {
           <Container>
             <CodeMirror
               className="mb-3"
-              value={solutions.code ? solutions.at(-1).code : ""}
+              value={solutions.at(-1).code ? solutions.at(-1).code : ""}
               height="60vh"
               basicSetup={{
                 foldGutter: false,

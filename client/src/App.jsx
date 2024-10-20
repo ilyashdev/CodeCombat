@@ -7,7 +7,7 @@ import Layout from "./modules/Layout";
 import Profile from "./pages/Profile";
 import ProfileInformation from "./modules/ProfileInformatoin";
 import { Context } from "./main";
-import { Spinner } from "react-bootstrap";
+import { Modal, Spinner } from "react-bootstrap";
 import { authAPI } from "./http/userAPI";
 import TelegramWebAppData from "./utils/TelegramWedAppData";
 import { useLaunchParams } from "@telegram-apps/sdk-react";

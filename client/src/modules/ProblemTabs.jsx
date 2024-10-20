@@ -238,9 +238,11 @@ function ProblemTabs() {
         </Tab>
         <Tab eventKey="solve" title="Solve">
           <Container>
+            {solutions.length}
             <CodeMirror
               className="mb-3"
               value={solutions.length ? solutions.at(-1).code : ""}
+              value={""}
               height="60vh"
               basicSetup={{
                 foldGutter: false,

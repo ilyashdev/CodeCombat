@@ -87,7 +87,7 @@ function ProblemTabs() {
               setSolutions(data);
               setLanguage(
                 Object.entries(lang).map((mass) => {
-                  if (mass[1] == data.langType) {
+                  if (mass[1] == data.at(-1).langType) {
                     return mass[0];
                   }
                 })
@@ -135,7 +135,7 @@ function ProblemTabs() {
           setSolutions(data);
           setLanguage(
             Object.entries(lang).map((mass) => {
-              if (mass[1] == data.langType) {
+              if (mass[1] == data.at(-1).langType) {
                 return mass[0];
               }
             })

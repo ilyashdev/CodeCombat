@@ -240,7 +240,7 @@ function ProblemTabs() {
           <Container>
             <CodeMirror
               className="mb-3"
-              value={solutions.at(-1).code ? solutions.at(-1).code : ""}
+              value={solutions.length ? solutions.at(-1).code : ""}
               height="60vh"
               basicSetup={{
                 foldGutter: false,

@@ -131,7 +131,7 @@ function ProblemTabs() {
           setSolutions(data);
           setLanguage(
             Object.entries(lang).map((mass) => {
-              console
+              console;
               if (mass[1] == data.langType) {
                 return mass[0];
               }
@@ -237,7 +237,7 @@ function ProblemTabs() {
           <Container>
             <CodeMirror
               className="mb-3"
-              value={solutions.at(-1).code}
+              value={solutions ? solutions.at(-1).code : ""}
               height="60vh"
               basicSetup={{
                 foldGutter: false,

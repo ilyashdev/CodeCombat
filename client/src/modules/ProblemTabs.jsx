@@ -235,7 +235,6 @@ function ProblemTabs() {
         </Tab>
         <Tab eventKey="solve" title="Solve">
           <Container>
-            {console.log(solutions)}
             <CodeMirror
               className="mb-3"
               value={solutions.code ? solutions.at(-1).code : ""}

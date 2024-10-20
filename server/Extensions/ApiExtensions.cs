@@ -9,7 +9,7 @@ public static class ApiExtensions
         services.AddCors(
             options =>{
                 options.AddDefaultPolicy(policy=>{
-                policy.WithOrigins("https:eduardkrustein.uk");
+                policy.WithOrigins("https://eduardkrustein.uk");
                 policy.AllowAnyHeader();
                 policy.AllowAnyMethod();
             });

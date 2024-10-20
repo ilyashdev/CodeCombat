@@ -241,7 +241,6 @@ function ProblemTabs() {
             {solutions.length}
             <CodeMirror
               className="mb-3"
-              value={solutions.length ? solutions.at(-1).code : ""}
               value={""}
               height="60vh"
               basicSetup={{

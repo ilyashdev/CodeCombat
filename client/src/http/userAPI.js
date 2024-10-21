@@ -8,8 +8,7 @@ export const authAPI = async (user) => {
       ttoken: "1",
     },
   });
-  if (data.data)
-    return true;
+  if (data.data) return true;
   return false;
 };
 

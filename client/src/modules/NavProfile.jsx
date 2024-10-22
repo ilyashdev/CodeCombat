@@ -3,13 +3,19 @@ import defaultImage from "../assets/undefine.png";
 import { useContext, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { Container, Navbar } from "react-bootstrap";
-import { Context } from "../main";
 import { initData } from "@telegram-apps/sdk";
 import { useLaunchParams } from "@telegram-apps/sdk-react";
 
 function NavProfile() {
-  const lp = useLaunchParams();
-  const user = useLaunchParams().initData.user;
+  let user;
+  try {
+    user = useLaunchParams().initData.user;
+  } catch {
+    user = {
+      user: { id: 1, username: "1", firstName: "undefi", lastName: "user" },
+      hash: "1",
+    }.user;
+  }
 
   return (
     <Navbar className="bg-body-tertiary bg-opacity-10 text-white">

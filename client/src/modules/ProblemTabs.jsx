@@ -40,7 +40,15 @@ function ProblemTabs() {
   const [key, setKey] = useState("problem");
   const [refresh, setRefresh] = useState(false);
   const [run, setRun] = useState(false);
-  const user = useLaunchParams().initData;
+  let user;
+  try {
+    user = useLaunchParams().initData;
+  } catch {
+    user = {
+      user: { id: 1, username: "1", firstName: "undefi", lastName: "user" },
+      hash: "1",
+    };
+  }
 
   const lanstyle = {
     javascript: javascript("jsx"),
@@ -56,80 +64,80 @@ function ProblemTabs() {
   };
 
   useEffect(() => {
-    if (loading) {
-      TakeDaily(user)
-        .then((data) => {
-          setDaily(data);
-        })
-        .catch(() => {
-          if (loading)
-            setDaily({
-              title: "Default Problem",
-              description:
-                "Default description Lorem ipsum dolor sit amet consectetur adipisicingelit. Consequatur accusantium porro tenetur ad tempore hicobcaecati accusamus dolorem impedit, iusto repellendus suscipit,voluptate nihil dicta sapiente perferendis ipsa incidunt nesciunt.",
-              input: "Default Input i = 100 z = N",
-              output: "Defaut Output i + z",
-              exemples: [
-                {
-                  input: "100 4",
-                  output: "104",
-                },
-                {
-                  input: "100 304",
-                  output: "404",
-                },
-              ],
-            });
-        })
-        .finally(() => {
-          GetSolutions(user)
-            .then((data) => {
-              setSolutions(data);
-              setLanguage(
-                Object.entries(lang).map((mass) => {
-                  if (mass[1] == data.at(-1).langType) {
-                    return mass[0];
-                  }
-                })
-              );
-            })
-            .catch(() => {
-              setSolutions([]);
-            })
-            .finally(() => {
-              GetRanking(user)
-                .then((data) => {
-                  setRanked(data);
-                })
-                .catch(() => {
-                  setRanked({
-                    ranked: [
-                      {
-                        lang: "C#",
-                        time: "0.56s",
-                        memory: "10mb",
-                      },
-                      {
-                        lang: "C++",
-                        time: "0.56s",
-                        memory: "10mb",
-                      },
-                      {
-                        lang: "Python",
-                        time: "0.78s",
-                        memory: "30mb",
-                      },
-                    ],
-                  });
-                })
-                .finally(() => {
-                  setLoading(false);
+    TakeDaily(user)
+      .then((data) => {
+        setDaily(data);
+      })
+      .catch(() => {
+        if (loading)
+          setDaily({
+            title: "Default Problem",
+            description:
+              "Default description Lorem ipsum dolor sit amet consectetur adipisicingelit. Consequatur accusantium porro tenetur ad tempore hicobcaecati accusamus dolorem impedit, iusto repellendus suscipit,voluptate nihil dicta sapiente perferendis ipsa incidunt nesciunt.",
+            input: "Default Input i = 100 z = N",
+            output: "Defaut Output i + z",
+            exemples: [
+              {
+                input: "100 4",
+                output: "104",
+              },
+              {
+                input: "100 304",
+                output: "404",
+              },
+            ],
+          });
+      })
+      .finally(() => {
+        GetSolutions(user)
+          .then((data) => {
+            setSolutions(data);
+            setLanguage(
+              Object.entries(lang).map((mass) => {
+                if (mass[1] == data.at(-1).langType) {
+                  return mass[0];
+                }
+              })[0]
+            );
+          })
+          .catch(() => {
+            setSolutions([]);
+          })
+          .finally(() => {
+            GetRanking(user)
+              .then((data) => {
+                setRanked(data);
+              })
+              .catch(() => {
+                setRanked({
+                  ranked: [
+                    {
+                      lang: "C#",
+                      time: "0.56s",
+                      memory: "10mb",
+                    },
+                    {
+                      lang: "C++",
+                      time: "0.56s",
+                      memory: "10mb",
+                    },
+                    {
+                      lang: "Python",
+                      time: "0.78s",
+                      memory: "30mb",
+                    },
+                  ],
                 });
-            });
-        });
-      //setLoading(false);
-    }
-    if (refresh) {
+              })
+              .finally(() => {
+                setLoading(false);
+              });
+          });
+      });
+    //setLoading(false);
+  }, []);
+  useEffect(() => {
+    if (refresh)
       GetSolutions(user)
         .then((data) => {
           setSolutions(data);
@@ -138,7 +146,7 @@ function ProblemTabs() {
               if (mass[1] == data.at(-1).langType) {
                 return mass[0];
               }
-            })
+            })[0]
           );
         })
         .catch(() => {
@@ -177,12 +185,12 @@ function ProblemTabs() {
               setRefresh(false);
             });
         });
-      //setRefresh(false);
-    }
-  });
+    //setRefresh(false);
+  }, [refresh]);
 
   const onPostCode = () => {
     setRun(true);
+    console.log(language);
     PostSolve({ code, langType: lang[language] }, user)
       .then()
       .catch(() => {})
@@ -281,7 +289,7 @@ function ProblemTabs() {
                     variant="success"
                     className=""
                     onClick={onPostCode}
-                    disabled={!refresh}
+                    disabled={refresh}
                   >
                     {run ? (
                       <>
@@ -309,7 +317,7 @@ function ProblemTabs() {
                 {Object.keys(ctn)
                   .splice(2, 6)
                   .map((key) => (
-                    <p key={ctn.id}>
+                    <p>
                       {key}: {ctn[key]}
                     </p>
                   ))}

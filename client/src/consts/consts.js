@@ -1,1 +1,1 @@
-export const REACT_APP_API_URL = "https://api.eduardkrustein.uk/";
+export const REACT_APP_API_URL = "http://localhost:5276/";

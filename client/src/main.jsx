@@ -8,23 +8,14 @@ import { init, backButton } from "@telegram-apps/sdk-react";
 import { BrowserRouter } from "react-router-dom";
 import React, { createContext } from "react";
 
-init();
-
+try {
+  init();
+} catch {}
 //backButton.mount();
-
-export const Context = createContext(null);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <StrictMode>
-    <Context.Provider
-      value={{
-        user: new UserStore(),
-      }}
-    >
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Context.Provider>
-  </StrictMode>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
 );

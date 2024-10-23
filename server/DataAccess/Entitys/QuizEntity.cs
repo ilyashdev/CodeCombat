@@ -1,5 +1,5 @@
 namespace CodeCombat.DataAccess.Entity;
-public class QuizEntity
+public class QuizEntity : BaseEntity
 {
     
 }

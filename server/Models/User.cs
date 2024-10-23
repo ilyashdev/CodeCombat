@@ -15,7 +15,6 @@ namespace CodeCombat.Models
             Username = username;
             CoinValue = 0;
             RegisterTime = DateTime.UtcNow;
-            solutions = new List<SolutionsEntity>();
         }
         
         public long Id{ get; set; }
@@ -23,7 +22,5 @@ namespace CodeCombat.Models
         public string TelegramToken{ get; set; } = "1";
         public double CoinValue { get; set; }
         public DateTime RegisterTime{ get; init; }
-        
-        public List<SolutionsEntity> solutions{ get; init; }
     }
 }

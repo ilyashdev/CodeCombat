@@ -54,21 +54,22 @@ public class DataService
             {
                 solutions.Runtime = -1;
                 solutions.Status = parsResponse.error;
-                return await _userRepository.AddSolution(user, solutions);
+                //return await _userRepository.AddSolution(user, solutions);
             }
             else 
             if(parsResponse.output != contestValue.Item2 + "\n")
             {
                 solutions.Runtime = -1;
                 solutions.Status = "wrong answer";
-                return await _userRepository.AddSolution(user, solutions);
+                //return await _userRepository.AddSolution(user, solutions);
             }
             allRuntime += runtime.TotalSeconds;
             i++;
         }
         solutions.Status = "Accept";
         solutions.Runtime = allRuntime/i;
-        return await _userRepository.AddSolution(user,solutions);
+        //return await _userRepository.AddSolution(user,solutions);
+        return false;
     }
 
     public async Task<string> SolutionProccesing(SolutionRequest solution,string input)
@@ -89,17 +90,18 @@ public class DataService
 
     public async Task<List<SolutionsEntity>> GetSolution(TInitRequest request)
     {
-        return await _userRepository.GetSolution(request);
+        return null;
     }
     public async Task<List<SolutionsEntity>> GetFiltredTop()
     {
-        return (
-            await _userRepository
-            .GetTopList())
-            .Where(s => s.Runtime > 0)
-            .GroupBy(x => x.Username)
-            .Select(x => x.First())
-            .OrderBy(s => s.Runtime)
-            .ToList();
+        // return (
+        //     await _userRepository
+        //     .GetTopList())
+        //     .Where(s => s.Runtime > 0)
+        //     .GroupBy(x => x.Username)
+        //     .Select(x => x.First())
+        //     .OrderBy(s => s.Runtime)
+        //     .ToList();
+        return null;
     }
 }

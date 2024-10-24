@@ -1,0 +1,25 @@
+import Container from "react-bootstrap/esm/Container";
+import Card from "react-bootstrap/Card";
+import { NavLink } from "react-router-dom";
+
+const MiniDaily = () => {
+  return (
+    <Container className="mt-3">
+      <NavLink style={{ textDecoration: "none", color: "#eee" }} to="/daily">
+        <h2 style={{ fontWeight: "bold" }}>Сегодняшнее задание</h2>
+        <Card className="rounded-5 p-3 bg-dark text-light">
+          <Card.Title className="">Название задачи</Card.Title>
+          <Card.Text>
+            Краткое описание задачи Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Unde expedita in, perspiciatis, autem soluta
+            dignissimos voluptate labore, laboriosam molestias accusantium
+            doloremque rerum esse facere quos inventore? Magnam molestias a
+            nihil!
+          </Card.Text>
+        </Card>
+      </NavLink>
+    </Container>
+  );
+};
+
+export default MiniDaily;

@@ -1,5 +1,5 @@
-using CodeCombat.Contracts;
 using CodeCombat.DataAccess.Repositories;
+using CodeCombat.Models;
 
 namespace CodeCombat.Services;
 
@@ -14,12 +14,10 @@ public class UserService
         _userRepository = userRepository;
     }
 
-    public async Task<bool> TInit(TInitRequest userData)
+    public async Task<bool> Init(User user)
     {
-        var userd = new TInitRequest(userData.id,userData.username, "1");
-        var user = await _userRepository.FindUserAsync(userd);
-        if (user == null){
-            await _userRepository.AddUserAsync(userData);
+        if (await _userRepository.FindUserAsync(user) == null){
+            await _userRepository.AddUserAsync(user);
             return true;
         }
         return false;

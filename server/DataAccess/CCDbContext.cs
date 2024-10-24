@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using CodeCombat.Models;
 using CodeCombat.DataAccess.Entity;
 
 namespace CodeCombat.DataAccess
@@ -11,9 +10,13 @@ namespace CodeCombat.DataAccess
     {
         _configuration = configuration;
     }
-    public DbSet<User> Users => Set<User>();
-    public DbSet<SolutionsEntity> Solutions => Set<SolutionsEntity>();
-    
+    public DbSet<UserEntity> Users { get; set; }
+    public DbSet<SolutionsEntity> Solutions { get; set; }
+    public DbSet<CommentEntity> Comments { get; set; }
+    public DbSet<DailyEntity> Dailys { get; set; }
+    public DbSet<PostEntity> Posts { get; set; }
+    public DbSet<QuizEntity> Quizs { get; set; }
+    public DbSet<TestEntity> Tests { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

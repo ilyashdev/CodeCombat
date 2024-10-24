@@ -2,13 +2,7 @@ using CodeCombat.Contracts;
 using CodeCombat.DataAccess.Entity;
 using CodeCombat.DataAccess.Repositories;
 using CodeCombat.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Text.Json.Nodes;
 
 namespace CodeCombat.Services;
 
@@ -17,58 +11,65 @@ public class DataService
     private readonly IWebHostEnvironment _webHostEnvironment;
     private readonly HttpClient _httpClient;
     private readonly UserRepository _userRepository;
+    private readonly SolutionsRepository _solutionRepository;
+    private readonly DailyRepository _dailyRepository;
+    private DailyEntity _dailyNow;
     private readonly string _uri = "https://api.codex.jaagrav.in";
-    public DataService(IWebHostEnvironment webHostEnvironment, UserRepository userRepository)
+    public DataService(IWebHostEnvironment webHostEnvironment, 
+                       UserRepository userRepository,
+                       SolutionsRepository solutionsRepository,
+                       DailyRepository dailyRepository)
     {
         _webHostEnvironment = webHostEnvironment;
-        
+        _solutionRepository = solutionsRepository;
+        _dailyRepository = dailyRepository;
         _userRepository = userRepository;
         _httpClient = new HttpClient();
     }
     
-    public async Task<double?> GetTokenValue(TInitRequest userData)
+    public async Task<double?> GetTokenValue(User userData)
     {
-        var userd = new TInitRequest(userData.id,userData.username, "1");
-        var user = await _userRepository.FindUserAsync(userd);
+        var user = await _userRepository.FindUserAsync(userData);
         if(user != null)
         return user.CoinValue;
         else
         return null;
     }
-    public async Task<bool> SolutionUpload(TInitRequest user,SolutionRequest solution)
+    public async Task<bool> SolutionUpload(User user,SolutionRequest solution)
     {
-        var inputFile = File.ReadAllLines(_webHostEnvironment.WebRootPath+"/input.txt");
-        var outputFile = File.ReadAllLines(_webHostEnvironment.WebRootPath+"/output.txt");
+        if(_dailyNow == null || _dailyNow.Daytime != DateOnly.FromDateTime(DateTime.UtcNow))
+        _dailyNow = await _dailyRepository.GetDaily();
+        if(_dailyNow == null)
+        throw new Exception("no daily today");
+
         int i=0;
         double allRuntime = 0;
         var solutions = new SolutionsEntity();
         solutions.Code = solution.code;
         solutions.LangType = solution.langType;
-        foreach (var contestValue in inputFile.Zip(outputFile, Tuple.Create))
+        foreach (var test in _dailyNow.Test)
         {
             var time = TimeOnly.FromDateTime(DateTime.UtcNow);
-            var response = await SolutionProccesing(solution, contestValue.Item1);
-            var runtime = TimeOnly.FromDateTime(DateTime.UtcNow)- time;
+            var response = await SolutionProccesing(solution, test.input);
+            var runtime = TimeOnly.FromDateTime(DateTime.UtcNow) - time;
             dynamic parsResponse = JObject.Parse(response);
             if (parsResponse.error != "")
             {
                 solutions.Runtime = -1;
                 solutions.Status = parsResponse.error;
-                //return await _userRepository.AddSolution(user, solutions);
             }
             else 
-            if(parsResponse.output != contestValue.Item2 + "\n")
+            if(parsResponse.output != test.output + "\n")
             {
                 solutions.Runtime = -1;
                 solutions.Status = "wrong answer";
-                //return await _userRepository.AddSolution(user, solutions);
             }
             allRuntime += runtime.TotalSeconds;
             i++;
         }
         solutions.Status = "Accept";
         solutions.Runtime = allRuntime/i;
-        //return await _userRepository.AddSolution(user,solutions);
+        await _solutionRepository.AddSolution(solutions);
         return false;
     }
 
@@ -92,16 +93,8 @@ public class DataService
     {
         return null;
     }
-    public async Task<List<SolutionsEntity>> GetFiltredTop()
+    public async Task<List<SolutionsEntity>?> GetFiltredTop()
     {
-        // return (
-        //     await _userRepository
-        //     .GetTopList())
-        //     .Where(s => s.Runtime > 0)
-        //     .GroupBy(x => x.Username)
-        //     .Select(x => x.First())
-        //     .OrderBy(s => s.Runtime)
-        //     .ToList();
-        return null;
+        return await _solutionRepository.GetTopList();
     }
 }

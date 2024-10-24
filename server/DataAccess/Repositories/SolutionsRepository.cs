@@ -1,6 +1,6 @@
 using CodeCombat.DataAccess;
 using CodeCombat.DataAccess.Entity;
-using CodeCombat.Models;
+using Microsoft.EntityFrameworkCore;
 
 public class SolutionsRepository
 {
@@ -9,18 +9,33 @@ public class SolutionsRepository
         {
             _context = context;
         }
-            public async Task<bool> AddSolution(User user, SolutionsEntity solution)
+            public async Task AddSolution(SolutionsEntity solution)
         {
-            return false;
+            await _context.Solutions.AddAsync(solution);
+            await _context.SaveChangesAsync();
         }
         
-        public async Task<List<SolutionsEntity>?> GetSolution()
+        public async Task<List<SolutionsEntity>?> GetSolution(UserEntity user)
         {
-            return null;
+            var solutions = await _context.Solutions
+                                        .AsNoTracking()
+                                        .Where(s => s.User == user)
+                                        .ToListAsync();
+            return solutions;
         }
 
-        public async Task<List<SolutionsEntity>> GetTopList()
+        public async Task<List<SolutionsEntity>?> GetTopList()
         {
-            return null;
+            var dateNow = DateOnly.FromDateTime(DateTime.UtcNow);
+            var solutions = 
+            await _context
+            .Solutions
+            .AsNoTracking()
+            .Where(s => s.Runtime > 0 && DateOnly.FromDateTime(s.Daytime) == dateNow)
+            .GroupBy(x => x.User)
+            .Select(x => x.First())
+            .OrderBy(s => s.Runtime)
+            .ToListAsync();
+            return solutions;
         }
 }

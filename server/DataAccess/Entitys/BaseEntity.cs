@@ -2,6 +2,7 @@ namespace CodeCombat.DataAccess.Entity;
 
 public class BaseEntity
 {
+    public Guid Id {get;set;}
     public UserEntity? User {get;set;}
     public string Title {get;set;} = string.Empty; 
     public string Desc {get;set;} = string.Empty;

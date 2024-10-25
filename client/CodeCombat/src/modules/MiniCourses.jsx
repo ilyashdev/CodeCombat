@@ -4,7 +4,7 @@ import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { NavLink } from "react-router-dom";
-import "./css/MiniCourses.css";
+import "./css/CutImg.css";
 
 const MiniCourses = () => {
   return (
@@ -24,7 +24,7 @@ const MiniCourses = () => {
                   backgroundImage:
                     'url("https://blog.coursify.me/wp-content/uploads/2018/08/plan-your-online-course.jpg")',
                 }}
-                className="rounded-4 courseImg"
+                className="rounded-4 CutImg"
               />
             </Col>
             <Col>
@@ -49,7 +49,7 @@ const MiniCourses = () => {
                   backgroundImage:
                     'url("https://blog.coursify.me/wp-content/uploads/2018/08/plan-your-online-course.jpg")',
                 }}
-                className="rounded-4 courseImg"
+                className="rounded-4 CutImg"
               />
             </Col>
             <Col>

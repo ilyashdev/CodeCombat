@@ -1,0 +1,20 @@
+.CutImg[data-width="50"] {
+  background-position: center center;
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+}
+
+.CutImg[data-width="75"] {
+  background-position: center center;
+  background-size: cover;
+  width: 75px;
+  height: 75px;
+}
+
+.CutImg {
+  background-position: center center;
+  background-size: cover;
+  width: 100px;
+  height: 100px;
+}

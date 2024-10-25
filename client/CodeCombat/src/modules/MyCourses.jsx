@@ -6,11 +6,11 @@ import Col from "react-bootstrap/Col";
 import { NavLink } from "react-router-dom";
 import "./css/CutImg.css";
 
-const PopularCourses = () => {
+const MyCourses = () => {
   return (
     <Container className="my-4">
-      <NavLink style={{ textDecoration: "none", color: "#eee" }} to="/courses">
-        <h2 style={{ fontWeight: "bold" }}>Популярные курсы сообщества</h2>
+      <NavLink style={{ textDecoration: "none", color: "#eee" }} to="courses">
+        <h2 style={{ fontWeight: "bold" }}>Мои курсы &gt;</h2>
       </NavLink>
       <NavLink
         style={{ textDecoration: "none", color: "#eee" }}
@@ -20,6 +20,7 @@ const PopularCourses = () => {
           <Row>
             <Col xs="auto">
               <div
+                data-width="75"
                 style={{
                   backgroundImage:
                     'url("https://blog.coursify.me/wp-content/uploads/2018/08/plan-your-online-course.jpg")',
@@ -45,6 +46,7 @@ const PopularCourses = () => {
           <Row>
             <Col xs="auto">
               <div
+                data-width="75"
                 style={{
                   backgroundImage:
                     'url("https://blog.coursify.me/wp-content/uploads/2018/08/plan-your-online-course.jpg")',
@@ -52,7 +54,7 @@ const PopularCourses = () => {
                 className="rounded-4 CutImg"
               />
             </Col>
-            <Col>
+            <Col style={{ textOverflow: "ellipsis", width: "75px" }}>
               <Card.Title className="">Название курса</Card.Title>
               <Card.Text>
                 Краткое описание задачи Lorem ipsum dolor sit amet consectetur
@@ -66,4 +68,4 @@ const PopularCourses = () => {
   );
 };
 
-export default PopularCourses;
+export default MyCourses;

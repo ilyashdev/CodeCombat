@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import MainNav from "../modules/MainNav";
 import Footer from "../modules/Footer";
 
-const Layout = () => {
+const MainLayout = () => {
   return (
     <>
       <MainNav />
@@ -12,4 +12,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default MainLayout;

@@ -1,6 +1,6 @@
-using CodeCombat.DataAccess;
 using CodeCombat.DataAccess.Entity;
 using Microsoft.EntityFrameworkCore;
+namespace CodeCombat.DataAccess.Repositories;
 
 public class SolutionsRepository
 {

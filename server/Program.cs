@@ -4,8 +4,13 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 var services = builder.Services;
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen(options =>
+{
+    options.UseDateOnlyTimeOnlyStringConverters();
+}
+);
+
 
 services.AddControllers();
 services.AddScoped<CCDbContext>();

@@ -13,7 +13,6 @@ public class DataService
     private readonly UserRepository _userRepository;
     private readonly SolutionsRepository _solutionRepository;
     private readonly DailyRepository _dailyRepository;
-    private DailyEntity _dailyNow;
     private readonly string _uri = "https://api.codex.jaagrav.in";
     public DataService(IWebHostEnvironment webHostEnvironment, 
                        UserRepository userRepository,
@@ -37,17 +36,16 @@ public class DataService
     }
     public async Task<bool> SolutionUpload(User user,SolutionRequest solution)
     {
-        if(_dailyNow == null || _dailyNow.Daytime != DateOnly.FromDateTime(DateTime.UtcNow))
-        _dailyNow = await _dailyRepository.GetDaily();
-        if(_dailyNow == null)
-        throw new Exception("no daily today");
+        var daily = await _dailyRepository.GetDaily();
+        if(daily == null)
+        throw new Exception("no data today");
 
         int i=0;
         double allRuntime = 0;
         var solutions = new SolutionsEntity();
         solutions.Code = solution.code;
         solutions.LangType = solution.langType;
-        foreach (var test in _dailyNow.Test)
+        foreach (var test in daily.Test)
         {
             var time = TimeOnly.FromDateTime(DateTime.UtcNow);
             var response = await SolutionProccesing(solution, test.input);

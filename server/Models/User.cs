@@ -1,3 +1,5 @@
+using CodeCombat.Contracts;
+
 namespace CodeCombat.Models
 {
     public class User
@@ -8,6 +10,12 @@ namespace CodeCombat.Models
             Username = username;
             CoinValue = 0;
             RegisterTime = DateTime.UtcNow;
+        }
+
+        public User(TInitRequest request)
+        {
+            Id=request.id;
+            Username = request.username;
         }
         
         public long Id{ get; set; }

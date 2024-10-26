@@ -15,9 +15,9 @@ namespace CodeCombat.Controllers;
             _userService = userService;
         }
         [HttpGet]
-        public async Task<IActionResult> TInit([FromQuery] TInitRequest request)
+        public async Task<IActionResult> Init([FromQuery] TInitRequest request)
         {
-            if(await _userService.TInit(request))
+            if(await _userService.Init(new Models.User(request.id, request.username)))
             return Ok("create user");
             return Ok();
         }

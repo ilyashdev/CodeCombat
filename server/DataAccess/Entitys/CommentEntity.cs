@@ -1,6 +1,7 @@
 namespace CodeCombat.DataAccess.Entity;
 public class CommentEntity
 {
+    public Guid id {get;set;}
     public UserEntity? User{get;set;}
     public string Comment{get;set;} = string.Empty;
     public int Like = 0;

@@ -18,7 +18,7 @@ namespace CodeCombat.Controllers;
         [HttpGet]
         public async Task<IActionResult> GetTokenValue([FromQuery]TInitRequest request)
         {
-            var value = await _dataService.GetTokenValue(request);
+            var value = await _dataService.GetTokenValue(new Models.User(request));
             if (value != null)
             return Ok(value);
             else
@@ -28,7 +28,7 @@ namespace CodeCombat.Controllers;
         [HttpPost]
         public async Task<IActionResult> PostSolution([FromQuery]TInitRequest request, [FromBody]SolutionRequest solrequest)
         {
-            if(await _dataService.SolutionUpload(request, solrequest))
+            if(await _dataService.SolutionUpload(new Models.User(request), solrequest))
             return Ok();
             else
             return BadRequest("invalid user");

@@ -12,8 +12,8 @@ public class DailyRepository
         }
             public async Task AddDaily(DailyEntity daily)
         {
-            if(await _context.Dailys.AsNoTracking().FirstAsync(s => s.Daytime == daily.Daytime) != null)
-            throw new Exception("Дейлик на эту дату уже существует");
+            // if(await _context.Dailys.AsNoTracking().FirstAsync(s => s.Daytime == daily.Daytime) != null)
+            // throw new Exception("Дейлик на эту дату уже существует");
 
             await _context.Dailys.AddAsync(daily);
             await _context.SaveChangesAsync();
@@ -30,5 +30,12 @@ public class DailyRepository
             _dailyNow = daily;
             }
             return _dailyNow;
+        }
+        public async Task<List<DailyEntity>?> GetAllDaily()
+        {
+            var daily = await _context.Dailys
+                            .AsNoTracking()
+                            .ToListAsync();
+            return daily;
         }
 }

@@ -3,32 +3,52 @@ using CodeCombat.Contracts;
 using CodeCombat.Services;
 using Newtonsoft.Json.Linq;
 using System.Text;
+using CodeCombat.DataAccess.Entity;
 namespace CodeCombat.Controllers;
 
     [ApiController]
     [Route("[controller]")]
     public class DailyController : ControllerBase
     {
-        private DateOnly _date;
-        private string _daily;
+        private DailyService _dailyService;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public DailyController(IWebHostEnvironment webHostEnvironment)
+        public DailyController( IWebHostEnvironment webHostEnvironment,
+                                DailyService dailyService)
         {
             _webHostEnvironment = webHostEnvironment;
+            _dailyService = dailyService;
         }
         [HttpGet]
         public async Task<IActionResult> GetDaily()
         {
-            if(_date != DateOnly.FromDateTime(DateTime.UtcNow))
-            using (FileStream fstream = new FileStream(_webHostEnvironment.WebRootPath + "/daily.json", FileMode.OpenOrCreate))
-            {
-                byte[] buffer = new byte[fstream.Length];
-                await fstream.ReadAsync(buffer, 0, buffer.Length);
-                string textFromFile = Encoding.Default.GetString(buffer);
-                _daily = textFromFile;
-                _date = DateOnly.FromDateTime(DateTime.UtcNow);
+            try{
+                return Ok(await _dailyService.GetDaily());
             }
-            return Ok(_daily);
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [Route("admin")]
+        [HttpPost]
+        public async Task<IActionResult> PostDaily([FromBody] DailyPostRequest daily)
+        {
+            try
+            {
+                await _dailyService.AddDaily(daily);   
+                return Ok();
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+        [Route("admin")]
+        [HttpGet]
+        public async Task<IActionResult> GetAllDaily()
+        {
+            return Ok(await _dailyService.GetAllDaily());
         }
 
     }

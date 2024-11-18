@@ -24,10 +24,9 @@ public static class ApiExtensions
 
         services.AddScoped<DailyService>();
         services.AddScoped<UserService>();
+        services.AddScoped<DataService>();
 
         services.AddScoped<DailyRepository>();
-        services.AddScoped<PostRepository>();
-        services.AddScoped<QuizRepository>();
         services.AddScoped<SolutionsRepository>();
         services.AddScoped<UserRepository>();
 

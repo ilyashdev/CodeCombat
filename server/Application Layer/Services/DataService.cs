@@ -87,7 +87,7 @@ public class DataService
     return await response.Content.ReadAsStringAsync();
     }
 
-    public async Task<List<SolutionsEntity>> GetSolution(TInitRequest request)
+    public async Task<List<SolutionsEntity>?> GetSolution(TInitRequest request)
     {
         return null;
     }

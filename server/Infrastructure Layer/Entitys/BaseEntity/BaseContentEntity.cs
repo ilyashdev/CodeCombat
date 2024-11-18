@@ -1,6 +1,6 @@
 namespace CodeCombat.DataAccess.Entity;
 
-public class BaseEntity
+public class BaseContentEntity
 {
     public Guid Id {get;set;}
     public UserEntity? User {get;set;}

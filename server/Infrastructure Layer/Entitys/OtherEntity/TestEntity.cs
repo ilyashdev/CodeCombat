@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace CodeCombat.DataAccess.Entity;
-[Owned]
 public class TestEntity
 {
     public Guid id{get;set;}

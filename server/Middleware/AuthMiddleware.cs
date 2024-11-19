@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-public class TelegramAuthFilter : IAsyncAuthorizationFilter
+public class TelegramAuthFilter
 {
     private readonly RequestDelegate _next;
     private const string TelegramApiUrl = "https://api.telegram.org/bot{0}/getMe";

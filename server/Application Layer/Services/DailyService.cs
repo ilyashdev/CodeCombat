@@ -23,7 +23,7 @@ public class DailyService
                         Description = daily.Desc,
                         Input = daily.Input,
                         Output = daily.Output,
-                        Exemples = daily.Exempl.Select(p => new TestEntity{input = p.Input, output = p.Output}).ToList(),
+                        Examples = daily.Exempl.Select(p => new TestEntity{input = p.Input, output = p.Output}).ToList(),
                         Test = daily.Test.Select(p => new TestEntity{input = p.Input, output = p.Output}).ToList()
                         });
     }

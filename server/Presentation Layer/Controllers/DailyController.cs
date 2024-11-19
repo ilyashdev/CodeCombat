@@ -1,9 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using CodeCombat.Contracts;
 using CodeCombat.Services;
-using Newtonsoft.Json.Linq;
-using System.Text;
-using CodeCombat.DataAccess.Entity;
 namespace CodeCombat.Controllers;
 
     [ApiController]

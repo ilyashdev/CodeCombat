@@ -42,7 +42,7 @@ public class DataService
 
         int i=0;
         double allRuntime = 0;
-        var solutions = new SolutionsEntity();
+        var solutions = new SolutionEntity();
         solutions.Code = solution.code;
         solutions.LangType = solution.langType;
         foreach (var test in daily.Test)
@@ -87,11 +87,11 @@ public class DataService
     return await response.Content.ReadAsStringAsync();
     }
 
-    public async Task<List<SolutionsEntity>?> GetSolution(TInitRequest request)
+    public async Task<List<SolutionEntity>?> GetSolution(TInitRequest request)
     {
         return null;
     }
-    public async Task<List<SolutionsEntity>?> GetFiltredTop()
+    public async Task<List<SolutionEntity>?> GetFiltredTop()
     {
         return await _solutionRepository.GetTopList();
     }

@@ -21,14 +21,15 @@ public static class ApiExtensions
         IConfiguration configuration
     )
     {
+        services.AddTransient<CourseService>();
+        services.AddTransient<DailyService>();
+        services.AddTransient<UserService>();
+        services.AddTransient<DataService>();
 
-        services.AddScoped<DailyService>();
-        services.AddScoped<UserService>();
-        services.AddScoped<DataService>();
-
-        services.AddScoped<DailyRepository>();
-        services.AddScoped<SolutionsRepository>();
-        services.AddScoped<UserRepository>();
+        services.AddTransient<CourseRepository>();
+        services.AddTransient<DailyRepository>();
+        services.AddTransient<SolutionsRepository>();
+        services.AddTransient<UserRepository>();
 
 
     }

@@ -12,7 +12,7 @@ namespace CodeCombat.DataAccess
     }
 
     public DbSet<UserEntity> Users { get; set; } = null!; 
-    public DbSet<SolutionsEntity> Solutions { get; set; } = null!; 
+    public DbSet<SolutionEntity> Solutions { get; set; } = null!; 
     public DbSet<CommentEntity> Comments { get; set; } = null!; 
     public DbSet<DailyEntity> Dailys { get; set; } = null!; 
     public DbSet<BaseContentEntity> AllContent { get; set; } = null!; 
@@ -25,6 +25,14 @@ namespace CodeCombat.DataAccess
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseNpgsql(_configuration.GetConnectionString("DataBase"));
+    }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<UserEntity>()
+                .HasMany(c => c.Courses)
+                .WithOne(p => p.User);
+        modelBuilder.Entity<BaseContentEntity>().UseTphMappingStrategy();
+        modelBuilder.Entity<BaseModuleEntity>().UseTphMappingStrategy();
     }
 
 }

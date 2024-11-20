@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace CodeCombat.DataAccess.Entity;
 
 
-public class SolutionsEntity
+public class SolutionEntity
 {
     public long Id{ get; set; }
     public UserEntity? User{ get; set; }

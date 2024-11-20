@@ -9,13 +9,13 @@ public class SolutionsRepository
         {
             _context = context;
         }
-            public async Task AddSolution(SolutionsEntity solution)
+            public async Task AddSolution(SolutionEntity solution)
         {
             await _context.Solutions.AddAsync(solution);
             await _context.SaveChangesAsync();
         }
         
-        public async Task<List<SolutionsEntity>?> GetSolution(UserEntity user)
+        public async Task<List<SolutionEntity>?> GetSolution(UserEntity user)
         {
             var solutions = await _context.Solutions
                                         .AsNoTracking()
@@ -24,7 +24,7 @@ public class SolutionsRepository
             return solutions;
         }
 
-        public async Task<List<SolutionsEntity>?> GetTopList()
+        public async Task<List<SolutionEntity>?> GetTopList()
         {
             var dateNow = DateOnly.FromDateTime(DateTime.UtcNow);
             var solutions = 

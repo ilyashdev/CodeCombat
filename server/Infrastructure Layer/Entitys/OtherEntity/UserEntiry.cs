@@ -5,6 +5,6 @@ public class UserEntity
         public string Username{ get; set; } = string.Empty;
         public double CoinValue { get; set; } = 0;
         public DateTime RegisterTime{ get; init; } = DateTime.UtcNow;
-        public List<SolutionEntity> Solutions{ get; set; } = new();
-        public List<CourseEntity> Courses { get; set; } = new();
+        public virtual List<SolutionEntity> Solutions{ get; set; } = new();
+        public virtual List<CourseEntity> Courses { get; set; } = new();
 }

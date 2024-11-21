@@ -22,7 +22,8 @@ namespace CodeCombat.Controllers;
         [HttpGet]
         public async Task<IActionResult> GetCourse([FromQuery]Guid courseId)
         {
-            return Ok(await _courseService.GetCourse(courseId));
+            var course = await _courseService.GetCourse(courseId);
+            return Ok(course);
         }
         [Route("info")]
         [HttpGet]

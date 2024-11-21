@@ -15,24 +15,24 @@ namespace CodeCombat.DataAccess
     public DbSet<SolutionEntity> Solutions { get; set; } = null!; 
     public DbSet<CommentEntity> Comments { get; set; } = null!; 
     public DbSet<DailyEntity> Dailys { get; set; } = null!; 
-    public DbSet<BaseContentEntity> AllContent { get; set; } = null!; 
-    public DbSet<BaseModuleEntity> AllModules {get; set;}= null!; 
-    public DbSet<CodeEntity> CodeModules {get; set;}= null!; 
-    public DbSet<TextEntity> TextModules {get; set;}= null!; 
-    public DbSet<FlashCardEntity> FlashCardModules {get; set;}= null!; 
+    public DbSet<ModuleEntity> AllModules {get; set;}= null!; 
     public DbSet<CourseEntity> Courses {get; set;}= null!; 
     public DbSet<TestEntity> Tests { get; set; }= null!; 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql(_configuration.GetConnectionString("DataBase"));
+        optionsBuilder
+            .UseLazyLoadingProxies()
+            .UseNpgsql(_configuration.GetConnectionString("DataBase"));
     }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<UserEntity>()
                 .HasMany(c => c.Courses)
                 .WithOne(p => p.User);
-        modelBuilder.Entity<BaseContentEntity>().UseTphMappingStrategy();
-        modelBuilder.Entity<BaseModuleEntity>().UseTphMappingStrategy();
+        modelBuilder.Entity<CourseEntity>()
+                .HasMany(c => c.Modules)
+                .WithOne(m => m.Course);
+
     }
 
 }

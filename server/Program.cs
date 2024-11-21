@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 using CodeCombat.DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,8 +12,7 @@ services.AddSwaggerGen(options =>
 );
 
 
-services.AddControllers()
-    .AddJsonOptions(options => { options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;});
+services.AddControllers();
 services.AddScoped<CCDbContext>();
 
 ApiExtensions.AddApiCors(services, configuration);

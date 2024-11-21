@@ -1,11 +1,7 @@
-using System.ComponentModel.DataAnnotations.Schema;
 namespace CodeCombat.DataAccess.Entity;
 
-
-public class DailyEntity
+public class CodeEntity : BaseModuleEntity
 {
-    public long Id{ get; set; }
-    public DateOnly Daytime{ get; init; }
     public string Title{ get; set; } = string.Empty;
     public string Description{ get; set; } = string.Empty;
     public string Input{ get; set; } = string.Empty;

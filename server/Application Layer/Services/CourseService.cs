@@ -19,22 +19,11 @@ public class CourseService
     {
         var Id = await _courseRepository.CreateCourseAsync(user, course.Title, course.Description, course.Tags);
         if(course.Modules != null)
-        await _courseRepository.AddModuleAsync(Id, course.Modules);
+        await _courseRepository.AddModuleAsync(Id, course.Modules.Select(m => JsonConvert.DeserializeObject<dynamic>(m.GetRawText())).ToList());
     }
-    public async Task<CourseResponce> GetCourse(Guid courseId)
+    public async Task<CourseEntity?> GetCourse(Guid courseId)
     {
-        var course = await _courseRepository.GetCourseAsync(courseId);
-        return new CourseResponce
-        (
-            course.User.Username,
-            course.Title,
-            course.Desc,
-            course.Like,
-            course.Dislike,
-            course.PublicTime,
-            course.Tags,
-            course.Modules.Select(m => new Module(m.Name,m.Type,m.Data)).ToList()
-        );
+        return await _courseRepository.GetCourseAsync(courseId);
     }
     public async Task<List<ContentDto>> GetCourseList()
     {

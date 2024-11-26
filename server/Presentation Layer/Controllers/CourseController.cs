@@ -1,34 +1,46 @@
 using Microsoft.AspNetCore.Mvc;
-using CodeCombat.Contracts;
-using CodeCombat.Services;
-using CodeCombat.DataAccess.Repositories;
-using CodeCombat.DataAccess.Entity;
 namespace CodeCombat.Controllers;
     [ApiController]
     [Route("[controller]")]
     public class CourseController : ControllerBase
     {
-        private CourseService _courseService;
-        public CourseController(CourseService courseService)
+        public CourseController()
         {
-            _courseService = courseService;
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCourseList(int Page)
+        {
+            return Ok();
+        }
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetCourse(Guid id)
+        {
+            return Ok();
+        }
+        [HttpGet]
+        [Route("{id}/{module}")]
+        public async Task<IActionResult> GetCourse(Guid id, int module)
+        {
+            return Ok();
         }
         [HttpPost]
-        public async Task<IActionResult> PostCourse([FromBody] CoursePostRequest request)
+        public async Task<IActionResult> PostCourse()
         {
-            await _courseService.AddCourse(new Models.User(1,"1"),request);
-            return Ok(request);
+            return Ok();
         }
-        [HttpGet]
-        public async Task<IActionResult> GetCourse([FromQuery]Guid courseId)
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteCourse(Guid id)
         {
-            return Ok(await _courseService.GetCourse(courseId));
+            return Ok();
         }
-        [Route("info")]
-        [HttpGet]
-        public async Task<IActionResult> GetCourseList()
+        [HttpPatch]
+        [Route("{id}")]
+        public async Task<IActionResult> EditCourse(Guid id)
         {
-            var courseList = await _courseService.GetCourseList();
-            return Ok(courseList);
+            return Ok();
         }
     }

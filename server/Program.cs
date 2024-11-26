@@ -13,7 +13,7 @@ services.AddSwaggerGen(options =>
 
 
 services.AddControllers();
-services.AddScoped<CCDbContext>();
+//services.AddScoped<CCDbContext>();
 
 ApiExtensions.AddApiCors(services, configuration);
 ApiExtensions.AddApiServices(services, configuration);
@@ -23,8 +23,8 @@ var app = builder.Build();
 
 using var scope = app.Services.CreateScope();
 
-await using var dbContext = scope.ServiceProvider.GetRequiredService<CCDbContext>();
-await dbContext.Database.EnsureCreatedAsync();
+// await using var dbContext = scope.ServiceProvider.GetRequiredService<CCDbContext>();
+// await dbContext.Database.EnsureCreatedAsync();
 
 app.UseCors();
 app.MapControllers();

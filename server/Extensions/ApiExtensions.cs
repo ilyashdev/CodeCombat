@@ -1,5 +1,3 @@
-using CodeCombat.DataAccess.Repositories;
-using CodeCombat.Services;
 public static class ApiExtensions
 {
     public static void AddApiCors(
@@ -21,16 +19,6 @@ public static class ApiExtensions
         IConfiguration configuration
     )
     {
-        services.AddTransient<CourseService>();
-        services.AddTransient<DailyService>();
-        services.AddTransient<UserService>();
-        services.AddTransient<DataService>();
-
-        services.AddTransient<CourseRepository>();
-        services.AddTransient<DailyRepository>();
-        services.AddTransient<SolutionsRepository>();
-        services.AddTransient<UserRepository>();
-
-
+        
     }
 }

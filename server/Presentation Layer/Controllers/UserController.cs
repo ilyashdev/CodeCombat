@@ -1,27 +1,30 @@
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Mvc;
-using CodeCombat.Contracts;
-using CodeCombat.Services;
 namespace CodeCombat.Controllers;
 
     [ApiController]
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly UserService _userService;
-        public UserController(IWebHostEnvironment webHostEnvironment, UserService userService)
+        public UserController()
         {
-            _webHostEnvironment = webHostEnvironment;
-            _userService = userService;
-        }
-        [HttpGet]
-        public async Task<IActionResult> Init([FromQuery] TInitRequest request)
-        {
-            if(await _userService.Init(new Models.User(request.id, request.username)))
-            return Ok("create user");
-            return Ok();
-        }
 
-        
-
+        }
+            [HttpGet]
+            [Route("{id}")]
+            public async Task<IActionResult> GetUser(long id)
+            {
+                return Ok();
+            }
+            [HttpGet]
+            public async Task<IActionResult> GetProfile()
+            {
+                return Ok();
+            }
+            [Route("{id}")]
+            [HttpPost]
+            public async Task<IActionResult> GetUserProfile(long id)
+            {
+                return Ok();
+            }
     }

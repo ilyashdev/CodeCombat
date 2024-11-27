@@ -21,9 +21,8 @@ namespace CodeCombat.Controllers;
             {
                 return Ok();
             }
-            [Route("{id}")]
             [HttpPost]
-            public async Task<IActionResult> GetUserProfile(long id)
+            public async Task<IActionResult> SignUp()
             {
                 return Ok();
             }

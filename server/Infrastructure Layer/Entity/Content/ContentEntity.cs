@@ -6,7 +6,9 @@ public class ContentEntity
     public string? ContentType {get;set;}
     public DateTime PublicTime {get;set;}
     public string? Name {get;set;}
+    public ICollection<string> Tags {get;set;}
     public ICollection<UserEntity>? UpUsers{get;set;}
     public ICollection<UserEntity>? DownUsers{get;set;}
+    public ICollection<UserEntity>? InFavoriteUser{get;set;}
     public ICollection<CommentEntity>? Comments {get;set;}
 }

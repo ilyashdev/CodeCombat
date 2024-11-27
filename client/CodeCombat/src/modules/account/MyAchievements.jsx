@@ -4,7 +4,7 @@ import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { NavLink } from "react-router-dom";
-import "./css/CutImg.css";
+import "../css/CutImg.css";
 import { Award } from "react-bootstrap-icons";
 
 const MyAchievements = () => {

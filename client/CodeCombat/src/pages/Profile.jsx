@@ -1,10 +1,9 @@
 import Container from "react-bootstrap/esm/Container";
-import ProfileHead from "../modules/ProfileHead";
-import ProfileInfo from "../modules/ProfileInfo";
-import MyCalendar from "../modules/MyCalendar";
-import MyCourses from "../modules/MyCourses";
-import MyAchievements from "../modules/MyAchievements";
-import Footer from "../modules/Footer";
+import ProfileHead from "../modules/account/ProfileHead";
+import ProfileInfo from "../modules/account/ProfileInfo";
+import MyCalendar from "../modules/account/MyCalendar";
+import MyCourses from "../modules/account/MyCourses";
+import MyAchievements from "../modules/account/MyAchievements";
 
 const Profile = () => {
   return (

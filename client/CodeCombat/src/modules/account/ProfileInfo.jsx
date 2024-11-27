@@ -10,7 +10,7 @@ const ProfileInfo = () => {
         <Col xs="auto" md={3} className="p-0">
           <Card className="p-3 bg-dark text-light rounded-4">
             <h3>Коины</h3>
-            <p className="m-0">1488</p>
+            <p className="m-0">1550</p>
           </Card>
         </Col>
         <Col xs="auto" md={3} className="p-0">

@@ -1,5 +1,5 @@
 import Container from "react-bootstrap/esm/Container";
-import "./css/CutImg.css";
+import "../css/CutImg.css";
 import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
 import { List } from "react-bootstrap-icons";

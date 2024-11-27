@@ -1,0 +1,127 @@
+import Container from "react-bootstrap/esm/Container";
+import SearchBar from "../search/SearchBar";
+import ViewCourses from "../search/ViewCourses";
+import Pagintion from "../search/Pagintion";
+import { useQuery } from "@tanstack/react-query";
+import { Button, Navbar, Offcanvas, Spinner } from "react-bootstrap";
+import {
+  Book,
+  CardImage,
+  CardText,
+  CarFront,
+  CodeSlash,
+  MenuApp,
+  MenuButton,
+} from "react-bootstrap-icons";
+import { useContext, useState } from "react";
+import { CourseAPI } from "../../http/CourseAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { writeModule } from "../../shared/redux/store";
+import { redirect, useNavigate } from "react-router-dom";
+
+const CourseNav = () => {
+  const [offcanvas, SetOffcanvas] = useState(false);
+  const navigate = useNavigate();
+
+  const dispath = useDispatch();
+  const activeModuleId = useSelector((state) => state.activeModule.id);
+  const activeCourse = useSelector((state) => state.activeCouse);
+
+  const { data, isPending, error } = useQuery({
+    queryKey: ["course", activeCourse.id, "modules"],
+    queryFn: () =>
+      CourseAPI.getStructCourse(activeCourse.id, activeCourse.name),
+  });
+
+  const OnChoseModule = (module) => {
+    dispath(writeModule({ activeModule: module }));
+    navigate(
+      "/course/" +
+        activeCourse.name +
+        "&" +
+        activeCourse.id +
+        "/" +
+        module.name +
+        "&" +
+        module.id
+    );
+    SetOffcanvas(false);
+  };
+
+  if (isPending) {
+    //return <Spinner />;
+  }
+
+  return (
+    <Navbar className="bg-light bg-opacity-10 position-sticky">
+      <Container className="d-flex justify-content-start">
+        <Button
+          variant="link"
+          className=""
+          style={{ textDecoration: "none", color: "#eee" }}
+          onClick={() => {
+            SetOffcanvas(true);
+          }}
+        >
+          <MenuApp height={25} width={25} />
+        </Button>
+        <h3 className="m-0 mx-3">{data.Name}</h3>
+      </Container>
+      <Offcanvas
+        data-bs-theme="dark"
+        show={offcanvas}
+        onHide={() => {
+          SetOffcanvas(false);
+        }}
+      >
+        <Offcanvas.Header closeButton>
+          <h2>{data.Name}</h2>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          {data.data.map((module) =>
+            module.type == "text" ? (
+              <Button
+                key={module.id}
+                variant="outline-secondary"
+                style={{ textDecoration: "none", color: "#eee" }}
+                disabled={module.id == activeModuleId}
+                className={"d-flex p-2 my-2 container"}
+                onClick={() => OnChoseModule(module)}
+              >
+                <Book key={module.id} width={20} height={20} />
+                <h5 className="m-0 mx-2">{module.name}</h5>
+              </Button>
+            ) : module.type == "code" ? (
+              <Button
+                key={module.id}
+                variant="outline-secondary"
+                style={{ textDecoration: "none", color: "#eee" }}
+                disabled={module.id == activeModuleId}
+                className={"d-flex p-2 my-2 container"}
+                onClick={() => OnChoseModule(module)}
+              >
+                <CodeSlash key={module.id} width={20} height={20} />
+
+                <h5 className="m-0 mx-2">{module.name}</h5>
+              </Button>
+            ) : (
+              <Button
+                key={module.id}
+                variant="outline-secondary"
+                style={{ textDecoration: "none", color: "#eee" }}
+                disabled={module.id == activeModuleId}
+                className={"d-flex p-2 my-2 container"}
+                onClick={() => OnChoseModule(module)}
+              >
+                <CardText key={module.id} width={20} height={20} />
+                <h5 className="m-0 mx-2">{module.name}</h5>
+              </Button>
+            )
+          )}
+        </Offcanvas.Body>
+      </Offcanvas>
+    </Navbar>
+  );
+};
+
+export default CourseNav;

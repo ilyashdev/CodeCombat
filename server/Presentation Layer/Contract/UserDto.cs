@@ -1,2 +1,3 @@
-namespace CodeCombat.Contract;
-public record UserDto(long Id, string name);
+namespace CodeCombat.Presentation_Layer.Contract;
+
+public record UserDto(long Id, string Name);

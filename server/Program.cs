@@ -1,22 +1,19 @@
-using CodeCombat.DataAccess;
+using CodeCombat.Extensions;
+using CodeCombat.Infrastructure_Layer;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 var services = builder.Services;
 
 services.AddEndpointsApiExplorer();
-services.AddSwaggerGen(options =>
-{
-    options.UseDateOnlyTimeOnlyStringConverters();
-}
-);
+services.AddSwaggerGen(options => options.UseDateOnlyTimeOnlyStringConverters());
 
 
 services.AddControllers();
-//services.AddScoped<CCDbContext>();
+services.AddDbContext<CcDbContext>();
 
-ApiExtensions.AddApiCors(services, configuration);
-ApiExtensions.AddApiServices(services, configuration);
+services.AddApiCors(configuration);
+services.AddApiServices(configuration);
 
 var app = builder.Build();
 

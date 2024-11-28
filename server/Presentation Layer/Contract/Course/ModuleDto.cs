@@ -1,3 +1,2 @@
-namespace CodeCombat.Presentation_Layer.Contract.Course;
-
+namespace CodeCombat.Contract;
 public record ModuleDto(string Name, string Type);

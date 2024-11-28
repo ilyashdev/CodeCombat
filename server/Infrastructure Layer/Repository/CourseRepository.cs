@@ -1,46 +1,41 @@
-using CodeCombat.Domain_Layer.Models;
-using CodeCombat.Domain_Layer.Models.Course;
-using CodeCombat.Domain_Layer.Models.Course.Modules;
-using CodeCombat.Infrastructure_Layer.Repository.IRepository.cs;
-using CodeCombat.Presentation_Layer.Contract.Course;
+using CodeCombat.Contract;
+using CodeCombat.Model;
+using Microsoft.EntityFrameworkCore;
 
-namespace CodeCombat.Infrastructure_Layer.Repository;
-
+namespace CodeCombat.DataAccess.Repository;
 public class CourseRepository : ICourseRepository
 {
-    private CcDbContext _context;
-
-    public CourseRepository(CcDbContext context)
+    private CCDbContext _context;
+    public CourseRepository(CCDbContext context)
     {
         _context = context;
     }
-
-    public Task DeleteCourseAsync(User user, Guid id)
+    public Task DeleteCourseAsync(User user, Guid Id)
     {
         throw new NotImplementedException();
     }
 
-    public Task EditCourseAsync(User user, Course changeCourse)
+    public Task EditCourseAsync(User user, Course ChangeCourse)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Course> GetCourseAsync(Guid id)
+    public Task<Course> GetCourseAsync(Guid Id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<CourseDto> GetCourseListAsync(int page)
+    public Task<CourseDto> GetCourseListAsync(int Page)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Module> GetModuleAsync(Guid courseId, int moduleId)
+    public Task<Module> GetModuleAsync(Guid CourseId, int ModuleId)
     {
         throw new NotImplementedException();
     }
 
-    public Task PostCourseAsync(User user, Course postCourse)
+    public Task PostCourseAsync(User user, Course PostCourse)
     {
         throw new NotImplementedException();
     }

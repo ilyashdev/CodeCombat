@@ -1,15 +1,12 @@
-using CodeCombat.Domain_Layer.Models;
-using CodeCombat.Domain_Layer.Models.Course;
-using CodeCombat.Domain_Layer.Models.Course.Modules;
+using CodeCombat.Model;
 
-namespace CodeCombat.Application_Layer.Services.IService;
-
+namespace CodeCombat.Service;
 public interface ICourseService
 {
-    Task<ICollection<Course>> GetCourseListAsync(int page);
-    Task<Course> GetCourseAsync(Guid id);
-    Task<Module> GetModuleAsync(Guid courseId, int moduleId);
-    Task PostCourseAsync(User user, Course postCourse);
-    Task DeleteCourseAsync(User user, Guid id);
-    Task EditCourseAsync(User user, Course changeCourse);
+    Task<ICollection<Course>> GetCourseListAsync(int Page);
+    Task<Course> GetCourseAsync(Guid Id);
+    Task<Module> GetModuleAsync(Guid CourseId, int ModuleId);
+    Task PostCourseAsync(User user,Course PostCourse);
+    Task DeleteCourseAsync(User user,Guid Id);
+    Task EditCourseAsync(User user,Course ChangeCourse);
 }

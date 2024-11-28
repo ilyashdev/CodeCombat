@@ -1,14 +1,12 @@
-using CodeCombat.Domain_Layer.Factory.Attribute;
-using CodeCombat.Domain_Layer.Models.Course.Modules;
-using CodeCombat.Presentation_Layer.Contract.Course;
+using CodeCombat.Contract;
+using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace CodeCombat.Domain_Layer.Factory.ModuleFactory;
-
+namespace CodeCombat.Model;
 [ModuleFactory("Text")]
 public class TextFactory : ModuleFactoryBase
 {
-    public override Module Create(ModuleRecord module)
+    override public Module Create(ModuleRecord module)
     {
-        return new TextModule(module.Name, module.Type, module.Data.Text);
+        return new TextModule(module.Name,module.Type,module.Data.Text);
     }
 }

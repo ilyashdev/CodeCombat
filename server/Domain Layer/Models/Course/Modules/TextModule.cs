@@ -1,5 +1,4 @@
-namespace CodeCombat.Domain_Layer.Models.Course.Modules;
-
+namespace CodeCombat.Model;
 public class TextModule : Module
 {
     public TextModule(string name, string type, string text) : base(name, type)
@@ -7,5 +6,6 @@ public class TextModule : Module
         Text = text;
     }
 
-    public string Text { get; set; }
+    string Text {get;set;}
+    
 }

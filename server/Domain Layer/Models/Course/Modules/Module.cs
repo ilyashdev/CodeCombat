@@ -1,4 +1,4 @@
-namespace CodeCombat.Domain_Layer.Models.Course.Modules;
+namespace CodeCombat.Model;
 
 public class Module
 {
@@ -8,6 +8,6 @@ public class Module
         Type = type;
     }
 
-    public string Name { get; set; }
-    public string Type { get; set; }
+    public string Name{get;set;}
+    public string Type{get;set;}
 }

@@ -1,12 +1,10 @@
-namespace CodeCombat.Domain_Layer.Factory.Attribute;
-
+namespace CodeCombat.Model;
 [AttributeUsage(AttributeTargets.Class)]
-public class ModuleFactoryAttribute : System.Attribute
+public class ModuleFactoryAttribute : Attribute
 {
-    public ModuleFactoryAttribute(string type)
-    {
-        Type = type;
-    }
-
-    public string Type { get; }
+public string Type { get; } 
+public ModuleFactoryAttribute(string type)
+{ 
+    Type = type;
+}
 }

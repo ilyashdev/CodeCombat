@@ -1,11 +1,8 @@
-using CodeCombat.Infrastructure_Layer.Entity.Content;
-
-namespace CodeCombat.Infrastructure_Layer.Entity.Module;
-
+namespace CodeCombat.DataAccess;
 public class ModuleEntity
 {
-    public int Id { get; set; }
-    public string? Type { get; set; }
-    public string? Name { get; set; }
-    public CourseEntity? Course { get; set; }
+    public int Id {get;set;}
+    public string? Type {get;set;}
+    public string? Name {get;set;}
+    public CourseEntity? Course {get;set;}
 }

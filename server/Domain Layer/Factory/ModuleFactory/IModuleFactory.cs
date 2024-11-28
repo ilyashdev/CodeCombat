@@ -1,8 +1,6 @@
-using CodeCombat.Domain_Layer.Models.Course.Modules;
-using CodeCombat.Presentation_Layer.Contract.Course;
+using CodeCombat.Contract;
 
-namespace CodeCombat.Domain_Layer.Factory.ModuleFactory;
-
+namespace CodeCombat.Model;
 public interface IModuleFactory
 {
     Module Create(ModuleRecord module);

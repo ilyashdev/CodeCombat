@@ -1,34 +1,38 @@
-using CodeCombat.Model;
+using CodeCombat.Application_Layer.Services.IService;
+using CodeCombat.Domain_Layer.Models;
+using CodeCombat.Domain_Layer.Models.Course;
+using CodeCombat.Domain_Layer.Models.Course.Modules;
 
-namespace CodeCombat.Service;
+namespace CodeCombat.Application_Layer.Services;
+
 public class CourseService : ICourseService
 {
-    public Task DeleteCourseAsync(User user, Guid Id)
+    public Task DeleteCourseAsync(User user, Guid id)
     {
         throw new NotImplementedException();
     }
 
-    public Task EditCourseAsync(User user, Course ChangeCourse)
+    public Task EditCourseAsync(User user, Course changeCourse)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Course> GetCourseAsync(Guid Id)
+    public Task<Course> GetCourseAsync(Guid id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<ICollection<Course>> GetCourseListAsync(int Page)
+    public Task<ICollection<Course>> GetCourseListAsync(int page)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Module> GetModuleAsync(Guid CourseId, int ModuleId)
+    public Task<Module> GetModuleAsync(Guid courseId, int moduleId)
     {
         throw new NotImplementedException();
     }
 
-    public Task PostCourseAsync(User user, Course PostCourse)
+    public Task PostCourseAsync(User user, Course postCourse)
     {
         throw new NotImplementedException();
     }

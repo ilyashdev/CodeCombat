@@ -1,25 +1,32 @@
+using CodeCombat.Infrastructure_Layer.Entity.Content;
+using CodeCombat.Infrastructure_Layer.Entity.Data;
+using CodeCombat.Infrastructure_Layer.Entity.Module;
 using Microsoft.EntityFrameworkCore;
 
-namespace CodeCombat.DataAccess
-{
-    public class CCDbContext : DbContext
+namespace CodeCombat.Infrastructure_Layer;
+
+public class CcDbContext : DbContext
 {
     private readonly IConfiguration _configuration;
-    public CCDbContext(IConfiguration configuration)
+
+    public CcDbContext(IConfiguration configuration)
     {
         _configuration = configuration;
     }
-    public DbSet<UserEntity> Users {get;set;} = null!;    
-    public DbSet<ContentEntity> Contents {get;set;} = null!;
-    public DbSet<CommentEntity> Comments {get;set;} = null!;
-    public DbSet<CourseEntity> Courses {get;set;} = null!;
-    public DbSet<ModuleEntity> Modules {get;set;} = null!;
+
+    public DbSet<UserEntity> Users { get; set; } = null!;
+    public DbSet<ContentEntity> Contents { get; set; } = null!;
+    public DbSet<CommentEntity> Comments { get; set; } = null!;
+    public DbSet<CourseEntity> Courses { get; set; } = null!;
+    public DbSet<ModuleEntity> Modules { get; set; } = null!;
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder
             .UseNpgsql(_configuration.GetConnectionString("DataBase"));
     }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<UserEntity>()
             .HasMany(u => u.MyContent)
@@ -46,11 +53,6 @@ namespace CodeCombat.DataAccess
             .WithOne(m => m.Course);
 
         modelBuilder.Entity<ModuleEntity>()
-            .UseTphMappingStrategy(); 
+            .UseTphMappingStrategy();
     }
-
 }
-
-}
-
-

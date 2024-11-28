@@ -1,2 +1,2 @@
 # CodeCombat
- telegram crypto code game
+ tma learn platform

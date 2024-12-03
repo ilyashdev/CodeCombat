@@ -79,8 +79,8 @@ public class CourseRepository : ICourseRepository
     public async Task PostCourseAsync(long telegramId, Course postCourse)
     {
         var userEntity = await _context.Users
+            .Include(u => u.MyContent)
             .FirstAsync(u => u.TelegramId == telegramId);
-        await _context.Entry(userEntity).Collection(c => c.MyContent).LoadAsync();
         userEntity.MyContent.Add(postCourse);
         await _context.SaveChangesAsync();
     }

@@ -18,17 +18,6 @@ public class CourseRepository : ICourseRepository
         _context = context;
     }
 
-    public async Task DeleteCourseAsync(long telegramId, Guid id)
-    {
-        var course = await _context.Courses
-            .FirstAsync(c => c.Id == id);
-        await _context.Entry(course).Reference(c => c.Creator).LoadAsync();
-        if(course.Creator.TelegramId != telegramId)
-            throw new Exception("нет прав на выполнение действия");
-        _context.Courses.Remove(course);
-        await _context.SaveChangesAsync();
-    }
-
     public async Task EditCourseAsync(long telegramId, Course changeCourse)
     {
         var course = await _context.Courses
@@ -52,36 +41,11 @@ public class CourseRepository : ICourseRepository
     public async Task<ICollection<CourseDto>> GetCourseListAsync(int page, CourseListRequest? request)
     {
         //Фильтрация?
-        var courses = _context.Courses
-            .OrderBy(c => c.InFavoriteUser.Count)
-            .Where(c => c.Tags.All(t => request.tags.Contains(t)))
-            .Skip(CourseOptions.PAGE_SIZE * page)
-            .Take(CourseOptions.PAGE_SIZE);
-        await courses.ForEachAsync(c => {
-            _context.Entry(c).Reference(c => c.Creator).Load();
-            _context.Entry(c).Reference(c => c.Comments).Load();
-            });
-        var courseDto = courses
-            .Select(
-                c => new CourseDto(
-                    c.Id,
-                    new UserDto(c.Creator.TelegramId,c.Creator.Name),
-                    c.Tags,
-                    c.ContentType,
-                    c.PublicTime,
-                    c.UpUsers.Count,
-                    c.DownUsers.Count,
-                    (ICollection<ModuleDto>)c.Modules.Select(m => new ModuleDto(m.Name,m.ModuleType))
-                    ));
-        return await courseDto.ToListAsync();
+
     }
 
     public async Task PostCourseAsync(long telegramId, Course postCourse)
     {
-        var userEntity = await _context.Users
-            .Include(u => u.MyContent)
-            .FirstAsync(u => u.TelegramId == telegramId);
-        userEntity.MyContent.Add(postCourse);
-        await _context.SaveChangesAsync();
+
     }
 }

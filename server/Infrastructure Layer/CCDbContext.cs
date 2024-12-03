@@ -19,6 +19,7 @@ public class CcDbContext : DbContext
     public DbSet<Comment> Comments { get; set; } = null!;
     public DbSet<Course> Courses { get; set; } = null!;
     public DbSet<Module> Modules { get; set; } = null!;
+    public DbSet<Tag> Tags { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -57,6 +58,10 @@ public class CcDbContext : DbContext
         modelBuilder.Entity<Course>()
             .HasMany(c => c.Modules)
             .WithOne(m => m.InCourse);
+        
+        modelBuilder.Entity<Tag>()
+            .HasMany(t => t.Contents)
+            .WithMany(c => c.Tags);
 
         modelBuilder.Entity<Module>()
             .UseTphMappingStrategy()

@@ -9,7 +9,7 @@ public class Content
     public User? Creator { get; set; }
     public string? ContentType { get; set; }
     public DateTime PublicTime { get; set; }
-    public ICollection<string>? Tags { get; set; }
+    public ICollection<Tag>? Tags { get; set; }
     public string? Name { get; set; }
     public int Up { get; set; }
     public int Down { get; set; }

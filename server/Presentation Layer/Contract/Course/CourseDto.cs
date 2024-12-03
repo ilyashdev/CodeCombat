@@ -8,4 +8,4 @@ public record CourseDto(
     DateTime PublicTime,
     long Up,
     long Down,
-    ICollection<CommentDto> Comments) : ContentDto(Id, Creator, Tags, Type, PublicTime, Up, Down, Comments);
+    ICollection<ModuleDto> Modules);

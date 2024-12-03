@@ -9,6 +9,14 @@ public class TextFactory : ModuleFactoryBase
 {
     public override Module Create(ModuleRecord module)
     {
-        return new TextModule(module.Name, module.Type, module.Data.Text);
+        var textModule = new TextModule
+        {
+            Name = module.Name,
+            ModuleType = module.Type
+        };
+        textModule.Text = (string)module.Data["Text"] 
+        ?? 
+        throw new InvalidOperationException("No text field");
+        return textModule;
     }
 }

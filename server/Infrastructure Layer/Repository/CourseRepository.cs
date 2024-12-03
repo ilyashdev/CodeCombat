@@ -1,47 +1,87 @@
+using System.Reflection;
 using CodeCombat.Domain_Layer.Models;
 using CodeCombat.Domain_Layer.Models.Course;
-using CodeCombat.Domain_Layer.Models.Course.Modules;
 using CodeCombat.Infrastructure_Layer.Repository.IRepository.cs;
+using CodeCombat.Options;
+using CodeCombat.Presentation_Layer.Contract;
 using CodeCombat.Presentation_Layer.Contract.Course;
+using Microsoft.EntityFrameworkCore;
 
 namespace CodeCombat.Infrastructure_Layer.Repository;
 
 public class CourseRepository : ICourseRepository
 {
-    private CcDbContext _context;
+    private readonly CcDbContext _context;
 
     public CourseRepository(CcDbContext context)
     {
         _context = context;
     }
 
-    public Task DeleteCourseAsync(User user, Guid id)
+    public async Task DeleteCourseAsync(long telegramId, Guid id)
     {
-        throw new NotImplementedException();
+        var course = await _context.Courses
+            .FirstAsync(c => c.Id == id);
+        await _context.Entry(course).Reference(c => c.Creator).LoadAsync();
+        if(course.Creator.TelegramId != telegramId)
+            throw new Exception("нет прав на выполнение действия");
+        _context.Courses.Remove(course);
+        await _context.SaveChangesAsync();
     }
 
-    public Task EditCourseAsync(User user, Course changeCourse)
+    public async Task EditCourseAsync(long telegramId, Course changeCourse)
     {
-        throw new NotImplementedException();
+        var course = await _context.Courses
+            .FirstAsync(c => c.Id == changeCourse.Id);
+        await _context.Entry(course).Reference(c => c.Creator).LoadAsync();
+        if(course.Creator.TelegramId != telegramId)
+            throw new Exception("нет прав на выполнение действия");
+        course.Name = changeCourse.Name;
+        course.Tags = changeCourse.Tags;
+        await _context.SaveChangesAsync();
     }
 
-    public Task<Course> GetCourseAsync(Guid id)
+    public async Task<Course> GetCourseAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var course = await _context.Courses
+            .AsNoTracking()
+            .FirstAsync(c => c.Id == id);
+        return course;
     }
 
-    public Task<CourseDto> GetCourseListAsync(int page)
+    public async Task<ICollection<CourseDto>> GetCourseListAsync(int page, CourseListRequest? request)
     {
-        throw new NotImplementedException();
+        //Фильтрация?
+        var courses = _context.Courses
+            .OrderBy(c => c.InFavoriteUser.Count)
+            .Where(c => c.Tags.All(t => request.tags.Contains(t)))
+            .Skip(CourseOptions.PAGE_SIZE * page)
+            .Take(CourseOptions.PAGE_SIZE);
+        await courses.ForEachAsync(c => {
+            _context.Entry(c).Reference(c => c.Creator).Load();
+            _context.Entry(c).Reference(c => c.Comments).Load();
+            });
+        var courseDto = courses
+            .Select(
+                c => new CourseDto(
+                    c.Id,
+                    new UserDto(c.Creator.TelegramId,c.Creator.Name),
+                    c.Tags,
+                    c.ContentType,
+                    c.PublicTime,
+                    c.UpUsers.Count,
+                    c.DownUsers.Count,
+                    (ICollection<ModuleDto>)c.Modules.Select(m => new ModuleDto(m.Name,m.ModuleType))
+                    ));
+        return await courseDto.ToListAsync();
     }
 
-    public Task<Module> GetModuleAsync(Guid courseId, int moduleId)
+    public async Task PostCourseAsync(long telegramId, Course postCourse)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task PostCourseAsync(User user, Course postCourse)
-    {
-        throw new NotImplementedException();
+        var userEntity = await _context.Users
+            .FirstAsync(u => u.TelegramId == telegramId);
+        await _context.Entry(userEntity).Collection(c => c.MyContent).LoadAsync();
+        userEntity.MyContent.Add(postCourse);
+        await _context.SaveChangesAsync();
     }
 }

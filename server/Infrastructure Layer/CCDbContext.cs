@@ -1,6 +1,6 @@
-using CodeCombat.Infrastructure_Layer.Entity.Content;
-using CodeCombat.Infrastructure_Layer.Entity.Data;
-using CodeCombat.Infrastructure_Layer.Entity.Module;
+using CodeCombat.Domain_Layer.Models;
+using CodeCombat.Domain_Layer.Models.Course;
+using CodeCombat.Domain_Layer.Models.Course.Modules;
 using Microsoft.EntityFrameworkCore;
 
 namespace CodeCombat.Infrastructure_Layer;
@@ -14,11 +14,11 @@ public class CcDbContext : DbContext
         _configuration = configuration;
     }
 
-    public DbSet<UserEntity> Users { get; set; } = null!;
-    public DbSet<ContentEntity> Contents { get; set; } = null!;
-    public DbSet<CommentEntity> Comments { get; set; } = null!;
-    public DbSet<CourseEntity> Courses { get; set; } = null!;
-    public DbSet<ModuleEntity> Modules { get; set; } = null!;
+    public DbSet<User> Users { get; set; } = null!;
+    public DbSet<Content> Contents { get; set; } = null!;
+    public DbSet<Comment> Comments { get; set; } = null!;
+    public DbSet<Course> Courses { get; set; } = null!;
+    public DbSet<Module> Modules { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -28,31 +28,39 @@ public class CcDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<UserEntity>()
+        modelBuilder.Entity<User>()
+            .HasKey(u => u.UserId);
+        modelBuilder.Entity<User>()
             .HasMany(u => u.MyContent)
             .WithOne(c => c.Creator);
-        modelBuilder.Entity<UserEntity>()
+        modelBuilder.Entity<User>()
             .HasMany(u => u.FavoriteContent)
             .WithMany(c => c.InFavoriteUser);
-        modelBuilder.Entity<UserEntity>()
+        modelBuilder.Entity<User>()
             .HasMany(u => u.MyUps)
             .WithMany(c => c.UpUsers);
-        modelBuilder.Entity<UserEntity>()
+        modelBuilder.Entity<User>()
             .HasMany(u => u.MyDowns)
             .WithMany(c => c.DownUsers);
-        modelBuilder.Entity<UserEntity>()
+        modelBuilder.Entity<User>()
             .HasMany(u => u.MyComments)
             .WithOne(c => c.Creator);
 
-        modelBuilder.Entity<ContentEntity>()
+        modelBuilder.Entity<Content>()
             .HasMany(c => c.Comments)
             .WithOne(c => c.Content);
+        modelBuilder.Entity<Content>()
+            .UseTphMappingStrategy()
+            .HasDiscriminator(c => c.ContentType);
 
-        modelBuilder.Entity<CourseEntity>()
+
+        modelBuilder.Entity<Course>()
             .HasMany(c => c.Modules)
-            .WithOne(m => m.Course);
+            .WithOne(m => m.InCourse);
 
-        modelBuilder.Entity<ModuleEntity>()
-            .UseTphMappingStrategy();
+        modelBuilder.Entity<Module>()
+            .UseTphMappingStrategy()
+            .HasDiscriminator(m => m.ModuleType)
+            .HasValue<TextModule>("Text");
     }
 }

@@ -20,8 +20,8 @@ var app = builder.Build();
 
 using var scope = app.Services.CreateScope();
 
-// await using var dbContext = scope.ServiceProvider.GetRequiredService<CCDbContext>();
-// await dbContext.Database.EnsureCreatedAsync();
+await using var dbContext = scope.ServiceProvider.GetRequiredService<CcDbContext>();
+await dbContext.Database.EnsureCreatedAsync();
 
 app.UseCors();
 app.MapControllers();

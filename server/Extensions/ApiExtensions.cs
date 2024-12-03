@@ -1,3 +1,8 @@
+using CodeCombat.Application_Layer.Services;
+using CodeCombat.Application_Layer.Services.IService;
+using CodeCombat.Infrastructure_Layer.Repository;
+using CodeCombat.Infrastructure_Layer.Repository.IRepository.cs;
+
 namespace CodeCombat.Extensions;
 
 public static class ApiExtensions
@@ -23,5 +28,9 @@ public static class ApiExtensions
         IConfiguration configuration
     )
     {
+        services.AddTransient<ICourseService, CourseService>();
+        services.AddTransient<ICourseRepository, CourseRepository>();
+        services.AddTransient<IUserService, UserService>();
+        services.AddTransient<IUserRepository, UserRepository>();
     }
 }

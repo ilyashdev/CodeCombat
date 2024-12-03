@@ -1,15 +1,16 @@
 using CodeCombat.Domain_Layer.Models;
 using CodeCombat.Domain_Layer.Models.Course;
 using CodeCombat.Domain_Layer.Models.Course.Modules;
+using CodeCombat.Presentation_Layer.Contract;
+using CodeCombat.Presentation_Layer.Contract.Course;
 
 namespace CodeCombat.Application_Layer.Services.IService;
 
 public interface ICourseService
 {
-    Task<ICollection<Course>> GetCourseListAsync(int page);
+    Task<ICollection<CourseDto>> GetCourseListAsync(int page, CourseListRequest request);
     Task<Course> GetCourseAsync(Guid id);
-    Task<Module> GetModuleAsync(Guid courseId, int moduleId);
-    Task PostCourseAsync(User user, Course postCourse);
-    Task DeleteCourseAsync(User user, Guid id);
-    Task EditCourseAsync(User user, Course changeCourse);
+    Task PostCourseAsync(long TelegramId, ContentRequest request);
+    Task DeleteCourseAsync(long TelegramId, Guid id);
+    Task EditCourseAsync(long TelegramId, ContentRequest request);
 }

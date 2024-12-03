@@ -2,12 +2,9 @@ namespace CodeCombat.Domain_Layer.Models.Course.Modules;
 
 public class Module
 {
-    public Module(string name, string type)
-    {
-        Name = name;
-        Type = type;
-    }
-
+    public Guid ModuleId { get; set; }
+    public Course? InCourse { get; set; }
+    public string? ModuleType { get; set; }
     public string Name { get; set; }
-    public string Type { get; set; }
+    
 }

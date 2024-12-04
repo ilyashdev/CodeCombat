@@ -1,4 +1,4 @@
-using CodeCombat.Application_Layer.Services.IService;
+using CodeCombat.Application_Layer.Service.IService;
 using CodeCombat.Presentation_Layer.Contract;
 using Microsoft.AspNetCore.Mvc;
 namespace CodeCombat.Controllers;
@@ -6,11 +6,11 @@ namespace CodeCombat.Controllers;
     [Route("[controller]/{type}")]
     public class ContentController : ControllerBase
     {
-        private readonly ICourseService _courseService;
+        private readonly IContentService _contentService;
 
-    public ContentController(ICourseService courseService)
+    public ContentController(IContentService contentService)
     {
-        _courseService = courseService;
+        _contentService = contentService;
     }
     public int TelegramId = 0;
         [HttpGet]

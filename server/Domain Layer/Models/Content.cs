@@ -4,7 +4,6 @@ namespace CodeCombat.Domain_Layer.Models;
 
 public class Content
 {
-
     public Guid Id { get; set; }
     public User? Creator { get; set; }
     public string? ContentType { get; set; }

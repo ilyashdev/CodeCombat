@@ -1,6 +1,6 @@
 using CodeCombat.Domain_Layer.Models;
-using CodeCombat.Infrastructure_Layer;
 using Microsoft.EntityFrameworkCore;
+namespace CodeCombat.Infrastructure_Layer.Repository;
 
 public class UserRepository : IUserRepository
 {
@@ -19,6 +19,7 @@ public class UserRepository : IUserRepository
     {
         if(await _context.Users.FirstOrDefaultAsync(u => u.TelegramId == user.TelegramId) != null)
             throw new Exception("user is exist");
+            
         await _context.Users.AddAsync(user);
         await _context.SaveChangesAsync();
     }

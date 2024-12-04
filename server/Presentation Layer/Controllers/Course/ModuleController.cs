@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 namespace CodeCombat.Controllers;
     [ApiController]
-    [Route("Course/{id}")]
+    [Route("Content/Course/{id}")]
     public class ModuleController : ControllerBase
     {
         public ModuleController()

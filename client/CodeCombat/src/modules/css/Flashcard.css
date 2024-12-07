@@ -1,6 +1,6 @@
 .flashcard {
   display: flex;
-  width: calc(100% - 48px * 2);
+  width: calc(300px + 3 * 10vw);
   position: relative;
   justify-content: center;
   align-items: center;

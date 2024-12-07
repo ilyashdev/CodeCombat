@@ -17,12 +17,12 @@ const Footer = () => {
               </NavLink>
             </Row>
             <Row>
-              <NavLink className="my-1 text-light" to="/articles">
+              <NavLink className="my-1 text-light" to="/articles/1">
                 Статьи
               </NavLink>
             </Row>
             <Row>
-              <NavLink className="my-1 text-light" to="/courses">
+              <NavLink className="my-1 text-light" to="/courses/1">
                 Курсы
               </NavLink>
             </Row>

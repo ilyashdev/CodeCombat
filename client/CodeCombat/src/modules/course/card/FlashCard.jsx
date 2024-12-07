@@ -22,7 +22,7 @@ const Flashcard = ({ flashcard, isVisible }) => {
         setFlip(!flip);
       }}
       data-bs-theme="dark"
-      className={`mx-5 my-4 h-75 card
+      className={`mx-2 my-4 h-75 card
      flashcard ${flip ? "flip" : ""}`}
     >
       <Card.Body className="p-1 front">

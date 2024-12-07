@@ -50,7 +50,7 @@ const CourseTextCard = () => {
         className="h-75"
       >
         {data.data.map((card) => (
-          <SwiperSlide key={card.id}>
+          <SwiperSlide className="d-flex justify-content-center" key={card.id}>
             {(isActive) => (
               <Flashcard isVisible={isActive} flashcard={card} key={card} />
             )}

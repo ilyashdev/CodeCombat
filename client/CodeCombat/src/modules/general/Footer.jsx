@@ -17,8 +17,8 @@ const Footer = () => {
               </NavLink>
             </Row>
             <Row>
-              <NavLink className="my-1 text-light" to="/daily">
-                Ежедневное задание
+              <NavLink className="my-1 text-light" to="/articles">
+                Статьи
               </NavLink>
             </Row>
             <Row>

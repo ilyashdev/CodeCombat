@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { NavLink } from "react-router-dom";
 import "../css/CutImg.css";
-import MiniCourse from "../home/MiniCourse";
+import MiniCourse from "../home/MiniCard";
 
 const MyCourses = () => {
   return (

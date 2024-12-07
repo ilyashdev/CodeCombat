@@ -1,10 +1,11 @@
 import { Container, Spinner } from "react-bootstrap";
-import MiniCourse from "../home/MiniCourse";
+import MiniCourse from "../home/MiniCard";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import CourseCode from "../course/code/CourseCodeComponent";
 import { CourseAPI } from "../../http/CourseAPI";
 import { useEffect } from "react";
+import MiniCard from "../home/MiniCard";
 
 const ViewCourses = ({ className }) => {
   const { page } = useParams();
@@ -19,7 +20,7 @@ const ViewCourses = ({ className }) => {
   return (
     <Container className={className}>
       {data.map((course) => (
-        <MiniCourse
+        <MiniCard
           courseId={course.id}
           key={course.id}
           courseName={course.name}

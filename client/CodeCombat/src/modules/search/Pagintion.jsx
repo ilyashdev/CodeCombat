@@ -2,9 +2,8 @@ import { useState } from "react";
 import { Pagination } from "react-bootstrap";
 import { redirect, useParams } from "react-router-dom";
 
-const Pagintion = () => {
+const Pagintion = ({ baseURL = "/courses/" }) => {
   const { page } = useParams();
-  const baseURL = "/courses/";
   const max = 2;
 
   const returnItems = (max) => {

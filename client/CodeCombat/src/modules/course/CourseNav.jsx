@@ -53,12 +53,18 @@ const CourseNav = () => {
   }
 
   return (
-    <Navbar className="bg-light bg-opacity-10 position-sticky">
+    <Navbar
+      className="sticky-top"
+      style={{ backgroundColor: "rgba(46, 41, 58, 0.9)" }}
+    >
       <Container className="d-flex justify-content-start">
         <Button
           variant="link"
           className=""
-          style={{ textDecoration: "none", color: "#eee" }}
+          style={{
+            textDecoration: "none",
+            color: "#eee",
+          }}
           onClick={() => {
             SetOffcanvas(true);
           }}

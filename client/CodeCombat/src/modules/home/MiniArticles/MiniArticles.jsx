@@ -1,13 +1,12 @@
 import Container from "react-bootstrap/esm/Container";
 import { NavLink } from "react-router-dom";
-
-import MiniCourse from "./MiniCard";
+import MiniCourse from "../MiniCard";
 import { useQuery } from "@tanstack/react-query";
-import { CourseAPI } from "../../http/CourseAPI";
+import { CourseAPI } from "../../../http/CourseAPI";
 import { Spinner } from "react-bootstrap";
-import MiniCard from "./MiniCard";
+import MiniCard from "../MiniCard";
 
-const MiniCourses = () => {
+const ArticleAuthor = () => {
   const { data, isPending } = useQuery({
     queryKey: ["course", "top"],
     queryFn: () => CourseAPI.getTopCourse(),
@@ -19,22 +18,21 @@ const MiniCourses = () => {
     <Container className="mt-4 mb-3">
       <NavLink
         style={{ textDecoration: "none", color: "#eee" }}
-        to="/courses/1"
+        to="/articles/1"
       >
-        <h2 style={{ fontWeight: "bold" }}>Популярные курсы</h2>
+        <h2 style={{ fontWeight: "bold" }}>Интересные статьи</h2>
       </NavLink>
-      {data.map((course) => (
+      {data.map((article) => (
         <MiniCard
-          key={course.id}
-          courseName={course.name}
-          courseDiscription={course.description}
-          courseModuleName={course.firstModule.name}
-          courseModuleId={course.firstModule.id}
-          courseId={course.id}
+          key={article.id}
+          courseName={article.name}
+          courseDiscription={article.description}
+          courseId={article.id}
+          courseURL={"article/" + article.name + "&" + article.id}
         />
       ))}
     </Container>
   );
 };
 
-export default MiniCourses;
+export default ArticleAuthor;

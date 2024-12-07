@@ -14,6 +14,7 @@ import { Provider } from "react-redux";
 import { store } from "./shared/redux/store";
 import Home from "./pages/Home";
 import ErrorPage from "./pages/Error";
+import Article from "./pages/Article";
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
             element={<MainLayout />}
           >
             <Route index element={<Course />} />
+          </Route>
+          <Route path="/article/:articleInfo" element={<MainLayout />}>
+            <Route index element={<Article />} />
           </Route>
           {/*<Route path="/daily" element={<MainLayout />}>
             <Route index element={<Daily />} />

@@ -1,22 +1,16 @@
 using System.Reflection;
 using CodeCombat.Domain_Layer.Factory.Attribute;
-using CodeCombat.Presentation_Layer.Contract.Course;
-using Module = CodeCombat.Domain_Layer.Models.Course.Modules.Module;
 
 namespace CodeCombat.Domain_Layer.Factory.ModuleFactory;
 
-public abstract class ModuleFactoryBase : IModuleFactory
+public class ModuleFactoryRegister
 {
-    private static readonly Dictionary<string, IModuleFactory> Factories = new();
-
-    static ModuleFactoryBase()
+    private readonly Dictionary<string, IModuleFactory> Factories = new();
+    public ModuleFactoryRegister()
     {
-        RegisterFactories();
+        this.RegisterFactories();
     }
-
-    public abstract Module Create(ModuleRecord module);
-
-    private static void RegisterFactories()
+    private void RegisterFactories()
     {
         // Получаем все типы из текущей сборки 
         var factoryTypes =
@@ -37,7 +31,7 @@ public abstract class ModuleFactoryBase : IModuleFactory
         }
     }
 
-    public static IModuleFactory? GetFactory(string type)
+    public IModuleFactory? GetFactory(string type)
     {
         return Factories.TryGetValue(type, out var factory) ? factory : null;
     }

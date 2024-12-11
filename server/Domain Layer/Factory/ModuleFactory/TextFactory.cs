@@ -5,9 +5,9 @@ using CodeCombat.Presentation_Layer.Contract.Course;
 namespace CodeCombat.Domain_Layer.Factory.ModuleFactory;
 
 [ModuleFactory("Text")]
-public class TextFactory : ModuleFactoryBase
+public class TextFactory : IModuleFactory
 {
-    public override Module Create(ModuleRecord module)
+    public Module Create(ModuleRecord module)
     {
         var textModule = new TextModule
         {

@@ -5,4 +5,5 @@ public interface ITagsRepository
 {
     Task<ICollection<Tag>> GetTagsAsync(ICollection<string> stringTags);
     Task AddTagAsync(Tag tag);
+    Task<ICollection<Tag>> GetContentTagsAsync(ICollection<string> stringTags);
 }

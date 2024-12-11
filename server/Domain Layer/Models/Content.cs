@@ -7,7 +7,7 @@ public class Content
     public Guid Id { get; set; }
     public User? Creator { get; set; }
     public string? ContentType { get; set; }
-    public DateTime PublicTime { get; set; }
+    public DateTime PublicTime { get; set; } = DateTime.UtcNow;
     public ICollection<Tag>? Tags { get; set; }
     public string? Name { get; set; }
     public int Up { get; set; }

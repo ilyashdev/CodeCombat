@@ -1,4 +1,4 @@
-using CodeCombat.Application_Layer.Service.IService;
+using CodeCombat.Application_Layer.Service;
 using CodeCombat.Presentation_Layer.Contract;
 using Microsoft.AspNetCore.Mvc;
 

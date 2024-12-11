@@ -1,4 +1,4 @@
-using CodeCombat.Application_Layer.Service.IService;
+using CodeCombat.Application_Layer.Service;
 using CodeCombat.Presentation_Layer.Contract;
 using Microsoft.AspNetCore.Mvc;
 namespace CodeCombat.Controllers;
@@ -14,34 +14,16 @@ namespace CodeCombat.Controllers;
     }
     public int TelegramId = 0;
         [HttpGet]
-        [Route("{id}")]
-        public async Task<IActionResult> GetContent(string type, Guid id)
+        public async Task<IActionResult> GetContentList(string type,[FromQuery]int page, [FromQuery]ContentListRequest? request)
         {
-            return Ok();
+            return Ok(await _contentService.GetListAsync(type,page,request));
         }
-        [HttpPatch]
-        [Route("{id}")]
-        public async Task<IActionResult> EditCourse(string type,Guid id, ContentRequest request)
-        {
-            return Ok();
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetContentList(string type,[FromQuery]int page, [FromBody]ContentListRequest? request)
-        {
-            return Ok();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateContent(string type,ContentRequest request)
-        {
-            return Ok();
-        }
-
         [HttpDelete]
         [Route("{id}")]
-        public async Task<IActionResult> DeleteContent(string type,Guid id)
+        public async Task<IActionResult> DeleteContent(Guid id)
         {
+            var telegramId = 0;
+            await _contentService.DeleteAsync(telegramId,id);
             return Ok();
         }
     }

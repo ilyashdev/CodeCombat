@@ -7,16 +7,16 @@ namespace CodeCombat.Infrastructure_Layer.Repository;
 public class ContentRepository : IContentRepository
 {
     private readonly CcDbContext _context;
+    private readonly ITagsRepository _tagsRepository;
 
-    public ContentRepository(CcDbContext context)
+    public ContentRepository(CcDbContext context, ITagsRepository tagsRepository)
     {
         _context = context;
+        _tagsRepository = tagsRepository;
     }
 
-    public async Task DeleteContentAsync(long telegramId, Guid id)
+    public async Task DeleteContentAsync(User user, Guid id)
     {
-        var user = await _context
-            .Users.FirstAsync(u => u.TelegramId == telegramId);
         var content = await _context
             .Contents.FirstAsync(u => u.Id == id);
         if(content.Creator != user)
@@ -24,12 +24,11 @@ public class ContentRepository : IContentRepository
         _context.Contents.Remove(content);
         await _context.SaveChangesAsync();
     }
-    public async Task<ICollection<ContentDto>> GetContentListAsync(string type, int page, ContentListRequest request)
+    public async Task<ICollection<ContentDto>> GetContentListAsync(string type, int page, ContentListRequest? request)
     {
-        var tags = _context.Tags
-            .Where(t => request.tags.Contains(t.Name));
+        var tags = await _tagsRepository.GetTagsAsync(request.tags);
         var contents = tags
-            .Select( t => t.Contents)
+            .Select(t => t.Contents)
             .Aggregate((prev, next) => prev.Intersect(next).ToList());
         var contentDtos = contents
             .OrderBy(c => c.UpUsers.Count - c.DownUsers.Count)
@@ -47,32 +46,5 @@ public class ContentRepository : IContentRepository
             )
             );
         return contentDtos.ToList();
-    }
-    public async Task<Content> GetContentAsync(Guid id)
-    {
-        return await _context.Contents
-            .AsNoTracking()
-            .FirstAsync(c => c.Id == id);
-    }
-
-    public async Task PostContentAsync(long telegramId, Content postContent, string tags)
-    {
-        var user = await _context
-            .Users.FirstAsync(u => u.TelegramId == telegramId);
-        postContent.Creator = user;
-        await _context.Contents.AddAsync(postContent);
-        await _context.SaveChangesAsync();
-    }
-    public async Task EditContentAsync(long telegramId, Content changeContent, string tags)
-    {
-        var user = await _context
-            .Users.FirstAsync(u => u.TelegramId == telegramId);
-        var content = await _context
-            .Contents.FirstAsync(c => c.Id == changeContent.Id);
-        if(content.Creator != user)
-            throw new Exception("No permissions");
-        content.Name = changeContent.Name;
-        content.Tags = changeContent.Tags;
-        await _context.SaveChangesAsync();
     }
 }

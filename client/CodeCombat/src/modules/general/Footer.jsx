@@ -30,22 +30,26 @@ const Footer = () => {
           <Col>
             <h5>Контакты</h5>
             <Row>
-              <p className="my-1">
+              <a
+                href="https://t.me/code_combat"
+                style={{ textDecoration: "none" }}
+                className="my-1 text-light"
+              >
                 <Telegram className="mx-1" />
                 t.me/code_combat
-              </p>
+              </a>
             </Row>
             <Row>
-              <p className="my-1">
+              <a style={{ textDecoration: "none" }} className="my-1 text-light">
                 <EnvelopeAtFill className="mx-1" />
                 codecombat@email.com
-              </p>
+              </a>
             </Row>
             <Row>
-              <p className="my-1">
+              <a style={{ textDecoration: "none" }} className="my-1 text-light">
                 <TelephoneFill className="mx-1" />
                 +375(33)32-20-898
-              </p>
+              </a>
             </Row>
           </Col>
         </Row>

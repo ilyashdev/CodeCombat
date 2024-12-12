@@ -2,5 +2,5 @@ body {
   background-color: #11111f;
   color: #eee;
   font-family: "IBM Plex Mono", sans-serif !important;
-  font-size: calc(12px + 8 * (100vw - 320px) / 880);
+  font-size: calc(12px + 6 * (100vw - 320px) / 880);
 }

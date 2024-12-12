@@ -3,7 +3,13 @@ import SearchBar from "../search/SearchBar";
 import ViewCourses from "../search/ViewCourses";
 import Pagintion from "../search/Pagintion";
 import { useQuery } from "@tanstack/react-query";
-import { Button, Navbar, Offcanvas, Spinner } from "react-bootstrap";
+import {
+  Button,
+  CardSubtitle,
+  Navbar,
+  Offcanvas,
+  Spinner,
+} from "react-bootstrap";
 import {
   Book,
   CardImage,
@@ -110,7 +116,7 @@ const CourseNav = () => {
 
                 <h5 className="m-0 mx-2">{module.name}</h5>
               </Button>
-            ) : (
+            ) : module.type == "flashcard" ? (
               <Button
                 key={module.id}
                 variant="outline-secondary"
@@ -120,6 +126,18 @@ const CourseNav = () => {
                 onClick={() => OnChoseModule(module)}
               >
                 <CardText key={module.id} width={20} height={20} />
+                <h5 className="m-0 mx-2">{module.name}</h5>
+              </Button>
+            ) : (
+              <Button
+                key={module.id}
+                variant="outline-secondary"
+                style={{ textDecoration: "none", color: "#eee" }}
+                disabled={module.id == activeModuleId}
+                className={"d-flex p-2 my-2 container"}
+                onClick={() => OnChoseModule(module)}
+              >
+                <CardSubtitle key={module.id} width={20} height={20} />
                 <h5 className="m-0 mx-2">{module.name}</h5>
               </Button>
             )

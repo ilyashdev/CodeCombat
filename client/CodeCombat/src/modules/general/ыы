@@ -1,0 +1,114 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+mt19937 mt(time(nullptr));
+int GetRandomNumber(const int st, const int fi) {
+    return  st + mt() % (fi - st + 1);
+}
+
+int validation(const string &str) {
+    int n = str.size();
+    if(!n)return -1;
+    for(int i = 0; i < n; ++i) {
+        if(str[i] < '0' || str[i] > '9') {
+            return -1;
+        }
+    }
+    return stoi(str);
+}
+
+
+int getStep(const int numberPlayer, const int value) {
+    while(true) {
+        cout << "Ход игрока " << numberPlayer << ", текущая сумма: " << value << endl;
+        string step;
+        getline(cin, step);
+        int number = validation(step);
+        if(number != -1) {
+            if(number <= 9 && number >= 1) {
+                return number;
+            }
+        }
+        cout << "Неправильный ввод, повторите попытку" << endl;
+    }
+}
+
+void vivodrounda(int round, int summa) {
+    cout << "Раунд " << round << " начальное число " << summa << endl;
+}
+
+void loseround(int igrok, int kolochkov) {
+    cout << "Проиграл " << igrok << "-й игрок сумма штрафных очков = " << kolochkov << endl;
+}
+
+int gamestart() {
+    string kolvoigrokov;
+    while(true) {
+        cout << "Число участников: ";
+        getline(cin, kolvoigrokov);
+        int number = validation(kolvoigrokov);
+        if(number != -1 && number >= 2) {
+            return number;
+        }
+        cout << "Неправильный ввод, повторите попытку" << endl;
+    }
+}
+
+
+void round(const int n, vector<int> &tax, const int numberOfRound) {
+    int value = GetRandomNumber(900, 950);
+    vivodrounda(numberOfRound, value);
+    int curPlayer = 1;
+    while(value < 999) {
+        value += getStep(curPlayer, value);
+        if(value >= 999) {
+            tax[curPlayer]++;
+            if(value > 999) {
+                tax[curPlayer] *= 2;
+            }
+            loseround(curPlayer, tax[curPlayer]);
+        }
+        curPlayer++;
+        if(curPlayer > n) {
+            curPlayer = 1;
+        }
+    }
+}
+
+bool gameContinue(const int n, const vector<int> &tax) {
+    for(int i = 1; i <= n; ++i) {
+        if(tax[i] >= 5) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void outputGameLose(const int n, const vector<int> &tax) {
+    for(int i = 1; i <= n; ++i) {
+        if(tax[i] >= 5) {
+            cout << "В игре проиграл игрок " << i << endl;
+            break;
+        }
+    }
+}
+
+
+
+void game() {
+    const int cntGamers = gamestart();
+    vector<int> tax(cntGamers+1, 0);
+    int i = 1;
+    while(gameContinue(cntGamers, tax)) {
+        round(cntGamers, tax, i++);
+    }
+    outputGameLose(cntGamers, tax);
+}
+
+int main()
+{
+    setlocale(LC_ALL, "Russian");
+    game();
+    return 0;
+}

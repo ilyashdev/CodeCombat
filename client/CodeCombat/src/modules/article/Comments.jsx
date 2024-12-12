@@ -1,6 +1,7 @@
 import { Card, Container, Spinner } from "react-bootstrap";
 import Comment from "../general/Comment";
 import { useQuery } from "@tanstack/react-query";
+import WriteComment from "./WriteComment";
 
 const Comments = () => {
   const { data, isPending } = useQuery({
@@ -72,7 +73,7 @@ const Comments = () => {
       ]),
   });
 
-  const WriteComments = (comments,deepence) => {
+  const WriteComments = (comments, deepence) => {
     return comments.map((comment) => (
       <Comment key={comment.id} deepence={deepence} data={comment}>
         {comment.subComments != undefined ? (
@@ -89,7 +90,8 @@ const Comments = () => {
   return (
     <Container className="px-2">
       <h3>Комментарии:</h3>
-      <Container className="pb-3">{WriteComments(data, 1)}</Container>
+      <Container className="pb-2">{WriteComments(data, 1)}</Container>
+      <WriteComment />
     </Container>
   );
 };

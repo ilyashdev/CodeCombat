@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { CourseAPI } from "../http/CourseAPI";
 import { writeCourse, writeModule } from "../shared/redux/store";
 import { useParams } from "react-router-dom";
+import CourseTestComponent from "../modules/course/test/CourseTestComponent";
 
 const Course = () => {
   const dispath = useDispatch();
@@ -73,8 +74,9 @@ const Course = () => {
         <CourseCode />
       ) : actionModule.type == "flashcard" ? (
         <CourseTextCard />
-      ) : (
-        <Spinner />
+      ) : actionModule.type == "test" ? (
+        <CourseTestComponent/>
+      ) : (<Spinner />
       )}
     </div>
   );

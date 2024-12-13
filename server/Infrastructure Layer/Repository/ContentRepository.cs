@@ -26,10 +26,32 @@ public class ContentRepository : IContentRepository
     }
     public async Task<ICollection<ContentDto>> GetContentListAsync(string type, int page, ContentListRequest? request)
     {
-        var tags = await _tagsRepository.GetTagsAsync(request.tags);
-        var contents = tags
-            .Select(t => t.Contents)
-            .Aggregate((prev, next) => prev.Intersect(next).ToList());
+        ICollection<Content> contents;
+        if(request != null)
+        {
+            var tags = await _tagsRepository.GetTagsAsync(request.tags);
+            foreach (var tag in tags)
+            {
+                await _context.Entry(tag).Collection(t => t.Contents).LoadAsync();
+            }
+            contents = tags
+                .Select(t => t.Contents)
+                .Aggregate((prev, next) => prev.Intersect(next).ToList())
+            .Where(c => c.ContentType == type)
+            .ToList();
+        }
+        else
+        {
+            contents = await _context.Contents
+                .Where(c => c.ContentType == type)
+                .ToListAsync();
+        }
+        foreach (var content in contents)
+        {
+            await _context.Entry(content).Reference(t => t.Creator).LoadAsync();
+            await _context.Entry(content).Collection(t => t.UpUsers).LoadAsync();
+            await _context.Entry(content).Collection(t => t.DownUsers).LoadAsync();
+        }
         var contentDtos = contents
             .OrderBy(c => c.UpUsers.Count - c.DownUsers.Count)
             .Skip(ContentOptions.PAGE_SIZE*page)
@@ -38,7 +60,9 @@ public class ContentRepository : IContentRepository
             new ContentDto
             (
                 c.Id,
-                new UserDto(c.Creator.TelegramId,c.Name),
+                c.Name,
+                c.ContentType,
+                new UserDto(c.Creator.TelegramId,c.Creator.Name),
                 c.Tags.Select(t => t.Name).ToList(),
                 c.PublicTime,
                 c.UpUsers.Count,

@@ -1,8 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import { Button, Card, Container, Form, Spinner } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Container,
+  Spinner,
+  ToggleButton,
+  ToggleButtonGroup,
+} from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { CourseAPI } from "../../../http/CourseAPI";
 import MarkdownText from "../../general/MarkdownText";
+import { useState } from "react";
 
 const CourseTestComponent = () => {
   const ModuleID = useSelector((state) => {
@@ -14,6 +22,8 @@ const CourseTestComponent = () => {
     queryFn: () => CourseAPI.getModule(1, ModuleID),
   });
 
+  const [quetion, setQuetion] = useState(0);
+
   if (isPending) return <Spinner />;
   return (
     <Container>
@@ -23,21 +33,42 @@ const CourseTestComponent = () => {
         className="p-3 m-2 mb-4 d-flex"
         style={{ minHeight: "60vh" }}
       >
-        <MarkdownText>{data.data[0].question}</MarkdownText>
+        <MarkdownText>{data.data[quetion].question}</MarkdownText>
         <h2>Варианты ответа:</h2>
-        {data.data[0].variants.map((variant) => (
-          <Form.Check
-            style={{ fontSize: " calc(16px + 4 * (100vw - 320px) / 880)" }}
-            type={data.data[0].mode == "oneAns" ? "radio" : "checkbox"}
-            label={variant}
-            key={variant}
-            name={data.data[0].question}
-            id={variant}
-          />
-        ))}
+        <ToggleButtonGroup
+          type={data.data[quetion].mode == "oneAns" ? "radio" : "checkbox"}
+          name="answer"
+          className="d-flex flex-wrap justify-content-center"
+        >
+          {data.data[quetion].variants.map((variant) => (
+            <ToggleButton
+              key={variant}
+              id={data.data[quetion].mode + variant}
+              value={variant}
+              variant="outline-light"
+              className="m-2 rounded-3 d-flex justify-content-center"
+              style={{
+                height: "50px",
+                width: "80vw",
+                maxWidth: "500px",
+                fontSize: "calc(14px + 6 * (100vw - 320px) / 880)",
+              }}
+            >
+              <p className="m-0 p-0 align-self-center">{variant}</p>
+            </ToggleButton>
+          ))}
+        </ToggleButtonGroup>
         <Container className="my-3 d-flex justify-content-between algin-self-end algin-items-end">
-          <Button>1</Button>
-          <Button>3</Button>
+          {quetion > 1 ? (
+            <Button onClick={() => setQuetion(quetion - 1)}>Предыдущий</Button>
+          ) : (
+            <p></p>
+          )}
+          {quetion < data.data.length ? (
+            <Button onClick={() => setQuetion(quetion + 1)}>Следующий</Button>
+          ) : (
+            <p></p>
+          )}
         </Container>
       </Card>
     </Container>

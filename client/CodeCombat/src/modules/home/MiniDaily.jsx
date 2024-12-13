@@ -15,6 +15,7 @@ const MiniDaily = () => {
         <NavLink
           style={{ textDecoration: "none", color: "#eee" }}
           to={"/problem/" + index}
+          key={index}
         >
           <Card key={index} className="rounded-5 p-3 my-2 bg-dark text-light">
             <Card.Title className="">Название задачи</Card.Title>

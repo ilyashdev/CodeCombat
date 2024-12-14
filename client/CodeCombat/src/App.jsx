@@ -15,11 +15,12 @@ import ErrorPage from "./pages/Error";
 import Article from "./pages/Article";
 import { init, backButton, viewport, initData } from "@telegram-apps/sdk";
 import { writeAccount } from "./shared/redux/store";
-try {
-  init();
-} catch {}
+
 function App() {
   const dispatch = useDispatch();
+  try {
+    init();
+  } catch {}
   useEffect(() => {
     try {
       initData.restore();
@@ -38,28 +39,32 @@ function App() {
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<Home />} />
-        </Route>
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/courses/:page" element={<MainLayout />}>
-          <Route index element={<Courses />} />
-        </Route>
-        <Route path="/course/:courseInfo/:moduleInfo" element={<MainLayout />}>
-          <Route index element={<Course />} />
-        </Route>
-        <Route path="/article/:articleInfo" element={<MainLayout />}>
-          <Route index element={<Article />} />
-        </Route>
-        {/*<Route path="/daily" element={<MainLayout />}>
+
+      <QueryClientProvider client={queryClient}>
+        <Routes>
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<Home />} />
+          </Route>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/courses/:page" element={<MainLayout />}>
+            <Route index element={<Courses />} />
+          </Route>
+          <Route
+            path="/course/:courseInfo/:moduleInfo"
+            element={<MainLayout />}
+          >
+            <Route index element={<Course />} />
+          </Route>
+          <Route path="/article/:articleInfo" element={<MainLayout />}>
+            <Route index element={<Article />} />
+          </Route>
+          {/*<Route path="/daily" element={<MainLayout />}>
             <Route index element={<Daily />} />
           </Route>*/}
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
   );
 }
 

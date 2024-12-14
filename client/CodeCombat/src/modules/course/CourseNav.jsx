@@ -15,6 +15,7 @@ import {
   CardImage,
   CardText,
   CarFront,
+  Check2All,
   CodeSlash,
   MenuApp,
   MenuButton,
@@ -128,7 +129,7 @@ const CourseNav = () => {
                 <CardText key={module.id} width={20} height={20} />
                 <h5 className="m-0 mx-2">{module.name}</h5>
               </Button>
-            ) : (
+            ) : module.type == "code" ? (
               <Button
                 key={module.id}
                 variant="outline-secondary"
@@ -138,6 +139,18 @@ const CourseNav = () => {
                 onClick={() => OnChoseModule(module)}
               >
                 <CardSubtitle key={module.id} width={20} height={20} />
+                <h5 className="m-0 mx-2">{module.name}</h5>
+              </Button>
+            ) : (
+              <Button
+                key={module.id}
+                variant="outline-secondary"
+                style={{ textDecoration: "none", color: "#eee" }}
+                disabled={module.id == activeModuleId}
+                className={"d-flex p-2 my-2 container"}
+                onClick={() => OnChoseModule(module)}
+              >
+                <Check2All key={module.id} width={20} height={20} />
                 <h5 className="m-0 mx-2">{module.name}</h5>
               </Button>
             )

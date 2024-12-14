@@ -3,6 +3,17 @@ import { $host } from ".";
 const course = [
   {
     idCourse: 1,
+    idMoudle: 18,
+    typeModule: "text",
+    nameModle: "Наш курс",
+    data: [
+      {
+        text: "# что вы узнаете в нашем курсе:\n - всякое новое и интересное \n## Какие технологии вы изучите:\n - React\n - и т.д.\n # Вы можете создать такие модули как:\n - Текстовый модуль \n - Карточки для запоминания\n - Тесты с вариантами ответа\n - Задачи по написанию кода",
+      },
+    ],
+  },
+  {
+    idCourse: 1,
     idMoudle: 1101,
     typeModule: "flashcard",
     nameModle: "Name",
@@ -81,7 +92,7 @@ const course = [
 export const CourseAPI = {
   getStructCourse: async (CourseId, nameId) => {
     const data = JSON.parse(
-      `[{"idCourse":1,"Name":"Курс номер 1","data":[{"id":1,"type":"flashcard","name":"Name"},{"id":2,"type":"text","name":"Za"},{"id":3,"type":"code","name":"Practic"},{"id":4,"type":"test","name":"Тесты"}]},{"idCourse":2,"Name":"Курс номер 2","data":[{"id":1,"type":"flashcard","name":"Name"},{"id":2,"type":"text","name":"Za"},{"id":3,"type":"code","name":"Practic"}]},{"idCourse":3,"Name":"Курс номер 3","data":[{"id":1,"type":"flashcard","name":"Name"},{"id":2,"type":"text","name":"Za"},{"id":3,"type":"code","name":"Practic"}]},{"idCourse":4,"Name":"Курс номер 4","data":[{"id":1,"type":"flashcard","name":"Name"},{"id":2,"type":"text","name":"Za"},{"id":3,"type":"code","name":"Practic"}]},{"idCourse":5,"Name":"Курс номер 5","data":[{"id":1,"type":"flashcard","name":"Name"},{"id":2,"type":"text","name":"Za"},{"id":3,"type":"code","name":"Practic"}]},{"idCourse":6,"Name":"Курс номер 6","data":[{"id":1,"type":"flashcard","name":"Name"},{"id":2,"type":"text","name":"Za"},{"id":3,"type":"code","name":"Practic"}]}]`
+      `[{"idCourse":1,"Name":"Курс номер 1","data":[{"id":1,"type":"text","name":"Приветствие"},{"id":2,"type":"flashcard","name":"Name"},{"id":3,"type":"text","name":"Za"},{"id":4,"type":"code","name":"Practic"},{"id":5,"type":"test","name":"Тесты"}]},{"idCourse":2,"Name":"Курс номер 2","data":[{"id":1,"type":"flashcard","name":"Name"},{"id":2,"type":"text","name":"Za"},{"id":3,"type":"code","name":"Practic"}]},{"idCourse":3,"Name":"Курс номер 3","data":[{"id":1,"type":"flashcard","name":"Name"},{"id":2,"type":"text","name":"Za"},{"id":3,"type":"code","name":"Practic"}]},{"idCourse":4,"Name":"Курс номер 4","data":[{"id":1,"type":"flashcard","name":"Name"},{"id":2,"type":"text","name":"Za"},{"id":3,"type":"code","name":"Practic"}]},{"idCourse":5,"Name":"Курс номер 5","data":[{"id":1,"type":"flashcard","name":"Name"},{"id":2,"type":"text","name":"Za"},{"id":3,"type":"code","name":"Practic"}]},{"idCourse":6,"Name":"Курс номер 6","data":[{"id":1,"type":"flashcard","name":"Name"},{"id":2,"type":"text","name":"Za"},{"id":3,"type":"code","name":"Practic"}]}]`
     )[--CourseId];
     if (nameId == data.Name) return data;
     return window.location.replace("/NotFound");

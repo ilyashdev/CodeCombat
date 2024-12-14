@@ -42,4 +42,5 @@ export const store = configureStore({
   reducer: activeModule.reducer,
 });
 
-export const { writeModule, writeCourse, writeAccount, setSource} = activeModule.actions;
+export const { writeModule, writeCourse, writeAccount, setSource } =
+  activeModule.actions;

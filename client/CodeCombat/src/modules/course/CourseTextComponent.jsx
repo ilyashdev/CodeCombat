@@ -20,7 +20,11 @@ const CourseTextComponent = () => {
   return (
     <Container>
       <h2 className="mt-3">{data.nameModle}</h2>
-      <Card data-bs-theme="dark" className="p-3 m-2">
+      <Card
+        data-bs-theme="dark"
+        className="p-3 m-2 "
+        style={{ minHeight: "65vh" }}
+      >
         {data.data.map((text) => (
           <MarkdownText key={text}>{text.text}</MarkdownText>
         ))}

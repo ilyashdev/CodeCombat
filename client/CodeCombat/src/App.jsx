@@ -13,30 +13,43 @@ import { Provider, useDispatch } from "react-redux";
 import Home from "./pages/Home";
 import ErrorPage from "./pages/Error";
 import Article from "./pages/Article";
-import { init, backButton, viewport, initData } from "@telegram-apps/sdk";
+import {
+  init,
+  backButton,
+  viewport,
+  initData,
+  requestFullscreen,
+} from "@telegram-apps/sdk";
 import { writeAccount } from "./shared/redux/store";
 
 function App() {
   const dispatch = useDispatch();
-  try {
-    init();
-  } catch {}
+  const [devise, setDevise] = useState("None");
+
   useEffect(() => {
     try {
       initData.restore();
       dispatch(writeAccount({ AccountData: initData.user() }));
     } catch {}
-    if (backButton.show.isAvailable()) {
-      backButton.show();
-    }
-
-    if (viewport.mount.isAvailable()) {
-      viewport.mount();
-    }
-    if (viewport.requestFullscreen.isAvailable()) {
-      viewport.requestFullscreen();
+    const userAgent = navigator.userAgent;
+    if (/Windows|Macintosh/i.test(userAgent)) {
+      console.log(userAgent);
+      setDevise("Desktop");
     }
   }, []);
+  useEffect(() => {
+    if (devise == "Desktop") {
+      async function fullscreen() {
+        if (viewport.requestFullscreen.isAvailable()) {
+          console.log("cocy");
+          await viewport.requestFullscreen();
+        } else {
+          console.log(viewport.requestFullscreen.isAvailable());
+        }
+      }
+      fullscreen();
+    }
+  }, [devise, viewport.requestFullscreen.isAvailable()]);
 
   return (
     <QueryClientProvider client={queryClient}>

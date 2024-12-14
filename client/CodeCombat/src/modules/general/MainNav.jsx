@@ -2,8 +2,11 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import logo from "../../assets/mobile-logo.png";
 import Image from "react-bootstrap/esm/Image";
+import { useSelector } from "react-redux";
 
 const MainNav = () => {
+  const photoUserURL = useSelector((state) => state.AccountData.photoUrl);
+
   return (
     <Navbar className="bg-dark text-light">
       <Container className="d-flex ">
@@ -19,11 +22,7 @@ const MainNav = () => {
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Brand href="/profile" className="p-1 justify-content-end">
-          <Image
-            width="40"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaOQkNni05Nb3SqMBDsQ40HrAplq15_NMGIA&s"
-            roundedCircle
-          />
+          <Image width="40" src={photoUserURL} roundedCircle />
         </Navbar.Brand>
       </Container>
     </Navbar>

@@ -34,7 +34,7 @@ const ProfileHead = () => {
               className="d-flex flex-row justify-content-start"
             >
               <h3 className="">{UserInfo.firstName}</h3>
-              <h3 className="">{UserInfo.lastMame}</h3>
+              <h3 className="">{UserInfo.lastName}</h3>
             </Row>
             <Row>
               <p>@{UserInfo.username}</p>

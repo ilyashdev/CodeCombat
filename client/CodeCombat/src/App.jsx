@@ -32,39 +32,35 @@ function App() {
 
     if (viewport.mount.isAvailable()) {
       viewport.mount();
-      if (viewport.requestFullscreen.isAvailable()) {
-        viewport.requestFullscreen();
-      }
+    }
+    if (viewport.requestFullscreen.isAvailable()) {
+      viewport.requestFullscreen();
     }
   }, []);
 
   return (
-
-      <QueryClientProvider client={queryClient}>
-        <Routes>
-          <Route path="/" element={<MainLayout />}>
-            <Route index element={<Home />} />
-          </Route>
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/courses/:page" element={<MainLayout />}>
-            <Route index element={<Courses />} />
-          </Route>
-          <Route
-            path="/course/:courseInfo/:moduleInfo"
-            element={<MainLayout />}
-          >
-            <Route index element={<Course />} />
-          </Route>
-          <Route path="/article/:articleInfo" element={<MainLayout />}>
-            <Route index element={<Article />} />
-          </Route>
-          {/*<Route path="/daily" element={<MainLayout />}>
+    <QueryClientProvider client={queryClient}>
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<Home />} />
+        </Route>
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/courses/:page" element={<MainLayout />}>
+          <Route index element={<Courses />} />
+        </Route>
+        <Route path="/course/:courseInfo/:moduleInfo" element={<MainLayout />}>
+          <Route index element={<Course />} />
+        </Route>
+        <Route path="/article/:articleInfo" element={<MainLayout />}>
+          <Route index element={<Article />} />
+        </Route>
+        {/*<Route path="/daily" element={<MainLayout />}>
             <Route index element={<Daily />} />
           </Route>*/}
-          <Route path="*" element={<ErrorPage />} />
-        </Routes>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
 

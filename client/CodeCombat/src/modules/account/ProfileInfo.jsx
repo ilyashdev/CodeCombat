@@ -9,7 +9,7 @@ const ProfileInfo = () => {
       <Row className="my-3 d-flex justify-content-around flex-wrap">
         <Col xs="auto" md={3} className="p-0">
           <Card className="p-3 bg-dark text-light rounded-4">
-            <h3>Спайсы</h3>
+            <h3>Лайки</h3>
             <p className="m-0">1550</p>
           </Card>
         </Col>

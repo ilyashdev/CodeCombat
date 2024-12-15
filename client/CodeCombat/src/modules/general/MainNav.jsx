@@ -108,7 +108,7 @@ const MainNav = () => {
             <Button
               variant="outline-light"
               className="w-100 py-2 d-flex align-items-center rounded-0 border-0"
-              href="/courses/1"
+              href="/problems/1"
             >
               <Terminal width={40} height={40} />
               <p className="p-0 m-0 ms-2" style={{ fontSize: "20px" }}>
@@ -118,7 +118,7 @@ const MainNav = () => {
             <Button
               variant="outline-light"
               className="w-100 py-2 d-flex align-items-center rounded-0 border-0"
-              href="/problems/1"
+              href="/forum/"
             >
               <ChatLeftText width={40} height={40} />
               <p className="p-0 m-0 ms-2" style={{ fontSize: "20px" }}>

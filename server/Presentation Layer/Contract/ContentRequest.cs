@@ -5,6 +5,5 @@ public record ContentRequest
 (
     string ContentType,
     ICollection<string> Tags,
-    string Name,
-    JSObject? Data
+    string Name
 );

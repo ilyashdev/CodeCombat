@@ -51,6 +51,9 @@ public class CcDbContext : DbContext
             .HasMany(c => c.Comments)
             .WithOne(c => c.Content);
         modelBuilder.Entity<Content>()
+            .HasMany(c => c.Watched)
+            .WithMany(c => c.Watched);
+        modelBuilder.Entity<Content>()
             .UseTphMappingStrategy()
             .HasDiscriminator(c => c.ContentType);
 

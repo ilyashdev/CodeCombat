@@ -8,14 +8,14 @@ public class Content
     public User? Creator { get; set; }
     public string? ContentType { get; set; }
     public DateTime PublicTime { get; set; } = DateTime.UtcNow;
+    public string? Description {get; set;}
     public ICollection<Tag>? Tags { get; set; }
     public string? Name { get; set; }
-    public int Up { get; set; }
-    public int Down { get; set; }
     public int InFavorite { get; set; }
+    public ICollection<User>? Watched { get; set; }
     public ICollection<Comment>? Comments { get; set; }
     public ICollection<User>? UpUsers { get; set; }
     public ICollection<User>? DownUsers { get; set; }
     public ICollection<User>? InFavoriteUser { get; set; }
-    public ICollection<Comment>? Subcomments { get; set; }
+    public ICollection<Comment>? SubComments { get; set; }
 }

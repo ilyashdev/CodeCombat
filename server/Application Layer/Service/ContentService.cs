@@ -21,8 +21,8 @@ public class ContentService : IContentService
         var user = await _userRepository.GetUserAsync(telegramId);
         await _contentRepository.DeleteContentAsync(user, id);
     }
-    public async Task<ICollection<ContentDto>> GetListAsync(string type, int page, ContentListRequest? request)
+    public async Task<ICollection<ContentDto>> GetListAsync(string type, int page, ICollection<string>? tags)
     {
-        return await _contentRepository.GetContentListAsync(type, page, request);
+        return await _contentRepository.GetContentListAsync(type, page, tags);
     }
 }

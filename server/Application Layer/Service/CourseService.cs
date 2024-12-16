@@ -27,9 +27,9 @@ public class CourseService : ICourseService
         throw new NotImplementedException();
     }
 
-    public async Task<CourseDto> GetAsync(Guid id)
+    public async Task<CourseDto> GetAsync(Guid id, long telegramId)
     {
-        return await _courseRepository.GetAsync(id);
+        return await _courseRepository.GetAsync(id, new User{TelegramId = telegramId});
     }
 
     public async Task PostAsync(long telegramId, ContentRequest request)

@@ -24,12 +24,12 @@ public class ContentRepository : IContentRepository
         _context.Contents.Remove(content);
         await _context.SaveChangesAsync();
     }
-    public async Task<ICollection<ContentDto>> GetContentListAsync(string type, int page, ContentListRequest? request)
+    public async Task<ICollection<ContentDto>> GetContentListAsync(string type, int page, ICollection<string>? stags)
     {
         ICollection<Content> contents;
-        if(request != null)
+        if(stags != null)
         {
-            var tags = await _tagsRepository.GetTagsAsync(request.tags);
+            var tags = await _tagsRepository.GetTagsAsync(stags);
             foreach (var tag in tags)
             {
                 await _context.Entry(tag).Collection(t => t.Contents).LoadAsync();
@@ -51,9 +51,10 @@ public class ContentRepository : IContentRepository
             await _context.Entry(content).Reference(t => t.Creator).LoadAsync();
             await _context.Entry(content).Collection(t => t.UpUsers).LoadAsync();
             await _context.Entry(content).Collection(t => t.DownUsers).LoadAsync();
+            await _context.Entry(content).Collection(t => t.Watched).LoadAsync();
         }
         var contentDtos = contents
-            .OrderBy(c => c.UpUsers.Count - c.DownUsers.Count)
+            .OrderBy(c => c.Watched.Count * c.UpUsers.Count / c.DownUsers.Count)
             .Skip(ContentOptions.PAGE_SIZE*page)
             .Take(ContentOptions.PAGE_SIZE)
             .Select(c => 
@@ -65,6 +66,7 @@ public class ContentRepository : IContentRepository
                 new UserDto(c.Creator.TelegramId,c.Creator.Name),
                 c.Tags.Select(t => t.Name).ToList(),
                 c.PublicTime,
+                c.Watched.Count,
                 c.UpUsers.Count,
                 c.DownUsers.Count
             )

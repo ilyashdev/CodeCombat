@@ -14,9 +14,9 @@ namespace CodeCombat.Controllers;
     }
     public int TelegramId = 0;
         [HttpGet]
-        public async Task<IActionResult> GetContentList(string type,[FromQuery]int page, [FromQuery]ContentListRequest? request)
+        public async Task<IActionResult> GetContentList(string type,[FromQuery]int page, [FromQuery]ICollection<string>? tags)
         {
-            return Ok(await _contentService.GetListAsync(type,page,request));
+            return Ok(await _contentService.GetListAsync(type,page,tags));
         }
         [HttpDelete]
         [Route("{id}")]

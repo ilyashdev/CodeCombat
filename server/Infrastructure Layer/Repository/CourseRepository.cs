@@ -1,3 +1,4 @@
+using CodeCombat.Domain_Layer.Models;
 using CodeCombat.Domain_Layer.Models.Course;
 using CodeCombat.Presentation_Layer.Contract;
 using CodeCombat.Presentation_Layer.Contract.Course;
@@ -13,12 +14,17 @@ public class CourseRepository : ICourseRepository
         _context = context;
     }
 
-    public Task EditAsync(Course course)
+    public async Task EditAsync(Guid id, Course edit)
     {
-        throw new NotImplementedException();
+        var course = await _context.Courses
+            .FirstAsync(c => c.Id == id);
+        course.Tags = edit.Tags;
+        course.Name = edit.Name;
+        course.Description = edit.Description;
+        await _context.SaveChangesAsync();
     }
 
-    public async Task<CourseDto> GetAsync(Guid id)
+    public async Task<CourseDto> GetAsync(Guid id,User watcher)
     {
         var course = await _context.Courses
             .FirstAsync(c => c.Id == id);
@@ -31,6 +37,14 @@ public class CourseRepository : ICourseRepository
         await _context.Entry(course)
             .Collection(c => c.Tags)
             .LoadAsync();
+        await _context.Entry(course)
+            .Collection(c => c.Comments)
+            .LoadAsync();
+        if(course.Watched.FirstOrDefault(u => u.TelegramId == watcher.TelegramId) != null)
+        {
+            course.Watched.Add(watcher);
+            await _context.SaveChangesAsync();
+        }
         var userDto = new UserDto(course.Creator.TelegramId,course.Creator.Name);
         ICollection<string> tags = null;
         ICollection<ModuleDto> modules = null;
@@ -41,11 +55,12 @@ public class CourseRepository : ICourseRepository
         var courseDto = new CourseDto(
             course.Id,
             userDto,
+            course.Description,
             tags,
             course.ContentType,
             course.PublicTime,
-            course.Up,
-            course.Down,
+            course.UpUsers.Count,
+            course.DownUsers.Count,
             modules
         );
         return courseDto;

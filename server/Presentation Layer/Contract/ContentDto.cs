@@ -7,6 +7,7 @@ public record ContentDto(
     UserDto Creator,
     ICollection<string> Tags,
     DateTime PublicTime,
+    int Watched,
     long Up,
     long Down
 );

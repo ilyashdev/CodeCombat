@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
     [Route("{id}")]
     public async Task<IActionResult> GetContent(Guid id)
     {
-       return Ok(await _courseService.GetAsync(id));
+       return Ok(await _courseService.GetAsync(id, 0));// 0 is debug
     }
     public int TelegramId = 0;
     [HttpPatch]

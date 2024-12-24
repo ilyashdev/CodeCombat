@@ -4,6 +4,7 @@ public record ContentDto(
     Guid Id,
     string Name,
     string ContentType,
+    string Description,
     UserDto Creator,
     ICollection<string> Tags,
     DateTime PublicTime,

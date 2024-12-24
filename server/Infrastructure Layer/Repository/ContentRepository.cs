@@ -54,7 +54,7 @@ public class ContentRepository : IContentRepository
             await _context.Entry(content).Collection(t => t.Watched).LoadAsync();
         }
         var contentDtos = contents
-            .OrderBy(c => c.Watched.Count * c.UpUsers.Count / c.DownUsers.Count)
+            .OrderBy(c => c.Watched.Count * (c.UpUsers.Count + 1) / (c.DownUsers.Count + 1))
             .Skip(ContentOptions.PAGE_SIZE*page)
             .Take(ContentOptions.PAGE_SIZE)
             .Select(c => 
@@ -63,6 +63,7 @@ public class ContentRepository : IContentRepository
                 c.Id,
                 c.Name,
                 c.ContentType,
+                c.Description,
                 new UserDto(c.Creator.TelegramId,c.Creator.Name),
                 c.Tags.Select(t => t.Name).ToList(),
                 c.PublicTime,

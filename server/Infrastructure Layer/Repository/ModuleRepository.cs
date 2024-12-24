@@ -8,7 +8,7 @@ namespace CodeCombat.Infrastructure_Layer.Repository;
 public class ModuleRepository : IModuleRepository
 {
     private readonly CcDbContext _context;
-    public ModuleRepository(CcDbContext context, CourseService courseService)
+    public ModuleRepository(CcDbContext context)
     {
         _context = context;
     }
@@ -29,7 +29,8 @@ public class ModuleRepository : IModuleRepository
 
     public async Task<Module> GetAsync(Guid id)
     {
-        return await _context.Modules.FirstAsync(m => m.ModuleId == id);
+        var module = await _context.Modules.FirstAsync(c => c.ModuleId == id);
+        return module;
     }
 
     public async Task PostAsync(Guid id, User user, Module module,int? pos)

@@ -40,6 +40,15 @@ public class CourseRepository : ICourseRepository
         await _context.Entry(course)
             .Collection(c => c.Comments)
             .LoadAsync();
+        await _context.Entry(course)
+            .Collection(c => c.UpUsers)
+            .LoadAsync();
+        await _context.Entry(course)
+            .Collection(c => c.DownUsers)
+            .LoadAsync();    
+        await _context.Entry(course)
+            .Collection(c => c.Watched)
+            .LoadAsync();
         if(course.Watched.FirstOrDefault(u => u.TelegramId == watcher.TelegramId) != null)
         {
             course.Watched.Add(watcher);
@@ -51,7 +60,7 @@ public class CourseRepository : ICourseRepository
         if(course.Tags != null)
             tags = course.Tags.Select(t => t.Name).ToList();
         if(course.Modules != null)
-            course.Modules.Select(m => new ModuleDto(m.Name,m.ModuleType)).ToList();
+            modules = course.Modules.Select(m => new ModuleDto(m.ModuleId, m.Name,m.ModuleType)).ToList();
         var courseDto = new CourseDto(
             course.Id,
             userDto,

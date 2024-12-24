@@ -9,4 +9,5 @@ public interface IModuleService
     Task PostAsync(Guid id, long TelegramId,ModuleRequest moduleData, int? pos);
     Task<Module> GetAsync(Guid id);
     Task DeleteAsync(Guid id, long TelegramId);
+    
 }

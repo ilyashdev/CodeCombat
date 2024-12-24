@@ -40,7 +40,8 @@ public class CourseService : ICourseService
         {
             Name = request.Name,
             Creator = user,
-            Tags = tags
+            Tags = tags,
+            Description = request.Description
         };
         await _courseRepository.PostAsync(course);
     }

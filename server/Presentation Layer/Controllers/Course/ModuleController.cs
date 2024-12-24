@@ -2,6 +2,7 @@ using System.Text.Json.Nodes;
 using CodeCombat.Application_Layer.Service;
 using CodeCombat.Presentation_Layer.Contract;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 namespace CodeCombat.Controllers;
     [ApiController]
@@ -15,16 +16,11 @@ namespace CodeCombat.Controllers;
         _moduleService = moduleService;
     }
 
-    public ModuleController()
-        {
-
-        }
-
         [HttpGet]
         [Route("{module}")]
-        public async Task<IActionResult> GetModule(Guid id, int module)
+        public async Task<IActionResult> GetModule(Guid id)
         {
-            return Ok();
+            return Ok(await _moduleService.GetAsync(id));
         }
         
         [HttpDelete]
@@ -34,9 +30,15 @@ namespace CodeCombat.Controllers;
             return Ok();
         }
         [HttpPost]
-        public async Task<IActionResult> PostModule(Guid id,[FromQuery]int? pos,[FromBody]ModuleRequest module)
+        public async Task<IActionResult> PostModule(Guid id,[FromQuery]int pos,[FromBody]ModuleRequest module)
         {
             await _moduleService.PostAsync(id,0,module,pos);
+            return Ok();
+        }
+        [HttpPost]
+        [Route("{module}")]
+        public async Task<IActionResult> TestSolution(Guid id)
+        {
             return Ok();
         }
     }

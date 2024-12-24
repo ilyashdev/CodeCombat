@@ -19,6 +19,7 @@ public class CcDbContext : DbContext
     public DbSet<Comment> Comments { get; set; } = null!;
     public DbSet<Course> Courses { get; set; } = null!;
     public DbSet<Module> Modules { get; set; } = null!;
+    public DbSet<TextModule> TextModules { get; set; } = null!;
     public DbSet<Tag> Tags { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

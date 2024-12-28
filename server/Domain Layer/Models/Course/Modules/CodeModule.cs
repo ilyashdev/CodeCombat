@@ -1,0 +1,12 @@
+namespace CodeCombat.Domain_Layer.Models.Course.Modules;
+
+public class CodeModule : Module
+{    
+    public string? Problem { get; set; }
+    public ICollection<string>? Inputs  { get; set; }
+    public ICollection<string>? Outputs  { get; set; }
+    public override Result GetResult()
+    {
+        throw new Exception("no need result");
+    }
+}

@@ -2,8 +2,6 @@ using System.Text.Json.Nodes;
 using CodeCombat.Application_Layer.Service;
 using CodeCombat.Presentation_Layer.Contract;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 namespace CodeCombat.Controllers;
     [ApiController]
     [Route("Content/Course/{id}")]

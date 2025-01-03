@@ -28,7 +28,7 @@ namespace CodeCombat.Controllers;
             return Ok();
         }
         [HttpPost]
-        public async Task<IActionResult> PostModule(Guid id,[FromQuery]int pos,[FromBody]ModuleRequest module)
+        public async Task<IActionResult> PostModule(Guid id,[FromQuery]int? pos,[FromBody]ModuleRequest module)
         {
             await _moduleService.PostAsync(id,0,module,pos);
             return Ok();

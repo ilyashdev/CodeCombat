@@ -24,10 +24,10 @@ public class ContentRepository : IContentRepository
         _context.Contents.Remove(content);
         await _context.SaveChangesAsync();
     }
-    public async Task<ICollection<ContentDto>> GetContentListAsync(string type, int page, ICollection<string>? stags)
+    public async Task<ICollection<ContentDto>> GetContentListAsync(string type, int page, ICollection<string> stags)
     {
         ICollection<Content> contents;
-        if(stags != null)
+        if(stags.Count != 0)
         {
             var tags = await _tagsRepository.GetTagsAsync(stags);
             foreach (var tag in tags)
@@ -49,6 +49,7 @@ public class ContentRepository : IContentRepository
         foreach (var content in contents)
         {
             await _context.Entry(content).Reference(t => t.Creator).LoadAsync();
+            await _context.Entry(content).Collection(t => t.Tags).LoadAsync();
             await _context.Entry(content).Collection(t => t.UpUsers).LoadAsync();
             await _context.Entry(content).Collection(t => t.DownUsers).LoadAsync();
             await _context.Entry(content).Collection(t => t.Watched).LoadAsync();
@@ -71,7 +72,7 @@ public class ContentRepository : IContentRepository
                 c.UpUsers.Count,
                 c.DownUsers.Count
             )
-            );
-        return contentDtos.ToList();
+            ).ToList();
+        return contentDtos;
     }
 }

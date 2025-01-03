@@ -16,6 +16,7 @@ public class TagsRepository : ITagsRepository
         if(_context.Tags.FirstOrDefault(t => t.Name == tag.Name) != null)
             new Exception("this tag exist");
         await _context.Tags.AddAsync(tag);
+        await _context.SaveChangesAsync();
     }
 
     public async Task<ICollection<Tag>> GetContentTagsAsync(ICollection<string> stringTags)

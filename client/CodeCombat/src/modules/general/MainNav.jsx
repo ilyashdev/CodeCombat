@@ -40,6 +40,7 @@ const MainNav = () => {
           />{" "}
           CodeCombat
         </Navbar.Brand>
+
         <Navbar.Toggle />
       </Container>
       <Offcanvas

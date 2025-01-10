@@ -19,11 +19,12 @@ import {
   CodeSlash,
   MenuApp,
   MenuButton,
+  PencilSquare,
 } from "react-bootstrap-icons";
 import { useContext, useState } from "react";
 import { CourseAPI } from "../../http/CourseAPI";
 import { useDispatch, useSelector } from "react-redux";
-import { writeModule } from "../../shared/redux/store";
+import { setEditCourse, writeModule } from "../../shared/redux/store";
 import { redirect, useNavigate } from "react-router-dom";
 
 const CourseNav = () => {
@@ -55,6 +56,10 @@ const CourseNav = () => {
     SetOffcanvas(false);
   };
 
+  const OnEdit = () => {
+    dispath(setEditCourse());
+  };
+
   if (isPending) {
     //return <Spinner />;
   }
@@ -64,21 +69,35 @@ const CourseNav = () => {
       className="sticky-top"
       style={{ backgroundColor: "rgba(46, 41, 58, 0.9)" }}
     >
-      <Container className="d-flex justify-content-start">
+      <Container className="d-flex justify-content-between">
+        <div className="d-flex justify-content-start">
+          {" "}
+          <Button
+            variant="link"
+            className=""
+            style={{
+              textDecoration: "none",
+              color: "#eee",
+            }}
+            onClick={() => {
+              SetOffcanvas(true);
+            }}
+          >
+            <MenuApp height={25} width={25} />
+          </Button>
+          <h3 className="m-0 mx-3 align-self-center">{data.Name}</h3>
+        </div>
+
         <Button
-          variant="link"
-          className=""
-          style={{
-            textDecoration: "none",
-            color: "#eee",
-          }}
+          variant="outline-light"
+          className=" d-flex justify-content-start align-item-center"
           onClick={() => {
-            SetOffcanvas(true);
+            OnEdit();
           }}
         >
-          <MenuApp height={25} width={25} />
+          <p className="m-0 me-1 align-self-center">Редактировать</p>
+          <PencilSquare className=" align-self-center" height={20} width={20} />
         </Button>
-        <h3 className="m-0 mx-3">{data.Name}</h3>
       </Container>
       <Offcanvas
         data-bs-theme="dark"

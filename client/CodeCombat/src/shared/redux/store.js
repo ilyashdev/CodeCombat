@@ -7,6 +7,7 @@ const activeModule = createSlice({
     activeCouse: {
       id: 0,
       name: 0,
+      isEdit: false,
     },
     AccountData: {
       addedToAttachmentMenu: false,
@@ -36,11 +37,25 @@ const activeModule = createSlice({
     setSource: (state, action) => {
       return { ...state, source: action.payload.source };
     },
+    setEditCourse: (state) => {
+      return {
+        ...state,
+        activeCouse: {
+          ...state.activeCouse,
+          isEdit: !state.activeCouse.isEdit,
+        },
+      };
+    },
   },
 });
 export const store = configureStore({
   reducer: activeModule.reducer,
 });
 
-export const { writeModule, writeCourse, writeAccount, setSource } =
-  activeModule.actions;
+export const {
+  writeModule,
+  writeCourse,
+  writeAccount,
+  setSource,
+  setEditCourse,
+} = activeModule.actions;

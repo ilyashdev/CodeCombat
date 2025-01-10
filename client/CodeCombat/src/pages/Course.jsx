@@ -11,6 +11,7 @@ import { CourseAPI } from "../http/CourseAPI";
 import { writeCourse, writeModule } from "../shared/redux/store";
 import { useParams } from "react-router-dom";
 import CourseTestComponent from "../modules/course/test/CourseTestComponent";
+import TextEditor from "../modules/course/editor/TextEditor";
 
 const Course = () => {
   const dispath = useDispatch();
@@ -68,15 +69,18 @@ const Course = () => {
   return (
     <div>
       <CourseNav />
-      {actionModule.type == "text" ? (
+      {actionCourse.isEdit ? (
+        <TextEditor/>
+      ) : actionModule.type == "text" ? (
         <CourseTextComponent />
       ) : actionModule.type == "code" ? (
         <CourseCode />
       ) : actionModule.type == "flashcard" ? (
         <CourseTextCard />
       ) : actionModule.type == "test" ? (
-        <CourseTestComponent/>
-      ) : (<Spinner />
+        <CourseTestComponent />
+      ) : (
+        <Spinner />
       )}
     </div>
   );

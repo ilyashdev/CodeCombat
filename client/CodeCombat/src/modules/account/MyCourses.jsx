@@ -10,7 +10,7 @@ import MiniCourse from "../home/MiniCard";
 const MyCourses = () => {
   return (
     <Container className="my-4">
-      <NavLink style={{ textDecoration: "none", color: "#eee" }} to="courses">
+      <NavLink style={{ textDecoration: "none", color: "#eee" }} to="content">
         <h2 style={{ fontWeight: "bold" }}>Мой контент &gt;</h2>
       </NavLink>
       <MiniCourse imgWidth="75" />

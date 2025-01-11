@@ -1,3 +1,5 @@
+using Newtonsoft.Json.Linq;
+
 namespace CodeCombat.Domain_Layer.Models.Course.Modules;
 
 public abstract class Module
@@ -6,5 +8,5 @@ public abstract class Module
     public Course? InCourse { get; set; }
     public string? ModuleType { get; set; }
     public string Name { get; set; }
-    public abstract Result GetResult();
+    public abstract Result GetResult(JObject obj);
 }

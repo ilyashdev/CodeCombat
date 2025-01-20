@@ -5,6 +5,13 @@ import { useEffect, useState } from "react";
 import {
   headingsPlugin,
   listsPlugin,
+  linkPlugin,
+  tablePlugin,
+  InsertTable,
+  DiffSourceToggleWrapper,
+  imagePlugin,
+  directivesPlugin,
+  diffSourcePlugin,
   quotePlugin,
   thematicBreakPlugin,
   markdownShortcutPlugin,
@@ -18,12 +25,18 @@ import {
   ChangeAdmonitionType,
   ConditionalContents,
   InsertSandpack,
+  InsertImage,
+  ListsToggle,
+  InsertThematicBreak,
+  InsertAdmonition,
   ShowSandpackInfo,
   ChangeCodeMirrorLanguage,
+  AdmonitionDirectiveDescriptor,
   BoldItalicUnderlineToggles,
   toolbarPlugin,
 } from "@mdxeditor/editor";
 import "@mdxeditor/editor/style.css";
+import "./Editor.css";
 const TextEditor = () => {
   const ModuleID = useSelector((state) => {
     return state.activeModule.id;
@@ -72,7 +85,7 @@ export default function App() {
       <h2 className="mt-3">{data.nameModle}</h2>
       <Card
         data-bs-theme="dark"
-        className="p-3 m-2 "
+        className="p-3 m-2 dark-theme dark"
         style={{ minHeight: "65vh" }}
       >
         <MDXEditor
@@ -81,35 +94,68 @@ export default function App() {
             headingsPlugin(),
             listsPlugin(),
             quotePlugin(),
+            markdownShortcutPlugin(),
+            directivesPlugin({
+              directiveDescriptors: [AdmonitionDirectiveDescriptor],
+            }),
+            tablePlugin(),
+            linkPlugin(),
+            imagePlugin({
+              imageUploadHandler: () => {
+                return Promise.resolve("https://picsum.photos/200/300");
+              },
+              imageAutocompleteSuggestions: [
+                "https://picsum.photos/200/300",
+                "https://picsum.photos/200",
+              ],
+            }),
             thematicBreakPlugin(),
             markdownShortcutPlugin(),
+            diffSourcePlugin({
+              diffMarkdown: '```js \nconsole.log("fgggg")\n```',
+              viewMode: "rich-text",
+            }),
             codeBlockPlugin({ defaultCodeBlockLanguage: "js" }),
             sandpackPlugin({ sandpackConfig: simpleSandpackConfig }),
             codeMirrorPlugin({
-              codeBlockLanguages: { js: "JavaScript", css: "CSS" },
+              codeBlockLanguages: { js: "JavaScript", css: "CSS", cpp: "C++" },
+              autoLoadLanguageSupport: true,
             }),
             toolbarPlugin({
               toolbarContents: () => (
-                <ConditionalContents
-                  options={[
-                    {
-                      when: (editor) => editor?.editorType === "codeblock",
-                      contents: () => <ChangeCodeMirrorLanguage />,
-                    },
-                    {
-                      when: (editor) => editor?.editorType === "sandpack",
-                      contents: () => <ShowSandpackInfo />,
-                    },
-                    {
-                      fallback: () => (
-                        <>
-                          <InsertCodeBlock />
-                          <InsertSandpack />
-                        </>
-                      ),
-                    },
-                  ]}
-                />
+                <>
+                  {" "}
+                  <DiffSourceToggleWrapper>
+                    <UndoRedo />
+                    <BoldItalicUnderlineToggles />
+                    <ListsToggle />
+                    <BlockTypeSelect />
+                    <InsertImage />
+                    <InsertTable />
+                    <InsertThematicBreak />
+                    <ConditionalContents
+                      options={[
+                        {
+                          when: (editor) => editor?.editorType === "codeblock",
+                          contents: () => <ChangeCodeMirrorLanguage />,
+                        },
+                        {
+                          when: (editor) => editor?.editorType === "sandpack",
+                          contents: () => <ShowSandpackInfo />,
+                        },
+                        {
+                          fallback: () => (
+                            <>
+                              <InsertCodeBlock />
+                              <InsertSandpack />
+                            </>
+                          ),
+                        },
+                      ]}
+                    />
+                    <InsertAdmonition />
+                  </DiffSourceToggleWrapper>
+                </>
               ),
             }),
           ]}

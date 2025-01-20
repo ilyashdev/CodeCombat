@@ -19,6 +19,7 @@ import {
   viewport,
   initData,
   requestFullscreen,
+  initDataRaw,
 } from "@telegram-apps/sdk";
 import { writeAccount } from "./shared/redux/store";
 
@@ -30,6 +31,8 @@ function App() {
     try {
       initData.restore();
       dispatch(writeAccount({ AccountData: initData.user() }));
+      console.log(initData.authDate());
+      console.log(initData.hash());
     } catch {}
     const userAgent = navigator.userAgent;
     if (/Windows|Macintosh/i.test(userAgent)) {
@@ -41,7 +44,6 @@ function App() {
     if (devise == "Desktop") {
       async function fullscreen() {
         if (viewport.requestFullscreen.isAvailable()) {
-          console.log("cocy");
           await viewport.requestFullscreen();
         } else {
           console.log(viewport.requestFullscreen.isAvailable());

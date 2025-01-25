@@ -3,6 +3,7 @@ using CodeCombat.Domain_Layer.Factory.ModuleFactory;
 using CodeCombat.Domain_Layer.Models.Course.Modules;
 using CodeCombat.Infrastructure_Layer.Repository;
 using CodeCombat.Presentation_Layer.Contract;
+using Newtonsoft.Json.Linq;
 
 namespace CodeCombat.Application_Layer.Service;
 public class ModuleService : IModuleService
@@ -36,6 +37,7 @@ public class ModuleService : IModuleService
     }
     public async Task TestAsync(Guid id, long TelegramId, int? pos, JsonObject prop)
     {
-        
+        var module = await _moduleRepository.GetAsync(id);
+        var result = module.GetResult(prop);
     }
 }

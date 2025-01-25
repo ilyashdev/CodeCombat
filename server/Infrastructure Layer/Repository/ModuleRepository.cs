@@ -1,4 +1,3 @@
-
 using CodeCombat.Application_Layer.Service;
 using CodeCombat.Domain_Layer.Models;
 using CodeCombat.Domain_Layer.Models.Course.Modules;

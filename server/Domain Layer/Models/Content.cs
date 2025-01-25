@@ -17,5 +17,4 @@ public class Content
     public ICollection<User>? UpUsers { get; set; }
     public ICollection<User>? DownUsers { get; set; }
     public ICollection<User>? InFavoriteUser { get; set; }
-    public ICollection<Comment>? SubComments { get; set; }
 }

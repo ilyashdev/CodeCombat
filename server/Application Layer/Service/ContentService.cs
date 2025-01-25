@@ -1,5 +1,3 @@
-using CodeCombat.Application_Layer.Service;
-using CodeCombat.Domain_Layer.Models;
 using CodeCombat.Infrastructure_Layer.Repository;
 using CodeCombat.Presentation_Layer.Contract;
 

@@ -30,9 +30,8 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> SignUp(SignUpRequest request)
+    public async Task<IActionResult> GetJWT(string initData)
     {
-        await _userService.SignUpAsync(request);
         return Ok();
     }
 }

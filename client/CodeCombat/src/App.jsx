@@ -33,6 +33,7 @@ function App() {
       initData.restore();
       dispatch(writeAccount({ AccountData: initData.user() }));
       console.log(parseInitData(initData.raw()));
+      console.log(initData.raw());
       console.log(initData.startParam());
       console.log(initData.hash());
     } catch {}

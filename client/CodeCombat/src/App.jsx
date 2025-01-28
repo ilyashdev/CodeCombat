@@ -31,7 +31,8 @@ function App() {
     try {
       initData.restore();
       dispatch(writeAccount({ AccountData: initData.user() }));
-      console.log(initData.authDate());
+      console.log(initData.raw());
+      console.log(initData.startParam());
       console.log(initData.hash());
     } catch {}
     const userAgent = navigator.userAgent;

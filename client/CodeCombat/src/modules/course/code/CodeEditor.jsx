@@ -37,7 +37,8 @@ import {
 } from "@mdxeditor/editor";
 import "@mdxeditor/editor/style.css";
 import "../../css/Editor.css";
-const TextEditor = () => {
+import CodeHolder from "./CodeHolder";
+const CodeEditor = () => {
   const ModuleID = useSelector((state) => {
     return state.activeModule.id;
   });
@@ -166,9 +167,10 @@ export default function App() {
             }),
           ]}
         />
+        <CodeHolder />
       </Card>
     </Container>
   );
 };
 
-export default TextEditor;
+export default CodeEditor;

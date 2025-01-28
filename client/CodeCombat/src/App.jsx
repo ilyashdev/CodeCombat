@@ -20,6 +20,7 @@ import {
   initData,
   requestFullscreen,
   initDataRaw,
+  parseInitData,
 } from "@telegram-apps/sdk";
 import { writeAccount } from "./shared/redux/store";
 
@@ -31,7 +32,7 @@ function App() {
     try {
       initData.restore();
       dispatch(writeAccount({ AccountData: initData.user() }));
-      console.log(initData.raw());
+      console.log(parseInitData(initData.raw()));
       console.log(initData.startParam());
       console.log(initData.hash());
     } catch {}

@@ -12,7 +12,6 @@ public class ModuleFactoryRegister
     }
     private void RegisterFactories()
     {
-        // Получаем все типы из текущей сборки 
         var factoryTypes =
             from t in
                 Assembly
@@ -22,7 +21,6 @@ public class ModuleFactoryRegister
                   &&
                   typeof(IModuleFactory).IsAssignableFrom(t)
             select t;
-        // Создаем экземпляры и регистрируем в словаре 
         foreach (var type in factoryTypes)
         {
             var attribute = type.GetCustomAttribute<ModuleFactoryAttribute>();

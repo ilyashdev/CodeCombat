@@ -1,9 +1,9 @@
-using System.Runtime.InteropServices.JavaScript;
+using System.Text.Json.Nodes;
 using CodeCombat.Domain_Layer.Factory.ModuleFactory;
-using CodeCombat.Domain_Layer.Models;
 using CodeCombat.Domain_Layer.Models.Course.Modules;
 using CodeCombat.Infrastructure_Layer.Repository;
 using CodeCombat.Presentation_Layer.Contract;
+using Newtonsoft.Json.Linq;
 
 namespace CodeCombat.Application_Layer.Service;
 public class ModuleService : IModuleService
@@ -34,5 +34,10 @@ public class ModuleService : IModuleService
         var user = await _userRepository.GetUserAsync(TelegramId);
         var module = _fabrics.GetFactory(moduleData.ModuleType).Create(moduleData);
         await _moduleRepository.PostAsync(id,user,module,pos);
+    }
+    public async Task TestAsync(Guid id, long TelegramId, int? pos, JsonObject prop)
+    {
+        var module = await _moduleRepository.GetAsync(id);
+        var result = module.GetResult(prop);
     }
 }

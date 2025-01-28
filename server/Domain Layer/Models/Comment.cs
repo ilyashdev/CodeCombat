@@ -10,5 +10,5 @@ public class Comment
     public string? Text { get; set; }
     public int UpUsers { get; set; }
     public int DownUsers { get; set; }
-    public ICollection<Comment>? Subcomments { get; set; }
+    public Comment OnComments { get; set; }
 }

@@ -28,17 +28,18 @@ public static class ApiExtensions
     )
     {
         
-        services.AddTransient<ICourseRepository, CourseRepository>();
-        services.AddTransient<IContentRepository, ContentRepository>();
-        services.AddTransient<IUserRepository, UserRepository>();
-        services.AddTransient<IModuleRepository, ModuleRepository>();
-        services.AddTransient<ITagsRepository, TagsRepository>();
+        services.AddScoped<ICourseRepository, CourseRepository>();
+        services.AddScoped<IContentRepository, ContentRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IModuleRepository, ModuleRepository>();
+        services.AddScoped<ITagsRepository, TagsRepository>();
 
-        services.AddTransient<ModuleFactoryRegister>();
+        services.AddScoped<ModuleFactoryRegister>();
 
-        services.AddTransient<ICourseService, CourseService>();
-        services.AddTransient<IContentService, ContentService>();
-        services.AddTransient<IUserService, UserService>();
-        services.AddTransient<IModuleService, ModuleService>();
+        services.AddScoped<ICourseService, CourseService>();
+        services.AddScoped<IContentService, ContentService>();
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IModuleService, ModuleService>();
+        services.AddScoped<IValidateService, TelegramValidate>();
     }
 }

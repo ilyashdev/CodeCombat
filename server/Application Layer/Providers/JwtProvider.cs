@@ -1,14 +1,14 @@
+using CodeCombat.Domain_Layer.Models;
 using Microsoft.IdentityModel.Tokens;
-using RCloud.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace RCloud.Providers;
+namespace CodeCombat.Application_Layer.Providers;
 public class JwtProvider
 {
         public string GenerateToken(User user)
         {
-            Claim[] claims = [new("userId", user.Id.ToString()), new(ClaimTypes.Name,user.Username)];
+            Claim[] claims = [new("userId", user.TelegramId.ToString()), new(ClaimTypes.Name,user.Name)];
             var token = new JwtSecurityToken(
                 issuer: AuthOptions.ISSUER,
                 audience: AuthOptions.AUDIENCE,
